@@ -657,3 +657,20 @@ body {
   .br-side-right .br-round-label { display: none; }
   .br-side { width: 100%; }
 }
+
+/* ---------- Fixture-mode banner ---------- */
+.fixture-banner {
+  background: var(--gold-deep);
+  color: var(--ink);
+  text-align: center;
+  font-weight: 800;
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 8px 12px;
+  border: 2px solid var(--ink);
+  border-radius: var(--radius);
+  box-shadow: 2px 2px 0 var(--ink);
+  margin-bottom: 12px;
+}
+.fixture-banner strong { color: var(--maroon); }
