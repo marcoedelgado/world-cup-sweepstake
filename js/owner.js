@@ -1,6 +1,7 @@
-import { loadAll } from './data.js';
+import { loadAll, fixtureMode } from './data.js';
 import { renderHeader } from './render/header.js';
 import { renderOwnerDetail } from './render/owner-detail.js';
+import { renderFixtureBanner } from './render/fixture-banner.js';
 import { escape } from './utils.js';
 
 async function main() {
@@ -9,7 +10,7 @@ async function main() {
   const name = params.get('name');
 
   if (!name) {
-    renderHeader(root);
+    paintShell(root);
     renderNotFound(root, 'No owner specified.');
     return;
   }
@@ -23,18 +24,26 @@ async function main() {
   }
 
   const owner = (state.owners?.owners ?? []).find((o) => o.name === name);
-  root.innerHTML = '';
-  renderHeader(root);
   if (!owner) {
+    paintShell(root);
     renderNotFound(root, `No owner named "${name}".`);
     return;
   }
+  paint(root, state, owner);
+  window.addEventListener('tz-change', () => paint(root, state, owner));
+}
+
+function paint(root, state, owner) {
+  root.innerHTML = '';
+  renderFixtureBanner(root, fixtureMode);
+  renderHeader(root);
   renderOwnerDetail(root, state, owner);
-  window.addEventListener('tz-change', () => {
-    root.innerHTML = '';
-    renderHeader(root);
-    renderOwnerDetail(root, state, owner);
-  });
+}
+
+function paintShell(root) {
+  root.innerHTML = '';
+  renderFixtureBanner(root, fixtureMode);
+  renderHeader(root);
 }
 
 function renderNotFound(root, message) {

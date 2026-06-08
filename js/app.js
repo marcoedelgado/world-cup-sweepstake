@@ -1,4 +1,4 @@
-import { loadAll } from './data.js';
+import { loadAll, fixtureMode } from './data.js';
 import { renderHeader }         from './render/header.js';
 import { renderCover }          from './render/cover.js';
 import { renderStatus }         from './render/status.js';
@@ -7,6 +7,7 @@ import { renderLatestResults }  from './render/results.js';
 import { renderUpcoming }       from './render/upcoming.js';
 import { renderStandingsSection } from './render/standings-section.js';
 import { renderFooter }         from './render/footer.js';
+import { renderFixtureBanner }  from './render/fixture-banner.js';
 import { fetchLiveMatches, mergeLive } from './live.js';
 import { escape } from './utils.js';
 import { FEATURES } from './config.js';
@@ -25,11 +26,13 @@ async function main() {
   }
 
   paint(root, state);
-  fetchLiveMatches().then((live) => {
-    if (!live.length) return;
-    state = { ...state, results: { ...state.results, matches: mergeLive(state.results.matches ?? [], live) } };
-    paint(root, state);
-  });
+  if (!fixtureMode) {
+    fetchLiveMatches().then((live) => {
+      if (!live.length) return;
+      state = { ...state, results: { ...state.results, matches: mergeLive(state.results.matches ?? [], live) } };
+      paint(root, state);
+    });
+  }
   window.addEventListener('tz-change', () => paint(root, state));
 }
 
@@ -38,6 +41,7 @@ function paint(root, state) {
   const now = new Date().toISOString();
   const phase = tournamentPhase(state.results?.matches ?? []);
 
+  renderFixtureBanner(root, fixtureMode);
   renderHeader(root);
   renderCover(root, state, now);
 

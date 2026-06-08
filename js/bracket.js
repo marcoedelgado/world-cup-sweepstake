@@ -1,6 +1,7 @@
-import { loadAll } from './data.js';
+import { loadAll, fixtureMode } from './data.js';
 import { renderHeader } from './render/header.js';
 import { renderBracket } from './render/bracket-render.js';
+import { renderFixtureBanner } from './render/fixture-banner.js';
 import { tournamentPhase } from './phase.js';
 import { escape } from './utils.js';
 import { formatMatchDateTime } from './tz.js';
@@ -21,6 +22,7 @@ async function main() {
 
 function paint(root, state) {
   root.innerHTML = '';
+  renderFixtureBanner(root, fixtureMode);
   renderHeader(root);
 
   const phase = tournamentPhase(state.results?.matches ?? []);
