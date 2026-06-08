@@ -2,20 +2,26 @@
 // Simulate a tournament state into data/results.json for local preview/testing.
 //
 // Usage:
-//   node scripts/simulate-tournament.mjs                     # default: group-mid
-//   node scripts/simulate-tournament.mjs --phase=group-mid   # matchdays 1+2 finished, 1 live, rest scheduled
-//   node scripts/simulate-tournament.mjs --phase=group-full  # all 72 group matches finished (triggers knockout phase)
-//   node scripts/simulate-tournament.mjs --seed=99           # different deterministic scoreline distribution
+//   node scripts/simulate-tournament.mjs                          # default: group-mid
+//   node scripts/simulate-tournament.mjs --phase=group-mid        # matchdays 1+2 finished, 1 live, rest scheduled
+//   node scripts/simulate-tournament.mjs --phase=group-full       # all 72 group matches finished (triggers knockout phase)
+//   node scripts/simulate-tournament.mjs --phase=knockouts-r32    # group-full + 16 R32 fixtures with computed qualifiers
+//   node scripts/simulate-tournament.mjs --seed=99                # different deterministic scoreline distribution
 //
 // Revert after preview:  git checkout data/results.json
 //
-// The script is deterministic for a given --seed; same seed produces the same scorelines.
+// The script is deterministic for a given --seed; same seed produces the same scorelines and pairings.
 
 import { readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
+import { computeStandings } from '../js/standings.js';
 
 const RESULTS_PATH = path.resolve('data/results.json');
-const VALID_PHASES = new Set(['group-mid', 'group-full']);
+const TEAMS_PATH = path.resolve('data/teams.json');
+const VALID_PHASES = new Set(['group-mid', 'group-full', 'knockouts-r32']);
+const GROUP_CODES = ['A','B','C','D','E','F','G','H','I','J','K','L'];
+const R32_START_ISO = '2026-06-28T16:00:00Z';
+const R32_SPACING_MS = 6 * 60 * 60 * 1000; // 6h between R32 kickoffs
 
 const args = Object.fromEntries(
   process.argv.slice(2).map((a) => a.replace(/^--/, '').split('=')),
@@ -50,12 +56,16 @@ const SCORE_POOL = [
   [4, 0], [4, 1],
 ];
 
-// Reset every group-stage match to a known starting state, then re-apply scores per phase.
-for (const m of matches) {
-  if (m.stage !== 'group') continue;
-  m.status = 'scheduled';
-  m.homeScore = null;
-  m.awayScore = null;
+// Reset: keep only group matches (drop any previously-simulated knockout fixtures),
+// and set every group match back to scheduled / null scores.
+for (let i = matches.length - 1; i >= 0; i--) {
+  if (matches[i].stage !== 'group') {
+    matches.splice(i, 1);
+  } else {
+    matches[i].status = 'scheduled';
+    matches[i].homeScore = null;
+    matches[i].awayScore = null;
+  }
 }
 
 const groups = new Map();
@@ -66,7 +76,7 @@ for (const m of matches) {
 }
 for (const arr of groups.values()) arr.sort((a, b) => a.kickoff.localeCompare(b.kickoff));
 
-const finishedPerGroup = phase === 'group-full' ? 6 : 4;
+const finishedPerGroup = phase === 'group-mid' ? 4 : 6;
 for (const ms of groups.values()) {
   for (let i = 0; i < finishedPerGroup; i++) {
     const [h, a] = pick(SCORE_POOL);
@@ -88,17 +98,29 @@ if (phase === 'group-mid') {
   }
 }
 
+// For knockouts-r32, compute qualifiers and generate 16 R32 fixtures.
+if (phase === 'knockouts-r32') {
+  const teams = JSON.parse(await readFile(TEAMS_PATH, 'utf8'));
+  const qualifiers = buildQualifiers(teams, matches);
+  const r32 = buildR32Fixtures(qualifiers, rng);
+  matches.push(...r32);
+}
+
 matches.sort((a, b) => a.kickoff.localeCompare(b.kickoff));
-data.lastUpdated = phase === 'group-full' ? '2026-06-28T22:00:00Z' : '2026-06-22T16:00:00Z';
+data.lastUpdated =
+  phase === 'knockouts-r32' ? '2026-06-29T12:00:00Z'
+  : phase === 'group-full'  ? '2026-06-28T22:00:00Z'
+  :                           '2026-06-22T16:00:00Z';
 
 await writeFile(RESULTS_PATH, JSON.stringify(data, null, 2) + '\n');
 
 const counts = matches.reduce((acc, m) => {
-  acc[m.status] = (acc[m.status] ?? 0) + 1;
+  const key = `${m.stage}/${m.status}`;
+  acc[key] = (acc[key] ?? 0) + 1;
   return acc;
 }, {});
 console.log(`wrote ${matches.length} matches to ${RESULTS_PATH}`);
-console.log(`phase=${phase}  seed=${seed}  status:`, counts);
+console.log(`phase=${phase}  seed=${seed}  counts:`, counts);
 console.log(`revert with:  git checkout data/results.json`);
 
 function pick(arr) { return arr[Math.floor(rng() * arr.length)]; }
@@ -110,4 +132,47 @@ function mulberry32(s) {
     t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
     return ((t ^ t >>> 14) >>> 0) / 4294967296;
   };
+}
+
+function buildQualifiers(teams, allMatches) {
+  const topTwo = [];
+  const thirds = [];
+  for (const g of GROUP_CODES) {
+    const table = computeStandings(g, teams, allMatches);
+    if (table.length < 3) continue;
+    topTwo.push(table[0], table[1]);
+    thirds.push(table[2]);
+  }
+  // FIFA-style tiebreakers for the 8 best 3rd-placed teams.
+  thirds.sort((a, b) =>
+    b.points - a.points ||
+    b.gd - a.gd ||
+    b.gf - a.gf ||
+    a.code.localeCompare(b.code));
+  return [...topTwo, ...thirds.slice(0, 8)];
+}
+
+function buildR32Fixtures(qualifiers, rngFn) {
+  const pool = qualifiers.map((q) => q.code);
+  // Fisher–Yates shuffle, deterministic via rng.
+  for (let i = pool.length - 1; i > 0; i--) {
+    const j = Math.floor(rngFn() * (i + 1));
+    [pool[i], pool[j]] = [pool[j], pool[i]];
+  }
+  const baseMs = Date.parse(R32_START_ISO);
+  const fixtures = [];
+  for (let i = 0; i < 16; i++) {
+    fixtures.push({
+      id: `sim-r32-${i + 1}`,
+      kickoff: new Date(baseMs + i * R32_SPACING_MS).toISOString(),
+      stage: 'r32',
+      group: null,
+      home: pool[i * 2],
+      away: pool[i * 2 + 1],
+      status: 'scheduled',
+      homeScore: null,
+      awayScore: null,
+    });
+  }
+  return fixtures;
 }
