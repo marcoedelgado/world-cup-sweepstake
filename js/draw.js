@@ -22,13 +22,44 @@ async function main() {
     renderResult(teams, fromHash);
     return;
   }
-  renderForm(teams, initialNames);
+  renderModePicker(teams, initialNames);
 }
 
 function pickInitialNames(owners) {
   const existing = (owners?.owners ?? []).map((o) => o.name).filter(Boolean);
   while (existing.length < 6) existing.push(`Owner ${existing.length + 1}`);
   return existing.slice(0, 6);
+}
+
+const MODE_LABELS = {
+  classic:    'Classic',
+  roundrobin: 'Round-by-round',
+};
+
+function renderModePicker(teams, names) {
+  ROOT.innerHTML = `
+    <section class="pn-cover">
+      <h1 class="pn-title">The Draw</h1>
+      <div class="pn-subtitle">Pick a mode</div>
+    </section>
+    <div class="pn-owners">
+      <div class="pn-owner draw-mode-card" data-mode="classic">
+        <div class="pn-owner-name"><span>Classic</span></div>
+        <p>All 8 in one go — first owner gets their full eight, then the next owner, and so on.</p>
+        <p class="mode-meta">~3–4 minutes.</p>
+      </div>
+      <div class="pn-owner draw-mode-card" data-mode="roundrobin">
+        <div class="pn-owner-name"><span>Round-by-round</span></div>
+        <p>One each, click Next, repeat 8 times. Group gets to react between rounds.</p>
+        <p class="mode-meta">8 rounds, as long as the group wants.</p>
+      </div>
+    </div>
+  `;
+  for (const card of ROOT.querySelectorAll('.draw-mode-card')) {
+    card.addEventListener('click', () => {
+      renderForm(teams, names, card.dataset.mode);
+    });
+  }
 }
 
 function renderForm(teams, names) {
