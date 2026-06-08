@@ -45,6 +45,8 @@ These are all additive — same data model, separate routes — and explicitly d
 
 **Panini sticker album.** Cream background (`#fff7e8`), Georgia italic headlines in maroon (`#8b1a1a`), team chips rendered as small (~34×44px) sticker cards with a flag emoji on top, 3-letter code below, hard black border, yellow-orange gradient fill, offset drop-shadow for "stuck on" feel. Eliminated teams desaturate and get a red **OUT** stamp angled across them.
 
+**Timezone toggle (top-right of every page).** A small stamp-style two-button toggle: 🇬🇧 UK (default) / 🇨🇾 CY. All times throughout the site (kickoff times in Latest Results, Up Next, matchday date in the cover) reformat live when the toggle changes. Selection persists in `localStorage` under `sweep26.tz` so it survives reloads. UK is BST (UTC+1) during the tournament window; Cyprus is EEST (UTC+3) — a 2-hour gap.
+
 Sections, top to bottom on `/`:
 
 1. **Cover** — double-bordered title block "The 2026 Sweepstake — An Album of Glory" + a rotated stamp showing current matchday/date.
@@ -192,6 +194,7 @@ If the API call fails inside the Action, the workflow exits non-zero, no commit 
 │   ├── draw.js                # Draw animation + export
 │   ├── data.js                # Load JSON, fire live overlay, fallback handling
 │   ├── standings.js           # Group standings + alive/eliminated derivation
+│   ├── tz.js                  # Timezone toggle + Intl.DateTimeFormat helpers
 │   └── render/
 │       ├── cover.js
 │       ├── status.js
@@ -249,7 +252,7 @@ A handful of pure-function unit tests for `standings.js` (compute group table fr
 | Picked API doesn't cover World Cup on free tier | Validate during implementation Day 1, before committing to provider. Have a second provider noted as fallback. |
 | API token gets rate-limited or expires | Daily Action keeps the floor; live overlay is best-effort. Site never breaks. |
 | Group standings tiebreakers are subtle | Lift the FIFA tiebreaker order from Wikipedia, implement in `standings.js`, unit test. |
-| Time-zone confusion (matches kick off in US time zones, friends in UK) | Store all kickoffs as ISO UTC. Render in the user's local TZ via `Intl.DateTimeFormat`. |
+| Time-zone confusion (matches kick off in US time zones, friends split UK / Cyprus) | Store all kickoffs as ISO UTC. Render via `Intl.DateTimeFormat` with explicit zone — `Europe/London` (default) or `Asia/Nicosia`, controlled by the top-right toggle and persisted in `localStorage` as `sweep26.tz`. Never use the browser's local TZ implicitly. |
 | Knockout bracket needs to ship around 30 June | Treated as a planned v1.5. Reuses the same data layer; ~half-day of work. |
 | One friend can't make draw day | Their name still goes in; we run the draw without them. The result is the result. |
 
