@@ -34,10 +34,10 @@
   { "code": "IRN", "name": "Iran",        "flag": "🇮🇷", "group": "G" },
   { "code": "NZL", "name": "New Zealand", "flag": "🇳🇿", "group": "G" },
 
-  { "code": "CPV", "name": "Cape Verde",  "flag": "🇨🇻", "group": "H" },
+  { "code": "CPV", "name": "Cape Verde",   "flag": "🇨🇻", "group": "H" },
+  { "code": "ESP", "name": "Spain",        "flag": "🇪🇸", "group": "H" },
   { "code": "KSA", "name": "Saudi Arabia", "flag": "🇸🇦", "group": "H" },
-  { "code": "ESP", "name": "Spain",       "flag": "🇪🇸", "group": "H" },
-  { "code": "URU", "name": "Uruguay",     "flag": "🇺🇾", "group": "H" },
+  { "code": "URU", "name": "Uruguay",      "flag": "🇺🇾", "group": "H" },
 
   { "code": "FRA", "name": "France",   "flag": "🇫🇷", "group": "I" },
   { "code": "IRQ", "name": "Iraq",     "flag": "🇮🇶", "group": "I" },
