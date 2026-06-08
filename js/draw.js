@@ -62,12 +62,13 @@ function renderModePicker(teams, names) {
   }
 }
 
-function renderForm(teams, names) {
+function renderForm(teams, names, mode = 'classic') {
   ROOT.innerHTML = `
     <header class="pn-header"></header>
     <section class="pn-cover">
       <h1 class="pn-title">The Draw</h1>
       <div class="pn-subtitle">Six owners · Eight teams each</div>
+      <p class="mode-breadcrumb">Mode: <strong>${escape(MODE_LABELS[mode] ?? 'Classic')}</strong> · <a data-action="change-mode">change</a></p>
     </section>
     <p class="draw-current">Enter the names below, then begin.</p>
     <form class="draw-form" id="draw-form">
@@ -75,11 +76,15 @@ function renderForm(teams, names) {
       <button type="submit">Begin the Draw</button>
     </form>
   `;
+  document.querySelector('[data-action="change-mode"]').addEventListener('click', (ev) => {
+    ev.preventDefault();
+    renderModePicker(teams, names);
+  });
   document.getElementById('draw-form').addEventListener('submit', (ev) => {
     ev.preventDefault();
-    const names = [...new FormData(ev.target).values()].map((v) => String(v).trim()).filter(Boolean);
-    if (names.length !== 6) return alert('Need exactly 6 owners.');
-    runDraw(teams, names);
+    const submitted = [...new FormData(ev.target).values()].map((v) => String(v).trim()).filter(Boolean);
+    if (submitted.length !== 6) return alert('Need exactly 6 owners.');
+    runDraw(teams, submitted, mode);
   });
 }
 
