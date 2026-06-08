@@ -52,7 +52,26 @@ function renderForm(teams, names) {
   });
 }
 
-async function runDraw(teams, names) {
+async function runDraw(teams, names, mode = 'classic') {
+  renderDrawScaffold(teams, names);
+
+  const pool = [...teams];
+  shuffle(pool);
+
+  const result = { drawCompletedAt: null, owners: names.map((n) => ({ name: n, teams: [] })) };
+
+  if (mode === 'roundrobin') {
+    await runRoundRobin(pool, result);
+  } else {
+    await runClassic(pool, result);
+  }
+
+  result.drawCompletedAt = new Date().toISOString();
+  writeHash(result);
+  renderResult(teams, result);
+}
+
+function renderDrawScaffold(teams, names) {
   ROOT.innerHTML = `
     <section class="pn-cover">
       <h1 class="pn-title">The Draw</h1>
@@ -70,12 +89,10 @@ async function runDraw(teams, names) {
         </div>`).join('')}
     </div>
   `;
-  const pool = [...teams];
-  shuffle(pool);
+}
 
-  const result = { drawCompletedAt: null, owners: names.map((n) => ({ name: n, teams: [] })) };
+async function runClassic(pool, result) {
   const currentEl = document.getElementById('draw-current');
-
   for (const owner of result.owners) {
     currentEl.textContent = `Drawing for ${owner.name}…`;
     for (let i = 0; i < 8; i++) {
@@ -88,11 +105,9 @@ async function runDraw(teams, names) {
     }
     await delay(POST_OWNER_PAUSE_MS);
   }
-
-  result.drawCompletedAt = new Date().toISOString();
-  writeHash(result);
-  renderResult(teams, result);
 }
+
+// runRoundRobin is added in Task 5
 
 function renderResult(teams, result) {
   ROOT.innerHTML = `
