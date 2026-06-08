@@ -13,6 +13,7 @@ const TEAMS_PATH = path.resolve('data/teams.json');
 
 const STAGE_MAP = {
   GROUP_STAGE: 'group',
+  ROUND_OF_32: 'r32',
   LAST_16: 'r16',
   ROUND_OF_16: 'r16',
   QUARTER_FINALS: 'qf',
