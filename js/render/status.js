@@ -1,4 +1,5 @@
 import { isAlive } from '../standings.js';
+import { escape } from '../utils.js';
 
 export function renderStatus(container, { teams, owners, results }, nowIso = new Date().toISOString()) {
   const teamsAlive = teams.filter((t) => isAlive(t.code, teams, results.matches ?? [])).length;
@@ -33,6 +34,3 @@ function matchesOn(matches, nowIso) {
   return matches.filter((m) => day(m.kickoff) === today).length;
 }
 
-function escape(s) {
-  return String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
-}
