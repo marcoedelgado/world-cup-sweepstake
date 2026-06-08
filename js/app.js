@@ -5,6 +5,7 @@ import { renderStatus }         from './render/status.js';
 import { renderAlbumGroup, renderAlbumHeat } from './render/album.js';
 import { renderLatestResults }  from './render/results.js';
 import { renderUpcoming }       from './render/upcoming.js';
+import { renderStandingsSection } from './render/standings-section.js';
 import { renderFooter }         from './render/footer.js';
 import { fetchLiveMatches, mergeLive } from './live.js';
 import { escape } from './utils.js';
@@ -48,6 +49,9 @@ function paint(root, state) {
       renderAlbumHeat(root, state);
     } else {
       renderAlbumGroup(root, state);
+    }
+    if (FEATURES.groupStandings) {
+      renderStandingsSection(root, state);
     }
     renderLatestResults(root, state, now);
     renderUpcoming(root, state, now);
