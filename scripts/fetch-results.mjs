@@ -46,16 +46,19 @@ async function main() {
   const matches = (json.matches ?? []).map(toMatch).filter(Boolean);
   matches.sort((a, b) => a.kickoff.localeCompare(b.kickoff));
 
-  const out = { lastUpdated: new Date().toISOString(), matches };
-
-  let prev = '';
-  try { prev = await readFile(OUT_PATH, 'utf8'); } catch {}
-  const next = JSON.stringify(out, null, 2) + '\n';
-  if (prev === next) {
+  // Compare match data (not lastUpdated) so we don't commit every run.
+  let prevMatchesJson = '';
+  try {
+    const prev = JSON.parse(await readFile(OUT_PATH, 'utf8'));
+    prevMatchesJson = JSON.stringify(prev.matches ?? []);
+  } catch {}
+  if (prevMatchesJson === JSON.stringify(matches)) {
     console.log('no changes');
     return;
   }
-  await writeFile(OUT_PATH, next);
+
+  const out = { lastUpdated: new Date().toISOString(), matches };
+  await writeFile(OUT_PATH, JSON.stringify(out, null, 2) + '\n');
   console.log(`wrote ${matches.length} matches to ${OUT_PATH}`);
 }
 
