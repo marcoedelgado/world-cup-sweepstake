@@ -1,5 +1,6 @@
 import { formatMatchDateTime } from '../tz.js';
 import { teamByCode, ownerForTeam } from '../data.js';
+import { escape, ownerTag, flag } from '../utils.js';
 
 const MAX_LATEST = 6;
 
@@ -39,12 +40,4 @@ function matchCard(m, teams, owners, nowIso) {
     <span class="away">${flag(away)} ${escape(away?.name ?? m.away)}${ownerTag(awayOwner)}</span>
   `;
   return el;
-}
-
-function ownerTag(name) {
-  return name ? `<span class="pn-owner-tag">${escape(name)}</span>` : '';
-}
-function flag(t) { return t?.flag ?? '🏳️'; }
-function escape(s) {
-  return String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 }
