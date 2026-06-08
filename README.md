@@ -30,6 +30,7 @@ node --test tests/*.mjs
 node scripts/simulate-tournament.mjs                          # group-mid: matchdays 1+2 finished + 1 live + 23 scheduled
 node scripts/simulate-tournament.mjs --phase=group-full       # all 72 finished → triggers knockout phase (Heat Check on)
 node scripts/simulate-tournament.mjs --phase=knockouts-r32    # group-full + 16 R32 fixtures with computed qualifiers
+node scripts/simulate-tournament.mjs --phase=knockouts-r16    # knockouts-r32 + R32 finished + 8 R16 fixtures from winners
 node scripts/simulate-tournament.mjs --seed=99                # different scoreline distribution
 ```
 

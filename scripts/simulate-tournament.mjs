@@ -6,6 +6,7 @@
 //   node scripts/simulate-tournament.mjs --phase=group-mid        # matchdays 1+2 finished, 1 live, rest scheduled
 //   node scripts/simulate-tournament.mjs --phase=group-full       # all 72 group matches finished (triggers knockout phase)
 //   node scripts/simulate-tournament.mjs --phase=knockouts-r32    # group-full + 16 R32 fixtures with computed qualifiers
+//   node scripts/simulate-tournament.mjs --phase=knockouts-r16    # knockouts-r32 + R32 finished + 8 R16 fixtures from winners
 //   node scripts/simulate-tournament.mjs --seed=99                # different deterministic scoreline distribution
 //
 // Revert after preview:  git checkout data/results.json
@@ -18,10 +19,18 @@ import { computeStandings } from '../js/standings.js';
 
 const RESULTS_PATH = path.resolve('data/results.json');
 const TEAMS_PATH = path.resolve('data/teams.json');
-const VALID_PHASES = new Set(['group-mid', 'group-full', 'knockouts-r32']);
+const VALID_PHASES = new Set(['group-mid', 'group-full', 'knockouts-r32', 'knockouts-r16']);
 const GROUP_CODES = ['A','B','C','D','E','F','G','H','I','J','K','L'];
 const R32_START_ISO = '2026-06-28T16:00:00Z';
-const R32_SPACING_MS = 6 * 60 * 60 * 1000; // 6h between R32 kickoffs
+const R16_START_ISO = '2026-07-02T16:00:00Z';
+const KO_SPACING_MS = 6 * 60 * 60 * 1000; // 6h between knockout kickoffs
+
+// Non-draw scores for knockout matches (which can't end level in normal time).
+const KO_SCORE_POOL = [
+  [1, 0], [0, 1], [2, 0], [0, 2], [2, 1], [1, 2],
+  [3, 0], [0, 3], [3, 1], [1, 3], [3, 2], [2, 3],
+  [4, 1], [1, 4],
+];
 
 const args = Object.fromEntries(
   process.argv.slice(2).map((a) => a.replace(/^--/, '').split('=')),
@@ -98,17 +107,31 @@ if (phase === 'group-mid') {
   }
 }
 
-// For knockouts-r32, compute qualifiers and generate 16 R32 fixtures.
-if (phase === 'knockouts-r32') {
+// knockouts-r32 / knockouts-r16: build R32 fixtures from group qualifiers.
+if (phase === 'knockouts-r32' || phase === 'knockouts-r16') {
   const teams = JSON.parse(await readFile(TEAMS_PATH, 'utf8'));
   const qualifiers = buildQualifiers(teams, matches);
   const r32 = buildR32Fixtures(qualifiers, rng);
   matches.push(...r32);
 }
 
+// knockouts-r16: finish each R32 with a non-draw score, generate 8 R16 fixtures from winners.
+if (phase === 'knockouts-r16') {
+  const r32Matches = matches.filter((m) => m.stage === 'r32');
+  for (const m of r32Matches) {
+    const [h, a] = pick(KO_SCORE_POOL);
+    m.status = 'finished';
+    m.homeScore = h;
+    m.awayScore = a;
+  }
+  r32Matches.sort((a, b) => a.kickoff.localeCompare(b.kickoff));
+  matches.push(...buildR16Fixtures(r32Matches));
+}
+
 matches.sort((a, b) => a.kickoff.localeCompare(b.kickoff));
 data.lastUpdated =
-  phase === 'knockouts-r32' ? '2026-06-29T12:00:00Z'
+  phase === 'knockouts-r16' ? '2026-07-02T08:00:00Z'
+  : phase === 'knockouts-r32' ? '2026-06-29T12:00:00Z'
   : phase === 'group-full'  ? '2026-06-28T22:00:00Z'
   :                           '2026-06-22T16:00:00Z';
 
@@ -164,11 +187,34 @@ function buildR32Fixtures(qualifiers, rngFn) {
   for (let i = 0; i < 16; i++) {
     fixtures.push({
       id: `sim-r32-${i + 1}`,
-      kickoff: new Date(baseMs + i * R32_SPACING_MS).toISOString(),
+      kickoff: new Date(baseMs + i * KO_SPACING_MS).toISOString(),
       stage: 'r32',
       group: null,
       home: pool[i * 2],
       away: pool[i * 2 + 1],
+      status: 'scheduled',
+      homeScore: null,
+      awayScore: null,
+    });
+  }
+  return fixtures;
+}
+
+function buildR16Fixtures(r32Sorted) {
+  const baseMs = Date.parse(R16_START_ISO);
+  const fixtures = [];
+  for (let i = 0; i < 8; i++) {
+    const a = r32Sorted[i * 2];
+    const b = r32Sorted[i * 2 + 1];
+    const aWinner = a.homeScore > a.awayScore ? a.home : a.away;
+    const bWinner = b.homeScore > b.awayScore ? b.home : b.away;
+    fixtures.push({
+      id: `sim-r16-${i + 1}`,
+      kickoff: new Date(baseMs + i * KO_SPACING_MS).toISOString(),
+      stage: 'r16',
+      group: null,
+      home: aWinner,
+      away: bWinner,
       status: 'scheduled',
       homeScore: null,
       awayScore: null,
