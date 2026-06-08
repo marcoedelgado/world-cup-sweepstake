@@ -572,3 +572,51 @@ body {
     background: var(--ink);
   }
 }
+
+/* ---------- Bracket mobile (< 700px) ---------- */
+@media (max-width: 700px) {
+  .br-tabs {
+    display: flex;
+    gap: 4px;
+    overflow-x: auto;
+    padding: 4px 0 8px;
+    position: sticky;
+    top: 0;
+    background: var(--paper);
+    z-index: 2;
+  }
+  .br-tab {
+    background: var(--paper-bright);
+    border: 1px solid var(--ink);
+    border-radius: 3px;
+    box-shadow: 1px 1px 0 var(--ink);
+    padding: 4px 8px;
+    font: inherit;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+  .br-tab.active {
+    background: var(--gold);
+    box-shadow: 0.5px 0.5px 0 var(--ink);
+    transform: translate(1px, 1px);
+  }
+  .br-scroll {
+    display: flex;
+    grid-template-columns: none;
+    gap: 0;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+  }
+  .br-scroll::before { display: none; }
+  .br-round {
+    flex: 0 0 100%;
+    scroll-snap-align: start;
+    padding: 8px 4px;
+  }
+  .br-round.br-third { grid-column: auto; }
+}
