@@ -3,11 +3,11 @@ import { formatMatchDateTime } from '../tz.js';
 import { escape, ownerTag, flag } from '../utils.js';
 
 const ROUNDS = [
-  { key: 'r32',   label: 'Round of 32' },
-  { key: 'r16',   label: 'Round of 16' },
-  { key: 'qf',    label: 'Quarter-Finals' },
-  { key: 'sf',    label: 'Semi-Finals' },
-  { key: 'final', label: 'Final' },
+  { key: 'r32',   label: 'Round of 32',    tab: 'R32' },
+  { key: 'r16',   label: 'Round of 16',    tab: 'R16' },
+  { key: 'qf',    label: 'Quarter-Finals', tab: 'QF'  },
+  { key: 'sf',    label: 'Semi-Finals',    tab: 'SF'  },
+  { key: 'final', label: 'Final',          tab: '🏆'  },
 ];
 
 export function renderBracket(container, { teams, owners, results }) {
@@ -18,7 +18,7 @@ export function renderBracket(container, { teams, owners, results }) {
   const tabs = document.createElement('div');
   tabs.className = 'br-tabs';
   tabs.innerHTML = ROUNDS.map((r, i) =>
-    `<button type="button" class="br-tab${i === 0 ? ' active' : ''}" data-target="${r.key}">${escape(r.label.split(' ').pop())}</button>`
+    `<button type="button" class="br-tab${i === 0 ? ' active' : ''}" data-target="${r.key}">${escape(r.tab)}</button>`
   ).join('') + `<button type="button" class="br-tab" data-target="third">3rd</button>`;
   container.appendChild(tabs);
 
