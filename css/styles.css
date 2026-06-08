@@ -277,3 +277,38 @@ body {
   font-style: italic;
 }
 .pn-empty a { color: var(--maroon); font-weight: 700; }
+
+/* ---------- Draw page ---------- */
+.draw-form { display: flex; flex-direction: column; gap: 8px; max-width: 320px; margin: 16px auto; }
+.draw-form input {
+  background: var(--paper-bright); border: 1.5px solid var(--ink);
+  border-radius: var(--radius); padding: 8px 10px; font: inherit;
+  box-shadow: var(--shadow);
+}
+.draw-form button {
+  background: var(--gold); border: 2px solid var(--ink); border-radius: var(--radius);
+  box-shadow: 2px 2px 0 var(--ink); padding: 10px 14px; font: inherit;
+  font-weight: 800; cursor: pointer;
+}
+.draw-form button:hover { transform: translate(-1px, -1px); box-shadow: 3px 3px 0 var(--ink); }
+.draw-pool {
+  display: flex; flex-wrap: wrap; gap: 6px;
+  background: var(--paper-bright); border: 1px solid var(--paper-edge);
+  padding: 12px; border-radius: var(--radius); margin: 12px 0;
+  min-height: 60px;
+}
+.draw-pool .pn-sticker { transition: transform 0.5s ease, opacity 0.5s ease; }
+.draw-pool .pn-sticker.taken { opacity: 0; transform: scale(0); pointer-events: none; }
+.draw-current {
+  font-style: italic; text-align: center; margin: 8px 0;
+  color: var(--maroon); font-size: 14px;
+}
+.draw-actions {
+  display: flex; gap: 10px; justify-content: center; margin: 16px 0;
+}
+.draw-actions button {
+  background: var(--gold); border: 2px solid var(--ink); border-radius: var(--radius);
+  box-shadow: 2px 2px 0 var(--ink); padding: 10px 14px; font: inherit;
+  font-weight: 800; cursor: pointer;
+}
+.draw-actions button:hover { transform: translate(-1px, -1px); box-shadow: 3px 3px 0 var(--ink); }
