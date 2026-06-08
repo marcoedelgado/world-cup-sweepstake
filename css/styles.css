@@ -312,3 +312,29 @@ body {
   font-weight: 800; cursor: pointer;
 }
 .draw-actions button:hover { transform: translate(-1px, -1px); box-shadow: 3px 3px 0 var(--ink); }
+
+/* ---------- Draw mode picker ---------- */
+.pn-owner.draw-mode-card {
+  cursor: pointer;
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+.pn-owner.draw-mode-card:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 2px 2px 0 var(--ink);
+  border-color: var(--ink);
+}
+.pn-owner.draw-mode-card .mode-meta {
+  font-size: 10px;
+  font-style: italic;
+  opacity: 0.7;
+  margin-top: 6px;
+}
+.mode-breadcrumb {
+  font-size: 10px;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  opacity: 0.7;
+  margin: 8px 0 0;
+}
+.mode-breadcrumb a { color: var(--maroon); text-decoration: underline; cursor: pointer; }
