@@ -493,3 +493,82 @@ body {
   .owner-team-row .t-rec { grid-column: 2; grid-row: 2; text-align: left; }
   .owner-team-row .t-next { grid-column: 1 / -1; grid-row: 3; text-align: left; padding-left: 54px; }
 }
+
+/* ---------- Bracket ---------- */
+.br-tabs { display: none; }
+.br-scroll {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr 1fr 1fr 0.05fr 1fr;
+  gap: 12px;
+  align-items: stretch;
+  margin-top: 16px;
+}
+.br-scroll::before {
+  /* phantom column gives space between Final and 3rd-place */
+  content: '';
+  grid-column: 6;
+}
+.br-round {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  gap: 8px;
+}
+.br-round.br-third { grid-column: 7; justify-content: flex-end; padding-bottom: 8px; }
+.br-round-label {
+  font-style: italic;
+  color: var(--maroon);
+  font-weight: 900;
+  font-size: 11px;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 4px;
+}
+.br-cells { display: flex; flex-direction: column; justify-content: space-around; gap: 8px; flex: 1; }
+.br-empty {
+  background: var(--paper-bright);
+  border: 1px dashed var(--paper-edge);
+  border-radius: var(--radius);
+  padding: 16px 8px;
+  text-align: center;
+  font-style: italic;
+  opacity: 0.6;
+  font-size: 11px;
+}
+.br-cell {
+  background: var(--paper-bright);
+  border: 1.5px solid var(--ink);
+  border-radius: var(--radius);
+  box-shadow: 1.5px 1.5px 0 var(--ink);
+  padding: 6px 8px;
+  font-size: 11px;
+  position: relative;
+}
+.br-team {
+  display: grid;
+  grid-template-columns: 26px 1fr auto auto;
+  gap: 6px;
+  align-items: center;
+  padding: 2px 0;
+}
+.br-team.lost { opacity: 0.45; text-decoration: line-through; }
+.br-team .pn-sticker { width: 22px; height: 28px; padding: 1px; }
+.br-team .pn-sticker .flag { font-size: 11px; }
+.br-team .pn-sticker .code { font-size: 6px; }
+.br-team .br-name { font-weight: 700; }
+.br-team .br-sc { font-weight: 900; color: var(--maroon); font-size: 14px; min-width: 14px; text-align: right; }
+.br-when { font-size: 9px; font-style: italic; opacity: 0.55; text-align: center; margin-top: 2px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+/* Connecting lines (desktop only) */
+@media (min-width: 701px) {
+  .br-round:not(:last-of-type):not(.br-third) .br-cell::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: -12px;
+    width: 12px;
+    height: 1.5px;
+    background: var(--ink);
+  }
+}
