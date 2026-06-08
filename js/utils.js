@@ -9,3 +9,9 @@ export function ownerTag(name) {
 export function flag(t) {
   return t?.flag ?? '🏳️';
 }
+
+export function formatGd(gd) {
+  if (gd > 0) return `+${gd}`;
+  if (gd < 0) return `−${Math.abs(gd)}`;
+  return '0';
+}

@@ -1,6 +1,6 @@
 import { computeStandings } from '../standings.js';
 import { teamByCode } from '../data.js';
-import { escape, flag } from '../utils.js';
+import { escape, flag, formatGd } from '../utils.js';
 
 const STORAGE_KEY = 'sweep26.standingsOpen';
 const GROUP_CODES = ['A','B','C','D','E','F','G','H','I','J','K','L'];
@@ -66,12 +66,6 @@ function groupCardHtml(groupCode, teams, matches) {
       </table>
     </div>
   `;
-}
-
-function formatGd(gd) {
-  if (gd > 0) return `+${gd}`;
-  if (gd < 0) return `−${Math.abs(gd)}`;
-  return '0';
 }
 
 function toggleLabel(isOpen) {

@@ -103,5 +103,3 @@ function stickerHtml(code, teams, matches) {
   return `<div class="pn-sticker${outCls}" title="${escape(t.name)}"><span class="flag">${t.flag}</span><span class="code">${escape(t.code)}</span></div>`;
 }
 
-// Back-compat: legacy single-entry export kept for any caller not yet phase-aware.
-export const renderAlbum = renderAlbumGroup;

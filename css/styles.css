@@ -606,7 +606,6 @@ body {
   }
   .br-scroll {
     display: flex;
-    grid-template-columns: none;
     gap: 0;
     overflow-x: auto;
     scroll-snap-type: x mandatory;

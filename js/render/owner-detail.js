@@ -1,7 +1,7 @@
 import { isAlive } from '../standings.js';
 import { teamByCode } from '../data.js';
 import { formatMatchDateTime } from '../tz.js';
-import { escape, flag } from '../utils.js';
+import { escape, flag, formatGd } from '../utils.js';
 
 const KNOCKOUT_LABEL = { r32: 'R32', r16: 'R16', qf: 'QF', sf: 'SF', third: '3rd', final: 'Final' };
 
@@ -83,10 +83,4 @@ function nextFixture(teamCode, matches, teams) {
   const oppLabel = oppTeam?.code ?? oppCode;
   const stageLabel = next.stage === 'group' ? `Group ${escape(next.group ?? '?')}` : (KNOCKOUT_LABEL[next.stage] ?? next.stage);
   return `→ vs ${escape(oppLabel)} · ${stageLabel} · ${formatMatchDateTime(next.kickoff)}`;
-}
-
-function formatGd(gd) {
-  if (gd > 0) return `+${gd}`;
-  if (gd < 0) return `−${Math.abs(gd)}`;
-  return '0';
 }
