@@ -67,9 +67,15 @@ async function main() {
   console.log(`wrote ${matches.length} matches to ${OUT_PATH}`);
 }
 
+// football-data.org uses a few TLAs that differ from the codes in teams.json.
+// Remap here so home/away always resolve to a known team.
+const TLA_REMAP = {
+  URY: 'URU', // Uruguay
+};
+
 function toMatch(m) {
-  const home = m.homeTeam?.tla;
-  const away = m.awayTeam?.tla;
+  const home = remap(m.homeTeam?.tla);
+  const away = remap(m.awayTeam?.tla);
   if (!home || !away) return null;
   return {
     id: String(m.id),
@@ -82,6 +88,11 @@ function toMatch(m) {
     homeScore: m.score?.fullTime?.home ?? null,
     awayScore: m.score?.fullTime?.away ?? null,
   };
+}
+
+function remap(tla) {
+  if (!tla) return null;
+  return TLA_REMAP[tla] ?? tla;
 }
 
 main().catch((err) => { console.error(err); process.exit(1); });

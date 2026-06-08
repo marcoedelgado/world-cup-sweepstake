@@ -1,5 +1,7 @@
 # World Cup 2026 Sweepstake
 
+Live: <https://marcoedelgado.github.io/world-cup-sweepstake/>
+
 A small Panini-themed static site for a 6-friend sweepstake on the 2026 FIFA World Cup.
 
 - **/draw.html** — one-time live animated draw (run with friends, then commit the resulting `data/owners.json`).
@@ -17,7 +19,7 @@ python3 -m http.server 8000
 ## Tests
 
 ```
-node --test tests/
+node --test tests/*.mjs
 ```
 
 ## Data refresh

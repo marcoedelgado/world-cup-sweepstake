@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-08T14:59:14.184Z",
+  "lastUpdated": "2026-06-08T15:13:50.597Z",
   "matches": [
     {
       "id": "537327",
@@ -161,7 +161,7 @@
       "stage": "group",
       "group": "H",
       "home": "KSA",
-      "away": "URY",
+      "away": "URU",
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null
@@ -424,7 +424,7 @@
       "kickoff": "2026-06-21T22:00:00Z",
       "stage": "group",
       "group": "H",
-      "home": "URY",
+      "home": "URU",
       "away": "CPV",
       "status": "scheduled",
       "homeScore": null,
@@ -688,7 +688,7 @@
       "kickoff": "2026-06-27T00:00:00Z",
       "stage": "group",
       "group": "H",
-      "home": "URY",
+      "home": "URU",
       "away": "ESP",
       "status": "scheduled",
       "homeScore": null,
