@@ -432,3 +432,28 @@ body {
 .pn-sticker.mini { width: 22px; height: 28px; vertical-align: middle; padding: 1px; margin-right: 2px; }
 .pn-sticker.mini .flag { font-size: 11px; }
 .pn-sticker.mini .code { font-size: 6px; }
+
+/* ---------- Owner card clickable ---------- */
+.pn-owner.clickable {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  position: relative;
+  cursor: pointer;
+  transition: transform 0.1s ease, box-shadow 0.1s ease, border-color 0.1s ease;
+}
+.pn-owner.clickable:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 2px 2px 0 var(--ink);
+  border-color: var(--ink);
+}
+.pn-owner .pn-chev {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  color: var(--maroon);
+  opacity: 0.35;
+  font-size: 12px;
+  font-weight: 900;
+}
+.pn-owner.clickable:hover .pn-chev { opacity: 1; }

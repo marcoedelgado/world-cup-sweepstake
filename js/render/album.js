@@ -1,6 +1,20 @@
 import { isAlive } from '../standings.js';
 import { teamByCode } from '../data.js';
 import { escape } from '../utils.js';
+import { FEATURES } from '../config.js';
+
+function ownerCardWrapper(owner) {
+  if (!FEATURES.ownerDetail) {
+    const div = document.createElement('div');
+    div.className = 'pn-owner';
+    return div;
+  }
+  const a = document.createElement('a');
+  a.className = 'pn-owner clickable';
+  a.href = `owner.html?name=${encodeURIComponent(owner.name)}`;
+  a.innerHTML = `<span class="pn-chev">›</span>`;
+  return a;
+}
 
 export function renderAlbumGroup(container, { teams, owners, results }) {
   const section = document.createElement('section');
@@ -42,8 +56,7 @@ export function renderAlbumHeat(container, { teams, owners, results }) {
 }
 
 function renderOwnerCardGroup(owner, teams, matches) {
-  const card = document.createElement('div');
-  card.className = 'pn-owner';
+  const card = ownerCardWrapper(owner);
 
   const aliveCount = (owner.teams ?? []).filter((c) => isAlive(c, teams, matches)).length;
   const aliveCls = aliveCount > 0 ? 'pn-owner-alive' : 'pn-owner-out';
@@ -52,19 +65,18 @@ function renderOwnerCardGroup(owner, teams, matches) {
     .map((code) => stickerHtml(code, teams, matches))
     .join('');
 
-  card.innerHTML = `
+  card.insertAdjacentHTML('beforeend', `
     <div class="pn-owner-name">
       <span>${escape(owner.name)}</span>
       <span class="${aliveCls}">${aliveCount} alive</span>
     </div>
     <div class="pn-stickers">${stickersHtml}</div>
-  `;
+  `);
   return card;
 }
 
 function renderOwnerCardHeat(owner, aliveCount, teams, matches) {
-  const card = document.createElement('div');
-  card.className = 'pn-owner';
+  const card = ownerCardWrapper(owner);
   if (aliveCount === 0) card.classList.add('zero-alive');
 
   const heatPrefix = aliveCount > 0 ? '🔥 ' : '';
@@ -74,13 +86,13 @@ function renderOwnerCardHeat(owner, aliveCount, teams, matches) {
     .map((code) => stickerHtml(code, teams, matches))
     .join('');
 
-  card.innerHTML = `
+  card.insertAdjacentHTML('beforeend', `
     <div class="pn-owner-name">
       <span>${heatPrefix}${escape(owner.name)}</span>
       <span class="${aliveCls}">${aliveCount} / 8 alive</span>
     </div>
     <div class="pn-stickers">${stickersHtml}</div>
-  `;
+  `);
   return card;
 }
 
