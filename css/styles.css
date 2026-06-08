@@ -338,3 +338,36 @@ body {
   margin: 8px 0 0;
 }
 .mode-breadcrumb a { color: var(--maroon); text-decoration: underline; cursor: pointer; }
+
+/* ---------- Heat Check (transformed album) ---------- */
+.pn-owners.heat {
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px;
+}
+.pn-owners.heat .pn-owner {
+  padding: 10px 12px;
+  position: relative;
+}
+.pn-owners.heat .pn-owner.zero-alive .pn-owner-name > span:first-child {
+  text-decoration: line-through;
+  opacity: 0.6;
+  color: var(--dead);
+}
+.pn-owners.heat .pn-stickers {
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  gap: 3px;
+}
+.pn-owners.heat .pn-sticker {
+  width: 30px;
+  height: 38px;
+}
+.pn-owners.heat .pn-sticker .flag { font-size: 14px; }
+.pn-owners.heat .pn-sticker .code { font-size: 7px; }
+@media (max-width: 700px) {
+  .pn-owners.heat { grid-template-columns: 1fr; }
+  .pn-owners.heat .pn-stickers { flex-wrap: wrap; }
+  .pn-owners.heat .pn-sticker { width: 34px; height: 44px; }
+  .pn-owners.heat .pn-sticker .flag { font-size: 16px; }
+  .pn-owners.heat .pn-sticker .code { font-size: 8px; }
+}
