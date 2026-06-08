@@ -1,3 +1,5 @@
+import { escape } from './utils.js';
+
 const ROOT = document.getElementById('draw');
 const REVEAL_DELAY_MS = 350;
 const POST_OWNER_PAUSE_MS = 600;
@@ -256,7 +258,4 @@ function writeHash(result) {
 }
 
 function delay(ms) { return new Promise((r) => setTimeout(r, ms)); }
-function escape(s) {
-  return String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
-}
 function cssEscape(s) { return String(s).replace(/"/g, '\\"'); }
