@@ -2,12 +2,14 @@ import { loadAll } from './data.js';
 import { renderHeader }         from './render/header.js';
 import { renderCover }          from './render/cover.js';
 import { renderStatus }         from './render/status.js';
-import { renderAlbum }          from './render/album.js';
+import { renderAlbumGroup, renderAlbumHeat } from './render/album.js';
 import { renderLatestResults }  from './render/results.js';
 import { renderUpcoming }       from './render/upcoming.js';
 import { renderFooter }         from './render/footer.js';
 import { fetchLiveMatches, mergeLive } from './live.js';
-import { escape }               from './utils.js';
+import { escape } from './utils.js';
+import { FEATURES } from './config.js';
+import { tournamentPhase } from './phase.js';
 
 const FIRST_KICKOFF_ISO = '2026-06-11T20:00:00Z';
 
@@ -33,6 +35,7 @@ async function main() {
 function paint(root, state) {
   root.innerHTML = '';
   const now = new Date().toISOString();
+  const phase = tournamentPhase(state.results?.matches ?? []);
 
   renderHeader(root);
   renderCover(root, state, now);
@@ -41,7 +44,11 @@ function paint(root, state) {
     renderPreDrawBanner(root);
   } else {
     renderStatus(root, state, now);
-    renderAlbum(root, state);
+    if (FEATURES.transformAlbum && phase === 'knockout') {
+      renderAlbumHeat(root, state);
+    } else {
+      renderAlbumGroup(root, state);
+    }
     renderLatestResults(root, state, now);
     renderUpcoming(root, state, now);
   }
