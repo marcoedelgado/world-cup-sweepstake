@@ -1,5 +1,6 @@
 import { isAlive } from '../standings.js';
 import { teamByCode } from '../data.js';
+import { escape } from '../utils.js';
 
 export function renderAlbum(container, { teams, owners, results }) {
   const section = document.createElement('section');
@@ -45,6 +46,3 @@ function stickerHtml(code, teams, matches) {
   return `<div class="pn-sticker${outCls}" title="${escape(t.name)}"><span class="flag">${t.flag}</span><span class="code">${escape(t.code)}</span></div>`;
 }
 
-function escape(s) {
-  return String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
-}
