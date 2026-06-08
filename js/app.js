@@ -6,6 +6,7 @@ import { renderAlbum }          from './render/album.js';
 import { renderLatestResults }  from './render/results.js';
 import { renderUpcoming }       from './render/upcoming.js';
 import { renderFooter }         from './render/footer.js';
+import { fetchLiveMatches, mergeLive } from './live.js';
 
 const FIRST_KICKOFF_ISO = '2026-06-11T20:00:00Z';
 
@@ -20,6 +21,11 @@ async function main() {
   }
 
   paint(root, state);
+  fetchLiveMatches().then((live) => {
+    if (!live.length) return;
+    state = { ...state, results: { ...state.results, matches: mergeLive(state.results.matches ?? [], live) } };
+    paint(root, state);
+  });
   window.addEventListener('tz-change', () => paint(root, state));
 }
 
