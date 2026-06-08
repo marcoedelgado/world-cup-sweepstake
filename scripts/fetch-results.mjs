@@ -38,6 +38,11 @@ async function main() {
   const url = process.env.API_URL || URL_DEFAULT;
 
   const res = await fetch(url, { headers: { 'X-Auth-Token': token } });
+  const remaining = res.headers.get('x-requests-available-minute');
+  const reset = res.headers.get('x-requestcounter-reset');
+  if (remaining || reset) {
+    console.error(`rate-limit: ${remaining ?? '?'} req remaining this minute (reset in ${reset ?? '?'}s)`);
+  }
   if (!res.ok) {
     console.error(`api error ${res.status}: ${await res.text()}`);
     process.exit(1);
