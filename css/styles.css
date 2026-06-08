@@ -64,6 +64,10 @@ body {
   transform: translate(-0.5px, -0.5px);
   box-shadow: 2px 2px 0 var(--ink);
 }
+.tz button:focus-visible {
+  outline: 2px solid var(--maroon);
+  outline-offset: 2px;
+}
 .tz button.active {
   background: var(--gold);
   box-shadow: 0.5px 0.5px 0 var(--ink);
@@ -129,6 +133,7 @@ body {
 
 /* ---------- Status strip ---------- */
 .pn-status { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+@media (max-width: 600px) { .pn-status { grid-template-columns: 1fr; } }
 .pn-stat {
   background: var(--paper-bright);
   border: 1px solid var(--paper-edge);
