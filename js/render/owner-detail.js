@@ -1,5 +1,5 @@
 import { isAlive } from '../standings.js';
-import { teamByCode } from '../data.js';
+import { teamByCode, withFixture } from '../data.js';
 import { formatMatchDateTime } from '../tz.js';
 import { escape, flag, formatGd } from '../utils.js';
 
@@ -22,7 +22,7 @@ export function renderOwnerDetail(container, { teams, results }, owner) {
   const cover = document.createElement('section');
   cover.className = 'pn-cover';
   cover.innerHTML = `
-    <p class="back-link"><a href="index.html">← Back to the album</a></p>
+    <p class="back-link"><a href="${withFixture('index.html')}">← Back to the album</a></p>
     <h1 class="pn-title">${escape(owner.name)}</h1>
     <div class="pn-subtitle">${aliveCount} of ${teamRows.length} alive</div>
   `;

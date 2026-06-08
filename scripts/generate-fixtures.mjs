@@ -32,3 +32,19 @@ for (const phase of VALID_PHASES) {
   await writeFile(outPath, JSON.stringify(out, null, 2) + '\n');
   console.log(`wrote ${phase} → ${path.relative(process.cwd(), outPath)}  (${matches.length} matches)`);
 }
+
+// Fake draw shared across all phase fixtures: 6 owners × 8 teams each,
+// deterministic assignment by sorted team code.
+const OWNER_COUNT = 6;
+const sortedTeams = [...teams].sort((a, b) => a.code.localeCompare(b.code));
+const fakeOwners = Array.from({ length: OWNER_COUNT }, (_, i) => ({
+  name: `Owner ${i + 1}`,
+  teams: sortedTeams.filter((_, idx) => idx % OWNER_COUNT === i).map((t) => t.code),
+}));
+const ownersOut = {
+  drawCompletedAt: '2026-06-08T00:00:00.000Z',
+  owners: fakeOwners,
+};
+const ownersPath = path.join(FIXTURE_DIR, 'owners.json');
+await writeFile(ownersPath, JSON.stringify(ownersOut, null, 2) + '\n');
+console.log(`wrote owners → ${path.relative(process.cwd(), ownersPath)}  (${OWNER_COUNT} owners)`);

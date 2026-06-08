@@ -1,6 +1,7 @@
 import { formatTime } from '../tz.js';
 import { tournamentPhase } from '../phase.js';
 import { FEATURES } from '../config.js';
+import { withFixture } from '../data.js';
 
 export function renderFooter(container, { results }, nowIso = new Date().toISOString()) {
   const foot = document.createElement('footer');
@@ -13,9 +14,9 @@ export function renderFooter(container, { results }, nowIso = new Date().toISOSt
 
   const phase = tournamentPhase(results?.matches ?? []);
   const bracketLink = FEATURES.bracket && phase === 'knockout'
-    ? ` · <a href="bracket.html">View the bracket →</a>`
+    ? ` · <a href="${withFixture('bracket.html')}">View the bracket →</a>`
     : '';
 
-  foot.innerHTML = `★ ${refreshLabel} · <a href="draw.html">/draw</a>${bracketLink} ★`;
+  foot.innerHTML = `★ ${refreshLabel} · <a href="${withFixture('draw.html')}">/draw</a>${bracketLink} ★`;
   container.appendChild(foot);
 }

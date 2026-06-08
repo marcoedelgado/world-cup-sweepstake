@@ -1,5 +1,5 @@
 import { isAlive } from '../standings.js';
-import { teamByCode } from '../data.js';
+import { teamByCode, withFixture } from '../data.js';
 import { escape } from '../utils.js';
 import { FEATURES } from '../config.js';
 
@@ -11,7 +11,7 @@ function ownerCardWrapper(owner) {
   }
   const a = document.createElement('a');
   a.className = 'pn-owner clickable';
-  a.href = `owner.html?name=${encodeURIComponent(owner.name)}`;
+  a.href = withFixture(`owner.html?name=${encodeURIComponent(owner.name)}`);
   a.innerHTML = `<span class="pn-chev">›</span>`;
   return a;
 }

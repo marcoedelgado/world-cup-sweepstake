@@ -14,6 +14,12 @@ function detectFixtureMode() {
   return FIXTURE_NAMES.has(param) ? param : null;
 }
 
+export function withFixture(href) {
+  if (!fixtureMode) return href;
+  const sep = href.includes('?') ? '&' : '?';
+  return `${href}${sep}fixture=${fixtureMode}`;
+}
+
 async function loadJson(url) {
   const res = await fetch(url, { cache: 'no-cache' });
   if (!res.ok) throw new Error(`failed to load ${url}: ${res.status}`);
@@ -24,10 +30,13 @@ export async function loadAll() {
   const resultsUrl = fixtureMode
     ? `data/fixtures/${fixtureMode}.json`
     : SOURCES.results;
+  const ownersUrl = fixtureMode
+    ? 'data/fixtures/owners.json'
+    : SOURCES.owners;
 
   const [teams, owners, results] = await Promise.all([
     loadJson(SOURCES.teams),
-    loadJson(SOURCES.owners).catch(() => ({ drawCompletedAt: null, owners: [] })),
+    loadJson(ownersUrl).catch(() => ({ drawCompletedAt: null, owners: [] })),
     loadJson(resultsUrl).catch(() => ({ lastUpdated: null, matches: [] })),
   ]);
   return { teams, owners, results };

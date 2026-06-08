@@ -1,0 +1,83 @@
+{
+  "drawCompletedAt": "2026-06-08T00:00:00.000Z",
+  "owners": [
+    {
+      "name": "Owner 1",
+      "teams": [
+        "ALG",
+        "BRA",
+        "CRO",
+        "ESP",
+        "IRQ",
+        "MEX",
+        "POR",
+        "SWE"
+      ]
+    },
+    {
+      "name": "Owner 2",
+      "teams": [
+        "ARG",
+        "CAN",
+        "CUW",
+        "FRA",
+        "JOR",
+        "NED",
+        "QAT",
+        "TUN"
+      ]
+    },
+    {
+      "name": "Owner 3",
+      "teams": [
+        "AUS",
+        "CIV",
+        "CZE",
+        "GER",
+        "JPN",
+        "NOR",
+        "RSA",
+        "TUR"
+      ]
+    },
+    {
+      "name": "Owner 4",
+      "teams": [
+        "AUT",
+        "COD",
+        "ECU",
+        "GHA",
+        "KOR",
+        "NZL",
+        "SCO",
+        "URU"
+      ]
+    },
+    {
+      "name": "Owner 5",
+      "teams": [
+        "BEL",
+        "COL",
+        "EGY",
+        "HAI",
+        "KSA",
+        "PAN",
+        "SEN",
+        "USA"
+      ]
+    },
+    {
+      "name": "Owner 6",
+      "teams": [
+        "BIH",
+        "CPV",
+        "ENG",
+        "IRN",
+        "MAR",
+        "PAR",
+        "SUI",
+        "UZB"
+      ]
+    }
+  ]
+}

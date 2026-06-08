@@ -1,4 +1,4 @@
-import { loadAll, fixtureMode } from './data.js';
+import { loadAll, fixtureMode, withFixture } from './data.js';
 import { renderHeader } from './render/header.js';
 import { renderBracket } from './render/bracket-render.js';
 import { renderFixtureBanner } from './render/fixture-banner.js';
@@ -22,8 +22,8 @@ async function main() {
 
 function paint(root, state) {
   root.innerHTML = '';
-  renderFixtureBanner(root, fixtureMode);
   renderHeader(root);
+  renderFixtureBanner(root, fixtureMode);
 
   const phase = tournamentPhase(state.results?.matches ?? []);
   const hasR32Fixtures = (state.results?.matches ?? []).some((m) => m.stage === 'r32');
@@ -44,7 +44,7 @@ function renderPreKnockout(root, state) {
     : 'R32 fixtures will appear here when published.';
   const card = document.createElement('div');
   card.className = 'pn-empty';
-  card.innerHTML = `The knockouts haven't started yet. ${when}<br/><a href="index.html">← Back to the album</a>`;
+  card.innerHTML = `The knockouts haven't started yet. ${when}<br/><a href="${withFixture('index.html')}">← Back to the album</a>`;
   root.appendChild(card);
 }
 

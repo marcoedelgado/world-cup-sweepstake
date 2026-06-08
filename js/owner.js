@@ -1,4 +1,4 @@
-import { loadAll, fixtureMode } from './data.js';
+import { loadAll, fixtureMode, withFixture } from './data.js';
 import { renderHeader } from './render/header.js';
 import { renderOwnerDetail } from './render/owner-detail.js';
 import { renderFixtureBanner } from './render/fixture-banner.js';
@@ -35,21 +35,21 @@ async function main() {
 
 function paint(root, state, owner) {
   root.innerHTML = '';
-  renderFixtureBanner(root, fixtureMode);
   renderHeader(root);
+  renderFixtureBanner(root, fixtureMode);
   renderOwnerDetail(root, state, owner);
 }
 
 function paintShell(root) {
   root.innerHTML = '';
-  renderFixtureBanner(root, fixtureMode);
   renderHeader(root);
+  renderFixtureBanner(root, fixtureMode);
 }
 
 function renderNotFound(root, message) {
   const card = document.createElement('div');
   card.className = 'pn-empty';
-  card.innerHTML = `${escape(message)} <a href="index.html">Back to the album</a>.`;
+  card.innerHTML = `${escape(message)} <a href="${withFixture('index.html')}">Back to the album</a>.`;
   root.appendChild(card);
 }
 

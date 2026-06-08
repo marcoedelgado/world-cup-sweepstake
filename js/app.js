@@ -1,4 +1,4 @@
-import { loadAll, fixtureMode } from './data.js';
+import { loadAll, fixtureMode, withFixture } from './data.js';
 import { renderHeader }         from './render/header.js';
 import { renderCover }          from './render/cover.js';
 import { renderStatus }         from './render/status.js';
@@ -41,8 +41,8 @@ function paint(root, state) {
   const now = new Date().toISOString();
   const phase = tournamentPhase(state.results?.matches ?? []);
 
-  renderFixtureBanner(root, fixtureMode);
   renderHeader(root);
+  renderFixtureBanner(root, fixtureMode);
   renderCover(root, state, now);
 
   if (!state.owners?.drawCompletedAt) {
@@ -66,7 +66,7 @@ function paint(root, state) {
 function renderPreDrawBanner(root) {
   const el = document.createElement('div');
   el.className = 'pn-empty';
-  el.innerHTML = `The draw hasn't happened yet — head to <a href="draw.html">/draw</a> to run it.`;
+  el.innerHTML = `The draw hasn't happened yet — head to <a href="${withFixture('draw.html')}">/draw</a> to run it.`;
   root.appendChild(el);
 }
 
