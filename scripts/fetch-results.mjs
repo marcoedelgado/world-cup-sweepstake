@@ -56,11 +56,21 @@ async function main() {
   await warnIfOrphanCodes(matches);
 
   // Compare match data (not lastUpdated) so we don't commit every run.
-  let prevMatchesJson = '';
+  let prevMatches = [];
   try {
     const prev = JSON.parse(await readFile(OUT_PATH, 'utf8'));
-    prevMatchesJson = JSON.stringify(prev.matches ?? []);
+    prevMatches = prev.matches ?? [];
   } catch {}
+
+  // Safeguard: refuse to overwrite populated data with an empty array. A 0-match
+  // response from the API almost always means a transient hiccup (rate limit,
+  // empty competition slug, transient outage) — keep the last good snapshot.
+  if (matches.length === 0 && prevMatches.length > 0) {
+    console.error(`::warning::API returned 0 matches but previous snapshot had ${prevMatches.length}. Refusing to overwrite.`);
+    process.exit(1);
+  }
+
+  const prevMatchesJson = JSON.stringify(prevMatches);
   if (prevMatchesJson === JSON.stringify(matches)) {
     console.log('no changes');
     return;
