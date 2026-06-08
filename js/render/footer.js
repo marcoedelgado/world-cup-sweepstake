@@ -1,4 +1,6 @@
 import { formatTime } from '../tz.js';
+import { tournamentPhase } from '../phase.js';
+import { FEATURES } from '../config.js';
 
 export function renderFooter(container, { results }, nowIso = new Date().toISOString()) {
   const foot = document.createElement('footer');
@@ -9,6 +11,11 @@ export function renderFooter(container, { results }, nowIso = new Date().toISOSt
     ? `last refresh ${formatTime(lastUpdated)}`
     : 'no refresh yet';
 
-  foot.innerHTML = `★ ${refreshLabel} · <a href="draw.html">/draw</a> · /bracket coming 30 June ★`;
+  const phase = tournamentPhase(results?.matches ?? []);
+  const bracketLink = FEATURES.bracket && phase === 'knockout'
+    ? ` · <a href="bracket.html">View the bracket →</a>`
+    : '';
+
+  foot.innerHTML = `★ ${refreshLabel} · <a href="draw.html">/draw</a>${bracketLink} ★`;
   container.appendChild(foot);
 }
