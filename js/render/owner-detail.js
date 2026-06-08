@@ -69,7 +69,7 @@ function nextFixture(teamCode, matches, teams) {
   const upcoming = matches
     .filter((m) => m.status !== 'finished')
     .filter((m) => m.home === teamCode || m.away === teamCode)
-    .sort((a, b) => a.kickoff.localeCompare(b.kickoff));
+    .sort((a, b) => (a.kickoff ?? '').localeCompare(b.kickoff ?? ''));
 
   if (upcoming.length === 0) {
     const playedAny = matches.some((m) =>

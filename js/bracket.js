@@ -3,6 +3,7 @@ import { renderHeader } from './render/header.js';
 import { renderBracket } from './render/bracket-render.js';
 import { tournamentPhase } from './phase.js';
 import { escape } from './utils.js';
+import { formatMatchDateTime } from './tz.js';
 
 async function main() {
   const root = document.getElementById('bracket');
@@ -35,9 +36,9 @@ function paint(root, state) {
 function renderPreKnockout(root, state) {
   const firstR32 = (state.results?.matches ?? [])
     .filter((m) => m.stage === 'r32')
-    .sort((a, b) => a.kickoff.localeCompare(b.kickoff))[0];
+    .sort((a, b) => (a.kickoff ?? '').localeCompare(b.kickoff ?? ''))[0];
   const when = firstR32?.kickoff
-    ? `First R32 match: ${escape(firstR32.kickoff)}`
+    ? `First R32 match: ${escape(formatMatchDateTime(firstR32.kickoff))}`
     : 'R32 fixtures will appear here when published.';
   const card = document.createElement('div');
   card.className = 'pn-empty';
