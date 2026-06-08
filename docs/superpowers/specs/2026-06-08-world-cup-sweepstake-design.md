@@ -45,7 +45,7 @@ These are all additive — same data model, separate routes — and explicitly d
 
 **Panini sticker album.** Cream background (`#fff7e8`), Georgia italic headlines in maroon (`#8b1a1a`), team chips rendered as small (~34×44px) sticker cards with a flag emoji on top, 3-letter code below, hard black border, yellow-orange gradient fill, offset drop-shadow for "stuck on" feel. Eliminated teams desaturate and get a red **OUT** stamp angled across them.
 
-**Timezone toggle (top-right of every page).** A small stamp-style two-button toggle: 🇬🇧 UK (default) / 🇨🇾 CY. All times throughout the site (kickoff times in Latest Results, Up Next, matchday date in the cover) reformat live when the toggle changes. Selection persists in `localStorage` under `sweep26.tz` so it survives reloads. UK is BST (UTC+1) during the tournament window; Cyprus is EEST (UTC+3) — a 2-hour gap.
+**Timezone toggle.** Lives in a small right-aligned header strip *above* the cover (its own row, not overlapping the title block). A tiny "TIMEZONE" uppercase label sits over two ~32px sticker-style flag tiles: 🇬🇧 UK (default) and 🇨🇾 CY. Both flags stay fully visible at all times — the active state is shown by gold fill + "pressed in" shadow, not by fading the inactive option. Clicking either re-renders all times across the page (kickoff times in Latest Results, Up Next, matchday date in the cover). Selection persists in `localStorage` under `sweep26.tz` so it survives reloads. UK is BST (UTC+1) during the tournament window; Cyprus is EEST (UTC+3) — a 2-hour gap.
 
 Sections, top to bottom on `/`:
 
