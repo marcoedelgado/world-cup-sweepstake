@@ -457,3 +457,39 @@ body {
   font-weight: 900;
 }
 .pn-owner.clickable:hover .pn-chev { opacity: 1; }
+
+/* ---------- Owner detail ---------- */
+.back-link {
+  font-size: 11px;
+  margin: 0 0 10px;
+  text-align: left;
+}
+.back-link a {
+  color: var(--maroon);
+  text-decoration: underline;
+  font-style: italic;
+}
+.owner-team-list { display: flex; flex-direction: column; gap: 0; }
+.owner-team-row {
+  display: grid;
+  grid-template-columns: 44px 1fr auto auto;
+  gap: 10px;
+  align-items: center;
+  padding: 6px 4px;
+  border-bottom: 1px dotted var(--paper-edge);
+  font-size: 12px;
+}
+.owner-team-row:last-child { border-bottom: none; }
+.owner-team-row.out { opacity: 0.55; }
+.owner-team-row .t-name { font-weight: 700; }
+.owner-team-row .t-rec { font-size: 10px; color: var(--alive); font-weight: 700; }
+.owner-team-row.out .t-rec { color: var(--dead); }
+.owner-team-row .t-next { font-size: 10px; font-style: italic; opacity: 0.75; text-align: right; }
+@media (max-width: 700px) {
+  .owner-team-row {
+    grid-template-columns: 44px 1fr;
+    grid-template-rows: auto auto;
+  }
+  .owner-team-row .t-rec { grid-column: 2; grid-row: 2; text-align: left; }
+  .owner-team-row .t-next { grid-column: 1 / -1; grid-row: 3; text-align: left; padding-left: 54px; }
+}
