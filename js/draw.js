@@ -143,7 +143,41 @@ async function runClassic(pool, result) {
   }
 }
 
-// runRoundRobin is added in Task 5
+async function runRoundRobin(pool, result) {
+  const currentEl = document.getElementById('draw-current');
+  const TOTAL_ROUNDS = 8;
+
+  for (let round = 1; round <= TOTAL_ROUNDS; round++) {
+    currentEl.textContent = `Round ${round} of ${TOTAL_ROUNDS} — drawing…`;
+    for (const owner of result.owners) {
+      const team = pool.pop();
+      owner.teams.push(team.code);
+      hideFromPool(team.code);
+      addToOwnerCard(owner.name, team);
+      updateOwnerCount(owner.name, owner.teams.length);
+      await delay(REVEAL_DELAY_MS);
+    }
+    if (round < TOTAL_ROUNDS) {
+      currentEl.textContent = `Round ${round} complete. Ready for round ${round + 1}?`;
+      await waitForNextRound(round + 1, TOTAL_ROUNDS);
+    }
+  }
+  currentEl.textContent = 'All 8 rounds complete.';
+}
+
+function waitForNextRound(nextRound, total) {
+  return new Promise((resolve) => {
+    const container = document.getElementById('draw-owners');
+    const wrap = document.createElement('div');
+    wrap.className = 'draw-actions';
+    wrap.innerHTML = `<button type="button" id="next-round">Next round (${nextRound} / ${total})</button>`;
+    container.insertAdjacentElement('afterend', wrap);
+    document.getElementById('next-round').addEventListener('click', () => {
+      wrap.remove();
+      resolve();
+    });
+  });
+}
 
 function renderResult(teams, result) {
   ROOT.innerHTML = `
