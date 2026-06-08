@@ -224,6 +224,7 @@ Modules are small (~50–150 LoC each), single-purpose, and importable directly 
 | Predictions / side bets | New `data/predictions.json`; new render module; new section on dashboard. |
 | Swap API provider | Only `scripts/fetch-results.mjs` changes. Schema stays. |
 | Theme change | All CSS in `css/styles.css` keyed off CSS custom properties at `:root`. |
+| **User-flow regression tests (v1.5, post-kickoff)** | Add Playwright headless tests asserting on dashboard load, timezone-toggle effects, pre-draw banner, and the draw page producing a valid `owners.json`. Run via a GitHub Action on every PR against a local server or preview deploy. Keeps live behavior stable as new features land. |
 
 No v1 code locks any of these out.
 
