@@ -88,3 +88,36 @@ test('isAlive: live knockout match does not eliminate yet', () => {
   };
   assert.equal(isAlive('BRA', [{ code: 'BRA', group: 'B' }, { code: 'MEX', group: 'A' }], [live]), true);
 });
+
+test('isAlive: team in R32 fixture is alive even if 3rd in group', () => {
+  const teams = [
+    { code: 'CZE', group: 'A' }, { code: 'KOR', group: 'A' },
+    { code: 'MEX', group: 'A' }, { code: 'RSA', group: 'A' },
+  ];
+  const groupFinished = [
+    { stage: 'group', group: 'A', status: 'finished', home: 'MEX', away: 'CZE', homeScore: 2, awayScore: 0 },
+    { stage: 'group', group: 'A', status: 'finished', home: 'KOR', away: 'RSA', homeScore: 1, awayScore: 0 },
+    { stage: 'group', group: 'A', status: 'finished', home: 'MEX', away: 'KOR', homeScore: 1, awayScore: 1 },
+    { stage: 'group', group: 'A', status: 'finished', home: 'CZE', away: 'RSA', homeScore: 2, awayScore: 1 },
+    { stage: 'group', group: 'A', status: 'finished', home: 'MEX', away: 'RSA', homeScore: 3, awayScore: 0 },
+    { stage: 'group', group: 'A', status: 'finished', home: 'KOR', away: 'CZE', homeScore: 1, awayScore: 0 },
+  ];
+  // CZE finishes 3rd (3 points). MEX & KOR are top 2. RSA bottom.
+  // R32 fixture promotes CZE as a wildcard.
+  const r32 = [
+    { stage: 'r32', status: 'scheduled', home: 'BRA', away: 'CZE' },
+  ];
+  const matches = [...groupFinished, ...r32];
+  assert.equal(isAlive('CZE', teams, matches), true, 'CZE survives via wildcard');
+  assert.equal(isAlive('RSA', teams, matches), false, 'RSA out (not in R32)');
+});
+
+test('isAlive: team eliminated in knockout match returns false even if in later fixture', () => {
+  const teams = [{ code: 'ESP', group: 'H' }, { code: 'URU', group: 'H' }];
+  const matches = [
+    { stage: 'r32', status: 'finished', home: 'ESP', away: 'URU', homeScore: 2, awayScore: 1 },
+    { stage: 'r16', status: 'scheduled', home: 'ESP', away: 'TBD' },
+  ];
+  assert.equal(isAlive('URU', teams, matches), false);
+  assert.equal(isAlive('ESP', teams, matches), true);
+});

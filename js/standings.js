@@ -50,7 +50,14 @@ export function isAlive(teamCode, teams, matches) {
     if (m.away === teamCode && m.awayScore < m.homeScore) return false;
   }
 
-  // Group: only eliminate once all 3 group matches for this team are finished.
+  // If R32 fixtures exist, they're authoritative for knockout participation.
+  // A team is alive iff it appears in an R32 fixture (and hasn't lost above).
+  const r32Fixtures = matches.filter((m) => m.stage === 'r32');
+  if (r32Fixtures.length > 0) {
+    return r32Fixtures.some((m) => m.home === teamCode || m.away === teamCode);
+  }
+
+  // No R32 fixtures yet — fall back to group-stage progression rules.
   const groupFinished = matches.filter(
     (m) => m.stage === 'group' && m.group === team.group && m.status === 'finished'
   );
@@ -59,5 +66,5 @@ export function isAlive(teamCode, teams, matches) {
 
   const table = computeStandings(team.group, teams, matches);
   const rank = table.findIndex((r) => r.code === teamCode);
-  return rank < 2; // top 2 advance — third-place wildcards approximated as "out" for v1
+  return rank < 2; // top 2 approximation — only used in the brief window before R32 fixtures land
 }
