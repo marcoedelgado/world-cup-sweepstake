@@ -7,6 +7,7 @@ import { renderLatestResults }  from './render/results.js';
 import { renderUpcoming }       from './render/upcoming.js';
 import { renderFooter }         from './render/footer.js';
 import { fetchLiveMatches, mergeLive } from './live.js';
+import { escape }               from './utils.js';
 
 const FIRST_KICKOFF_ISO = '2026-06-11T20:00:00Z';
 
@@ -16,7 +17,7 @@ async function main() {
   try {
     state = await loadAll();
   } catch (err) {
-    root.innerHTML = `<p class="error">Couldn't load tournament data — ${escapeHtml(err.message)}</p>`;
+    root.innerHTML = `<p class="error">Couldn't load tournament data — ${escape(err.message)}</p>`;
     return;
   }
 
@@ -52,10 +53,6 @@ function renderPreDrawBanner(root) {
   el.className = 'pn-empty';
   el.innerHTML = `The draw hasn't happened yet — head to <a href="draw.html">/draw</a> to run it.`;
   root.appendChild(el);
-}
-
-function escapeHtml(s) {
-  return String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 }
 
 main();
