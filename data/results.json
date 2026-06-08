@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-08T15:13:50.597Z",
+  "lastUpdated": "2026-06-08T15:23:16.061Z",
   "matches": [
     {
       "id": "537327",
@@ -95,7 +95,7 @@
       "stage": "group",
       "group": "E",
       "home": "GER",
-      "away": "CUW",
+      "away": "CUR",
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null
@@ -381,7 +381,7 @@
       "stage": "group",
       "group": "E",
       "home": "ECU",
-      "away": "CUW",
+      "away": "CUR",
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null
@@ -611,7 +611,7 @@
       "kickoff": "2026-06-25T20:00:00Z",
       "stage": "group",
       "group": "E",
-      "home": "CUW",
+      "home": "CUR",
       "away": "CIV",
       "status": "scheduled",
       "homeScore": null,
