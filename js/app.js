@@ -1,3 +1,55 @@
-// Dashboard bootstrap — populated in Task 14
-const app = document.getElementById('app');
-app.innerHTML = '<p class="loading">app.js loaded — Task 14 will wire this up.</p>';
+import { loadAll } from './data.js';
+import { renderHeader }         from './render/header.js';
+import { renderCover }          from './render/cover.js';
+import { renderStatus }         from './render/status.js';
+import { renderAlbum }          from './render/album.js';
+import { renderLatestResults }  from './render/results.js';
+import { renderUpcoming }       from './render/upcoming.js';
+import { renderFooter }         from './render/footer.js';
+
+const FIRST_KICKOFF_ISO = '2026-06-11T20:00:00Z';
+
+async function main() {
+  const root = document.getElementById('app');
+  let state;
+  try {
+    state = await loadAll();
+  } catch (err) {
+    root.innerHTML = `<p class="error">Couldn't load tournament data — ${escapeHtml(err.message)}</p>`;
+    return;
+  }
+
+  paint(root, state);
+  window.addEventListener('tz-change', () => paint(root, state));
+}
+
+function paint(root, state) {
+  root.innerHTML = '';
+  const now = new Date().toISOString();
+
+  renderHeader(root);
+  renderCover(root, state, now);
+
+  if (!state.owners?.drawCompletedAt) {
+    renderPreDrawBanner(root);
+  } else {
+    renderStatus(root, state, now);
+    renderAlbum(root, state);
+    renderLatestResults(root, state, now);
+    renderUpcoming(root, state, now);
+  }
+  renderFooter(root, state, now);
+}
+
+function renderPreDrawBanner(root) {
+  const el = document.createElement('div');
+  el.className = 'pn-empty';
+  el.innerHTML = `The draw hasn't happened yet — head to <a href="draw.html">/draw</a> to run it.`;
+  root.appendChild(el);
+}
+
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+}
+
+main();
