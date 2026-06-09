@@ -1,6 +1,6 @@
 import { formatMatchDateTime } from '../tz.js';
 import { teamByCode, ownerForTeam } from '../data.js';
-import { escape, ownerTag, flag } from '../utils.js';
+import { escape, ownerTag, flag, teamLabel } from '../utils.js';
 
 const MAX_LATEST = 6;
 
@@ -32,12 +32,12 @@ function matchCard(m, teams, owners, nowIso) {
   const el = document.createElement('div');
   el.className = 'pn-match';
   el.innerHTML = `
-    <span class="home">${flag(home)} ${escape(home?.name ?? m.home)}${ownerTag(homeOwner)}</span>
+    <span class="home">${teamLabel(home, m.home)}${ownerTag(homeOwner)}</span>
     <span class="score-col">
       <span class="sc">${m.homeScore} – ${m.awayScore}</span>
       <span class="when">${formatMatchDateTime(m.kickoff, nowIso)}</span>
     </span>
-    <span class="away">${flag(away)} ${escape(away?.name ?? m.away)}${ownerTag(awayOwner)}</span>
+    <span class="away">${ownerTag(awayOwner)}${teamLabel(away, m.away)}</span>
   `;
   return el;
 }

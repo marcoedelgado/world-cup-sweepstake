@@ -1,6 +1,6 @@
 import { formatMatchDateTime } from '../tz.js';
 import { teamByCode, ownerForTeam } from '../data.js';
-import { escape, ownerTag, flag } from '../utils.js';
+import { escape, ownerTag, flag, teamLabel } from '../utils.js';
 
 const MAX_UPCOMING = 6;
 
@@ -29,9 +29,9 @@ function upcomingCard(m, teams, owners, nowIso) {
   const el = document.createElement('div');
   el.className = 'pn-match upcoming';
   el.innerHTML = `
-    <span class="home">${flag(home)} ${escape(home?.name ?? m.home)}${ownerTag(ownerForTeam(owners, m.home))}</span>
+    <span class="home">${teamLabel(home, m.home)}${ownerTag(ownerForTeam(owners, m.home))}</span>
     <span class="sc">${formatMatchDateTime(m.kickoff, nowIso)}</span>
-    <span class="away">${flag(away)} ${escape(away?.name ?? m.away)}${ownerTag(ownerForTeam(owners, m.away))}</span>
+    <span class="away">${ownerTag(ownerForTeam(owners, m.away))}${teamLabel(away, m.away)}</span>
   `;
   return el;
 }

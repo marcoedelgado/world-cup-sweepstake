@@ -8,6 +8,7 @@ import { renderUpcoming }       from './render/upcoming.js';
 import { renderStandingsSection } from './render/standings-section.js';
 import { renderFooter }         from './render/footer.js';
 import { renderFixtureBanner }  from './render/fixture-banner.js';
+import { initTeamTooltips }     from './render/team-tooltip.js';
 import { fetchLiveMatches, mergeLive } from './live.js';
 import { escape } from './utils.js';
 import { FEATURES } from './config.js';
@@ -26,6 +27,7 @@ async function main() {
   }
 
   paint(root, state);
+  initTeamTooltips();
   if (!fixtureMode) {
     fetchLiveMatches().then((live) => {
       if (!live.length) return;

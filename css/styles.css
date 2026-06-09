@@ -265,6 +265,42 @@ body {
   border-radius: 2px;
   margin-left: 4px;
 }
+.pn-match .away .pn-owner-tag { margin-left: 0; margin-right: 4px; }
+
+/* Team label inside match cards: full name on desktop, 3-letter code on mobile. */
+.t-team {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 4px;
+  vertical-align: baseline;
+}
+.pn-match .away .t-team { flex-direction: row-reverse; }
+.t-code { display: none; }
+@media (max-width: 600px) {
+  .pn-match .t-name { display: none; }
+  .pn-match .t-code { display: inline; }
+  .pn-match .t-team { cursor: pointer; }
+}
+
+/* Tap-to-reveal full-name tooltip (mobile). */
+.t-tooltip {
+  position: absolute;
+  background: var(--ink);
+  color: var(--paper);
+  padding: 4px 8px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  border-radius: 3px;
+  pointer-events: none;
+  opacity: 0;
+  transform: translate(-50%, -100%);
+  transition: opacity 0.15s ease;
+  white-space: nowrap;
+  z-index: 100;
+  box-shadow: 1px 1px 0 var(--maroon);
+}
+.t-tooltip.visible { opacity: 1; }
 
 /* ---------- Footer ---------- */
 .pn-foot {
