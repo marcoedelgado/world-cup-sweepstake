@@ -3,6 +3,7 @@
   "owners": [
     {
       "name": "Owner 1",
+      "photo": "data/fixtures/owner1.svg",
       "description": "Self-proclaimed expert on lower-league Cypriot football. Will not stop talking about it.",
       "teams": [
         "ALG",
