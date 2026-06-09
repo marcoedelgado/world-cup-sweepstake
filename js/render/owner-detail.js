@@ -8,13 +8,17 @@ const KNOCKOUT_LABEL = { r32: 'R32', r16: 'R16', qf: 'QF', sf: 'SF', third: '3rd
 export function renderOwnerDetail(container, { teams, results }, owner) {
   const matches = results?.matches ?? [];
 
-  const teamRows = (owner.teams ?? []).map((code) => ({
-    code,
-    team: teamByCode(teams, code),
-    alive: isAlive(code, teams, matches),
-    record: computeRecord(code, matches),
-    next: nextFixture(code, matches, teams),
-  }));
+  const teamRows = (owner.teams ?? []).map((code) => {
+    const [next, nextShort] = nextFixture(code, matches, teams);
+    return {
+      code,
+      team: teamByCode(teams, code),
+      alive: isAlive(code, teams, matches),
+      record: computeRecord(code, matches),
+      next,
+      nextShort,
+    };
+  });
 
   teamRows.sort((a, b) => Number(b.alive) - Number(a.alive));
   const aliveCount = teamRows.filter((r) => r.alive).length;
@@ -51,17 +55,18 @@ function renderPanini(owner, aliveCount, total) {
   `;
 }
 
-function rowHtml({ code, team, alive, record, next }) {
+function rowHtml({ code, team, alive, record, next, nextShort }) {
   const cls = alive ? 'owner-team-row' : 'owner-team-row out';
   const stickerCls = alive ? 'pn-sticker' : 'pn-sticker out';
   const name = team?.name ?? code;
   const flagChar = flag(team);
   return `
     <div class="${cls}">
-      <span class="${stickerCls}"><span class="flag">${flagChar}</span><span class="code">${escape(code)}</span></span>
-      <span class="t-name">${escape(name)}</span>
+      <span class="${stickerCls}" data-full="${escape(name)}"><span class="flag">${flagChar}</span><span class="code">${escape(code)}</span></span>
+      <span class="t-name" data-full="${escape(name)}">${escape(name)}</span>
       <span class="t-rec">${record.w}W ${record.d}D ${record.l}L · ${formatGd(record.gd)} GD</span>
       <span class="t-next">${next}</span>
+      <span class="t-next-short">${nextShort}</span>
     </div>
   `;
 }
@@ -91,7 +96,8 @@ function nextFixture(teamCode, matches, teams) {
   if (upcoming.length === 0) {
     const playedAny = matches.some((m) =>
       m.status === 'finished' && (m.home === teamCode || m.away === teamCode));
-    return playedAny ? 'eliminated' : 'awaiting fixtures';
+    const label = playedAny ? 'eliminated' : 'awaiting fixtures';
+    return [label, label];
   }
 
   const next = upcoming[0];
@@ -99,5 +105,7 @@ function nextFixture(teamCode, matches, teams) {
   const oppTeam = teamByCode(teams, oppCode);
   const oppLabel = oppTeam?.code ?? oppCode;
   const stageLabel = next.stage === 'group' ? `Group ${escape(next.group ?? '?')}` : (KNOCKOUT_LABEL[next.stage] ?? next.stage);
-  return `→ vs ${escape(oppLabel)} · ${stageLabel} · ${formatMatchDateTime(next.kickoff)}`;
+  const long = `→ vs ${escape(oppLabel)} · ${stageLabel} · ${formatMatchDateTime(next.kickoff)}`;
+  const short = `vs ${escape(oppLabel)}`;
+  return [long, short];
 }

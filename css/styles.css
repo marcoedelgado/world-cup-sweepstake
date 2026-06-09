@@ -532,13 +532,17 @@ body {
 .owner-team-row .t-rec { font-size: 10px; color: var(--alive); font-weight: 700; }
 .owner-team-row.out .t-rec { color: var(--dead); }
 .owner-team-row .t-next { font-size: 10px; font-style: italic; opacity: 0.75; text-align: right; }
+.owner-team-row .t-next-short { display: none; }
 @media (max-width: 700px) {
   .owner-team-row {
-    grid-template-columns: 44px 1fr;
-    grid-template-rows: auto auto;
+    grid-template-columns: 44px 1fr auto;
+    grid-template-rows: auto;
+    align-items: center;
   }
-  .owner-team-row .t-rec { grid-column: 2; grid-row: 2; text-align: left; }
-  .owner-team-row .t-next { grid-column: 1 / -1; grid-row: 3; text-align: left; padding-left: 54px; }
+  .owner-team-row .t-name { display: none; }
+  .owner-team-row .t-rec { grid-column: 2; grid-row: 1; text-align: center; }
+  .owner-team-row .t-next { display: none; }
+  .owner-team-row .t-next-short { display: inline; grid-column: 3; grid-row: 1; font-size: 10px; font-style: italic; opacity: 0.75; }
 }
 
 /* ---------- Bracket ---------- */
