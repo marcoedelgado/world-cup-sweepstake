@@ -11,7 +11,7 @@ export function initTeamTooltips() {
 }
 
 function handleClick(e) {
-  const target = e.target.closest('.t-team');
+  const target = e.target.closest('[data-full]');
   if (!target) {
     hide();
     return;
@@ -19,7 +19,7 @@ function handleClick(e) {
   if (!window.matchMedia('(max-width: 600px)').matches) return;
   const full = target.dataset.full;
   if (!full) return;
-  show(target, full);
+  show(e.clientX, e.clientY, full);
 }
 
 function ensure() {
@@ -31,12 +31,11 @@ function ensure() {
   return tooltipEl;
 }
 
-function show(anchor, text) {
+function show(clientX, clientY, text) {
   const t = ensure();
   t.textContent = text;
-  const rect = anchor.getBoundingClientRect();
-  t.style.left = `${rect.left + window.scrollX + rect.width / 2}px`;
-  t.style.top = `${rect.top + window.scrollY - 6}px`;
+  t.style.left = `${clientX + window.scrollX}px`;
+  t.style.top = `${clientY + window.scrollY - 12}px`;
   t.classList.add('visible');
   clearTimeout(dismissTimer);
   dismissTimer = setTimeout(hide, 2000);

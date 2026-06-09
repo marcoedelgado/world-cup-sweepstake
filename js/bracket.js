@@ -2,6 +2,7 @@ import { loadAll, fixtureMode, withFixture } from './data.js';
 import { renderHeader } from './render/header.js';
 import { renderBracket } from './render/bracket-render.js';
 import { renderFixtureBanner } from './render/fixture-banner.js';
+import { initTeamTooltips } from './render/team-tooltip.js';
 import { tournamentPhase } from './phase.js';
 import { escape } from './utils.js';
 import { formatMatchDateTime } from './tz.js';
@@ -17,6 +18,7 @@ async function main() {
   }
 
   paint(root, state);
+  initTeamTooltips();
   window.addEventListener('tz-change', () => paint(root, state));
 }
 

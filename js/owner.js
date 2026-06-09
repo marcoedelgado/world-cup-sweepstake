@@ -2,6 +2,7 @@ import { loadAll, fixtureMode, withFixture } from './data.js';
 import { renderHeader } from './render/header.js';
 import { renderOwnerDetail } from './render/owner-detail.js';
 import { renderFixtureBanner } from './render/fixture-banner.js';
+import { initTeamTooltips } from './render/team-tooltip.js';
 import { escape } from './utils.js';
 
 async function main() {
@@ -53,4 +54,5 @@ function renderNotFound(root, message) {
   root.appendChild(card);
 }
 
+initTeamTooltips();
 main();
