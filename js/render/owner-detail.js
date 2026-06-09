@@ -19,19 +19,36 @@ export function renderOwnerDetail(container, { teams, results }, owner) {
   teamRows.sort((a, b) => Number(b.alive) - Number(a.alive));
   const aliveCount = teamRows.filter((r) => r.alive).length;
 
-  const cover = document.createElement('section');
-  cover.className = 'pn-cover';
-  cover.innerHTML = `
-    <p class="back-link"><a href="${withFixture('index.html')}">← Back to the album</a></p>
-    <h1 class="pn-title">${escape(owner.name)}</h1>
-    <div class="pn-subtitle">${aliveCount} of ${teamRows.length} alive</div>
-  `;
-  container.appendChild(cover);
+  const backLink = document.createElement('p');
+  backLink.className = 'back-link';
+  backLink.innerHTML = `<a href="${withFixture('index.html')}">← Back to the album</a>`;
+  container.appendChild(backLink);
 
-  const list = document.createElement('section');
-  list.className = 'pn-section owner-team-list';
-  list.innerHTML = teamRows.map(rowHtml).join('');
-  container.appendChild(list);
+  const layout = document.createElement('section');
+  layout.className = 'owner-layout';
+  layout.innerHTML = `
+    <div class="owner-list owner-team-list">${teamRows.map(rowHtml).join('')}</div>
+    <aside class="owner-sticker">${renderPanini(owner, aliveCount, teamRows.length)}</aside>
+  `;
+  container.appendChild(layout);
+}
+
+function renderPanini(owner, aliveCount, total) {
+  const photoBlock = owner.photo
+    ? `<img src="${escape(owner.photo)}" alt="${escape(owner.name)}">`
+    : `<div class="silhouette"></div><div class="stamp">Your<br>Photo<br>Here</div>`;
+  const descBlock = owner.description
+    ? `<div class="panini-desc"><p>"${escape(owner.description)}"</p></div>`
+    : '';
+  return `
+    <div class="panini">
+      <div class="panini-alive">${aliveCount} / ${total} ALIVE</div>
+      <div class="panini-photo">${photoBlock}</div>
+      <div class="panini-name">[ ${escape(owner.name.toUpperCase())} ]</div>
+      ${descBlock}
+      <div class="panini-foot"><span class="star">★</span> WC26 SWEEPSTAKE</div>
+    </div>
+  `;
 }
 
 function rowHtml({ code, team, alive, record, next }) {

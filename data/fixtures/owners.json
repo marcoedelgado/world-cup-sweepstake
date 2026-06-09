@@ -3,6 +3,7 @@
   "owners": [
     {
       "name": "Owner 1",
+      "description": "Self-proclaimed expert on lower-league Cypriot football. Will not stop talking about it.",
       "teams": [
         "ALG",
         "BRA",
@@ -16,6 +17,7 @@
     },
     {
       "name": "Owner 2",
+      "description": "Drew the favourites and refuses to be humble about it.",
       "teams": [
         "ARG",
         "CAN",
@@ -29,6 +31,7 @@
     },
     {
       "name": "Owner 3",
+      "description": "Picked teams entirely based on the colour of their kits.",
       "teams": [
         "AUS",
         "CIV",
@@ -42,6 +45,7 @@
     },
     {
       "name": "Owner 4",
+      "description": "Quiet during the group stage, terrifying in the knockouts.",
       "teams": [
         "AUT",
         "COD",
@@ -55,6 +59,7 @@
     },
     {
       "name": "Owner 5",
+      "description": "Has not watched a football match since 2018.",
       "teams": [
         "BEL",
         "COL",
@@ -68,6 +73,7 @@
     },
     {
       "name": "Owner 6",
+      "description": "Will accept payment in pints.",
       "teams": [
         "BIH",
         "CPV",

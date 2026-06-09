@@ -36,9 +36,18 @@ for (const phase of VALID_PHASES) {
 // Fake draw shared across all phase fixtures: 6 owners × 8 teams each,
 // deterministic assignment by sorted team code.
 const OWNER_COUNT = 6;
+const FAKE_DESCRIPTIONS = [
+  'Self-proclaimed expert on lower-league Cypriot football. Will not stop talking about it.',
+  'Drew the favourites and refuses to be humble about it.',
+  'Picked teams entirely based on the colour of their kits.',
+  'Quiet during the group stage, terrifying in the knockouts.',
+  'Has not watched a football match since 2018.',
+  'Will accept payment in pints.',
+];
 const sortedTeams = [...teams].sort((a, b) => a.code.localeCompare(b.code));
 const fakeOwners = Array.from({ length: OWNER_COUNT }, (_, i) => ({
   name: `Owner ${i + 1}`,
+  description: FAKE_DESCRIPTIONS[i],
   teams: sortedTeams.filter((_, idx) => idx % OWNER_COUNT === i).map((t) => t.code),
 }));
 const ownersOut = {

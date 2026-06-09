@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Bevan&family=Cinzel:wght@700&display=swap');
+
 /* ---------- Tokens ---------- */
 :root {
   --paper: #fff7e8;
@@ -674,3 +676,170 @@ body {
   margin-bottom: 12px;
 }
 .fixture-banner strong { color: var(--maroon); }
+
+/* ---------- Owner page layout ---------- */
+.back-link {
+  margin: 0 0 12px;
+  font-style: italic;
+  font-size: 12px;
+}
+.back-link a { color: var(--maroon); text-decoration: none; }
+.back-link a:hover { text-decoration: underline; }
+
+.owner-layout {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 28px;
+  align-items: start;
+  margin-top: 4px;
+}
+.owner-sticker { position: sticky; top: 16px; }
+@media (max-width: 700px) {
+  .owner-layout { grid-template-columns: 1fr; gap: 20px; }
+  .owner-sticker { order: -1; position: static; }
+}
+
+/* ---------- Owner panini sticker ---------- */
+.panini {
+  --panini-paper: #f5e7c1;
+  --panini-paper-bright: #fdf1cf;
+  --panini-ink: #2a1808;
+  --panini-maroon: #7a1818;
+  --panini-maroon-deep: #5a1010;
+  --panini-gold: #e8b94a;
+  --panini-gold-bright: #f4cf63;
+
+  width: 100%;
+  max-width: 320px;
+  margin: 0 auto;
+  background: var(--panini-paper);
+  border: 10px solid var(--panini-maroon);
+  border-radius: 14px;
+  box-shadow: inset 0 0 0 4px var(--panini-gold);
+  padding: 10px;
+  font-family: 'Bevan', Georgia, serif;
+  color: var(--panini-ink);
+  position: relative;
+  overflow: hidden;
+  background-image:
+    radial-gradient(ellipse at 15% 12%, rgba(0,0,0,0.18) 0, transparent 22%),
+    radial-gradient(ellipse at 85% 88%, rgba(0,0,0,0.20) 0, transparent 25%),
+    radial-gradient(ellipse at 80% 20%, rgba(0,0,0,0.12) 0, transparent 18%),
+    radial-gradient(circle at 30% 70%, rgba(122,24,24,0.08) 0, transparent 35%),
+    repeating-linear-gradient(115deg,
+      rgba(0,0,0,0.02) 0 2px,
+      transparent 2px 6px);
+  filter: saturate(0.88) contrast(0.97);
+}
+.panini-alive {
+  position: absolute;
+  top: 14px; left: 14px;
+  background: var(--panini-gold);
+  color: var(--panini-maroon);
+  border: 1.5px solid var(--panini-maroon);
+  border-radius: 3px;
+  padding: 3px 7px;
+  font-family: 'Bevan', serif;
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  z-index: 3;
+}
+.panini-photo {
+  background: var(--panini-paper-bright);
+  border: 3px solid var(--panini-gold);
+  border-radius: 8px;
+  aspect-ratio: 1 / 1.05;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+.panini-photo img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: saturate(0.85) contrast(0.95) sepia(0.08);
+}
+.panini-photo .silhouette {
+  position: absolute; inset: 0;
+}
+.panini-photo .silhouette::before {
+  content: "";
+  position: absolute;
+  bottom: -6%; left: 50%;
+  transform: translateX(-50%);
+  width: 78%; height: 78%;
+  background: #b8a880;
+  border-radius: 50% 50% 0 0 / 60% 60% 0 0;
+  opacity: 0.55;
+}
+.panini-photo .silhouette::after {
+  content: "";
+  position: absolute;
+  top: 14%; left: 50%;
+  transform: translateX(-50%);
+  width: 40%;
+  aspect-ratio: 1;
+  background: #b8a880;
+  border-radius: 50%;
+  opacity: 0.55;
+}
+.panini-photo .stamp {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%) rotate(-6deg);
+  color: rgba(42, 24, 8, 0.45);
+  font-family: 'Bevan', serif;
+  font-size: 22px;
+  text-align: center;
+  line-height: 1.15;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  z-index: 1;
+}
+.panini-name {
+  background: var(--panini-maroon);
+  color: var(--panini-gold-bright);
+  text-align: center;
+  padding: 8px 6px;
+  font-family: 'Bevan', serif;
+  font-size: 30px;
+  letter-spacing: 2px;
+  line-height: 1;
+  border-radius: 3px;
+  border: 1.5px solid var(--panini-maroon-deep);
+  text-shadow: 1px 1px 0 var(--panini-maroon-deep);
+  background-image:
+    radial-gradient(ellipse at 25% 50%, rgba(0,0,0,0.15) 0, transparent 40%),
+    radial-gradient(ellipse at 80% 50%, rgba(0,0,0,0.12) 0, transparent 40%);
+}
+.panini-desc {
+  background: var(--panini-paper-bright);
+  border: 1.5px solid var(--panini-maroon);
+  border-radius: 3px;
+  margin-top: 8px;
+  padding: 10px 12px 12px;
+  min-height: 80px;
+}
+.panini-desc p {
+  margin: 0;
+  color: var(--panini-ink);
+  font-family: 'Cinzel', Georgia, serif;
+  font-weight: 700;
+  font-size: 13px;
+  line-height: 1.55;
+  font-style: italic;
+}
+.panini-foot {
+  background: var(--panini-maroon);
+  color: var(--panini-gold-bright);
+  margin-top: 8px;
+  padding: 6px 12px;
+  border-radius: 3px;
+  border: 1.5px solid var(--panini-maroon-deep);
+  text-align: right;
+  font-family: 'Bevan', serif;
+  font-size: 12px;
+  letter-spacing: 2px;
+  background-image: radial-gradient(ellipse at 60% 50%, rgba(0,0,0,0.12) 0, transparent 50%);
+}
+.panini-foot .star { margin-right: 4px; }
