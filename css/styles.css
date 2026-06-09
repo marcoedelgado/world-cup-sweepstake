@@ -645,55 +645,161 @@ body {
   .br-round[data-round="sf"] .br-side-right .br-cell::after { width: 6px; }
 }
 
-/* ---------- Bracket mobile (< 700px) ---------- */
+/* ---------- Bracket desktop / mobile toggle ---------- */
+.br-mobile { display: none; }
 @media (max-width: 700px) {
-  .br-tabs {
-    display: flex;
-    gap: 4px;
-    overflow-x: auto;
-    padding: 4px 0 8px;
-    position: sticky;
-    top: 0;
-    background: var(--paper);
-    z-index: 2;
-  }
-  .br-tab {
-    background: var(--paper-bright);
-    border: 1px solid var(--ink);
-    border-radius: 3px;
-    box-shadow: 1px 1px 0 var(--ink);
-    padding: 4px 8px;
-    font: inherit;
-    font-size: 10px;
-    font-weight: 800;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    cursor: pointer;
-    flex-shrink: 0;
-  }
-  .br-tab.active {
-    background: var(--gold);
-    box-shadow: 0.5px 0.5px 0 var(--ink);
-    transform: translate(1px, 1px);
-  }
-  .br-scroll {
-    display: flex;
-    gap: 0;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-  }
-  .br-round {
-    flex: 0 0 100%;
-    scroll-snap-align: start;
-    padding: 8px 4px;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
-  /* Mobile shows both sides stacked; hide the duplicated label from the right side. */
-  .br-side-right .br-round-label { display: none; }
-  .br-side { width: 100%; }
+  .br-desktop { display: none; }
+  .br-mobile  { display: block; }
+}
+
+/* ---------- Bracket mobile · focal-column layout ---------- */
+.br-mtabs {
+  display: flex;
+  gap: 4px;
+  overflow-x: auto;
+  padding: 4px 0 8px;
+  position: sticky;
+  top: 0;
+  background: var(--paper);
+  z-index: 2;
+  -webkit-overflow-scrolling: touch;
+}
+.br-mtab {
+  background: var(--paper-bright);
+  border: 1px solid var(--ink);
+  border-radius: 3px;
+  box-shadow: 1px 1px 0 var(--ink);
+  padding: 4px 8px;
+  font: inherit;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.br-mtab.done {
+  opacity: 0.55;
+  font-style: italic;
+}
+.br-mtab.active {
+  background: var(--gold);
+  opacity: 1;
+  font-style: normal;
+  box-shadow: 0.5px 0.5px 0 var(--ink);
+  transform: translate(1px, 1px);
+}
+
+.br-mstage {
+  display: grid;
+  grid-template-columns: 1fr 122px;
+  gap: 8px;
+  margin-top: 4px;
+}
+.br-mfocal:only-child,
+.br-mstage:has(.br-mfocal:only-child) { grid-template-columns: 1fr; }
+.br-mcells {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.br-mnext .br-mcells { gap: 14px; justify-content: space-around; }
+
+.br-col-label {
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--maroon);
+  font-weight: 800;
+  margin-bottom: 6px;
+  text-align: center;
+}
+
+/* Focal match card */
+.br-fm {
+  background: var(--paper-bright);
+  border: 1.5px solid var(--ink);
+  border-radius: 4px;
+  box-shadow: 1.5px 1.5px 0 var(--ink);
+  padding: 6px 8px;
+  font-size: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.br-fm-tbd {
+  background: transparent;
+  border: 1.5px dashed var(--paper-edge);
+  box-shadow: none;
+  opacity: 0.55;
+}
+.br-fm-row {
+  display: grid;
+  grid-template-columns: 26px auto 1fr auto;
+  gap: 6px;
+  align-items: center;
+}
+.br-fm-row.lost { opacity: 0.45; text-decoration: line-through; }
+.br-fm-row .pn-sticker { width: 22px; height: 28px; padding: 1px; }
+.br-fm-row .pn-sticker .flag { font-size: 11px; }
+.br-fm-row .pn-sticker .code { font-size: 6px; }
+.br-fm-code { font-weight: 700; font-size: 12px; }
+.br-fm-row .pn-owner-tag { justify-self: end; }
+.br-fm-sc {
+  font-weight: 900;
+  color: var(--maroon);
+  font-size: 15px;
+  min-width: 14px;
+  text-align: right;
+}
+.br-fm-when {
+  font-size: 9px;
+  font-style: italic;
+  opacity: 0.55;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-top: 1px dotted var(--paper-edge);
+  padding-top: 3px;
+  margin-top: 2px;
+}
+
+/* Next-round pair card */
+.br-nc {
+  background: var(--paper-bright);
+  border: 1.2px solid var(--ink);
+  border-radius: 3px;
+  box-shadow: 1px 1px 0 var(--ink);
+  padding: 4px 6px;
+  font-size: 11px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.br-nc-tbd {
+  background: transparent;
+  border-style: dashed;
+  box-shadow: none;
+  opacity: 0.55;
+}
+.br-nc-row {
+  display: grid;
+  grid-template-columns: 22px 1fr auto;
+  gap: 4px;
+  align-items: center;
+}
+.br-nc-row .pn-sticker { width: 20px; height: 26px; padding: 1px; }
+.br-nc-row .pn-sticker .flag { font-size: 10px; }
+.br-nc-row .pn-sticker .code { font-size: 5px; }
+.br-nc-code { font-weight: 700; font-size: 11px; }
+.br-nc-sc { font-weight: 900; color: var(--maroon); font-size: 12px; min-width: 10px; text-align: right; }
+.br-nc-when {
+  font-size: 8px;
+  font-style: italic;
+  opacity: 0.55;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 /* ---------- Fixture-mode banner ---------- */
