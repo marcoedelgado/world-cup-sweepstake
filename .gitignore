@@ -2,3 +2,9 @@
 .DS_Store
 node_modules/
 .claude/
+
+# Owner photos — originals kept local (heavy); compressed versions served by Pages
+data/assets/
+
+# Design docs / plans — kept local
+docs/superpowers/
