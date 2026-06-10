@@ -48,7 +48,7 @@ function renderPanini(owner, aliveCount, total) {
     <div class="panini">
       <div class="panini-alive">${aliveCount} / ${total} ALIVE</div>
       <div class="panini-photo">${photoBlock}</div>
-      <div class="panini-name">[ ${escape(owner.name.toUpperCase())} ]</div>
+      <div class="panini-name">${escape(owner.name.toUpperCase())}</div>
       ${descBlock}
       <div class="panini-foot"><span class="star">★</span> WC26 SWEEPSTAKE</div>
     </div>
