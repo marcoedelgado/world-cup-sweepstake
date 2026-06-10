@@ -1,4 +1,95 @@
 {
-  "drawCompletedAt": null,
-  "owners": []
+  "drawCompletedAt": "2026-06-10T19:10:28.057Z",
+  "owners": [
+    {
+      "name": "Marriott",
+      "photo": "data/owners/marriott.jpg",
+      "description": "Easily tempted by weird drinking games. Useful punchbag for jokes (practical and verbal).",
+      "teams": [
+        "BEL",
+        "EGY",
+        "KSA",
+        "ESP",
+        "MEX",
+        "BIH",
+        "COD",
+        "PAN"
+      ]
+    },
+    {
+      "name": "Nash",
+      "photo": "data/owners/nash.jpg",
+      "description": "Unwavering and delusional support for West Ham United. High degree of data analysis — should be winning the WC sweepstakes.",
+      "teams": [
+        "URU",
+        "CPV",
+        "AUS",
+        "ARG",
+        "SUI",
+        "CRO",
+        "IRQ",
+        "IRN"
+      ]
+    },
+    {
+      "name": "Groves",
+      "photo": "data/owners/groves.jpg",
+      "description": "Can't say no to a messy night out. Creates hilarious content as a result.",
+      "teams": [
+        "HAI",
+        "ALG",
+        "CIV",
+        "QAT",
+        "GHA",
+        "PAR",
+        "AUT",
+        "SEN"
+      ]
+    },
+    {
+      "name": "Pitt",
+      "photo": "data/owners/pitt.jpg",
+      "description": "No coloured hair left on his entire body. Has the ability to provide flight upgrades for unknown nefarious favours.",
+      "teams": [
+        "TUR",
+        "TUN",
+        "KOR",
+        "CZE",
+        "NOR",
+        "ECU",
+        "ENG",
+        "FRA"
+      ]
+    },
+    {
+      "name": "James",
+      "photo": "data/owners/james.jpg",
+      "description": "Boy racer, pushing 40 but still a kid at heart. Loves cars, snow and his torrent of tiny people.",
+      "teams": [
+        "JPN",
+        "GER",
+        "CAN",
+        "NED",
+        "UZB",
+        "SWE",
+        "USA",
+        "MAR"
+      ]
+    },
+    {
+      "name": "Marco",
+      "photo": "data/owners/marco.jpg",
+      "description": "Still struggles to pronounce English words even after having lived in the UK for a quarter century. Creates new words like a small Mexican Shakespeare.",
+      "teams": [
+        "SCO",
+        "NZL",
+        "CUW",
+        "JOR",
+        "RSA",
+        "BRA",
+        "POR",
+        "COL"
+      ]
+    }
+  ]
 }
