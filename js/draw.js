@@ -200,6 +200,7 @@ function renderResult(teams, result) {
       <button type="button" id="redo">Redo draw</button>
     </div>
     <p class="draw-current">Commit the downloaded file to <code>data/owners.json</code> and push.</p>
+    <p class="back-link" style="text-align:center; margin-top:8px;"><a href="index.html">← Back to the album</a></p>
   `;
   document.getElementById('dl').addEventListener('click', () => downloadJson(result));
   document.getElementById('copy').addEventListener('click', () => {
