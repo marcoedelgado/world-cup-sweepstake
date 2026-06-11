@@ -42,7 +42,7 @@ function renderPreKnockout(root, state) {
     .filter((m) => m.stage === 'r32')
     .sort((a, b) => (a.kickoff ?? '').localeCompare(b.kickoff ?? ''))[0];
   const when = firstR32?.kickoff
-    ? `First R32 match: ${escape(formatMatchDateTime(firstR32.kickoff))}`
+    ? `First R32 match: ${formatMatchDateTime(firstR32.kickoff)}`
     : 'R32 fixtures will appear here when published.';
   const card = document.createElement('div');
   card.className = 'pn-empty';

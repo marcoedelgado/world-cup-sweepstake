@@ -276,10 +276,13 @@ body {
 }
 .pn-match .away .t-team { flex-direction: row-reverse; }
 .t-code { display: none; }
+.rd-short { display: none; }
 @media (max-width: 600px) {
   .pn-match .t-name { display: none; }
   .pn-match .t-code { display: inline; }
   .pn-match .t-team { cursor: pointer; }
+  .rd-long { display: none; }
+  .rd-short { display: inline; }
 }
 
 /* Tap-to-reveal full-name tooltip (mobile). */

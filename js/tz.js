@@ -37,11 +37,13 @@ export function formatRelativeDay(iso, nowIso = new Date().toISOString(), zone =
   const todayTs  = Date.parse(today  + 'T00:00:00Z');
   const diffDays = Math.round((targetTs - todayTs) / 86_400_000);
 
-  if (diffDays === 0)  return 'Today';
-  if (diffDays === -1) return 'Yesterday';
-  if (diffDays === 1)  return 'Tomorrow';
+  let short, long;
+  if (diffDays === 0)  { short = 'Tdy'; long = 'Today'; }
+  else if (diffDays === -1) { short = 'Ydy'; long = 'Yesterday'; }
+  else if (diffDays === 1)  { short = 'Tmw'; long = 'Tomorrow'; }
+  else return new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'short', timeZone: zone }).format(new Date(iso));
 
-  return new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'short', timeZone: zone }).format(new Date(iso));
+  return `<span class="rd-day"><span class="rd-long">${long}</span><span class="rd-short">${short}</span></span>`;
 }
 
 export function formatMatchDateTime(iso, nowIso = new Date().toISOString(), zone = getZone()) {

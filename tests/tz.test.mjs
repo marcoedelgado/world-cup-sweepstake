@@ -34,8 +34,8 @@ test('formatTime renders 24-hour in current zone', () => {
 test('formatRelativeDay returns Today / Yesterday / explicit date', () => {
   globalThis.localStorage = makeStubStorage();
   setZone('Europe/London');
-  assert.equal(formatRelativeDay(ISO_KICK, NOW_SAME_DAY), 'Today');
-  assert.equal(formatRelativeDay(ISO_KICK, NOW_NEXT_DAY), 'Yesterday');
+  assert.equal(formatRelativeDay(ISO_KICK, NOW_SAME_DAY), '<span class="rd-day"><span class="rd-long">Today</span><span class="rd-short">Tdy</span></span>');
+  assert.equal(formatRelativeDay(ISO_KICK, NOW_NEXT_DAY), '<span class="rd-day"><span class="rd-long">Yesterday</span><span class="rd-short">Ydy</span></span>');
   assert.equal(
     formatRelativeDay('2026-06-11T20:00:00Z', NOW_NEXT_DAY),
     '11 Jun'
@@ -45,8 +45,8 @@ test('formatRelativeDay returns Today / Yesterday / explicit date', () => {
 test('formatMatchDateTime combines day label with time', () => {
   globalThis.localStorage = makeStubStorage();
   setZone('Europe/London');
-  assert.equal(formatMatchDateTime(ISO_KICK, NOW_SAME_DAY), 'Today · 19:00');
-  assert.equal(formatMatchDateTime(ISO_KICK, NOW_NEXT_DAY), 'Yesterday · 19:00');
+  assert.equal(formatMatchDateTime(ISO_KICK, NOW_SAME_DAY), '<span class="rd-day"><span class="rd-long">Today</span><span class="rd-short">Tdy</span></span> · 19:00');
+  assert.equal(formatMatchDateTime(ISO_KICK, NOW_NEXT_DAY), '<span class="rd-day"><span class="rd-long">Yesterday</span><span class="rd-short">Ydy</span></span> · 19:00');
 });
 
 function makeStubStorage() {
