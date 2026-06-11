@@ -41,6 +41,14 @@ function stageChip(match) {
   return labelForStage(match.stage);
 }
 
+function syncStickerLiveClass(liveMatches) {
+  const codes = new Set();
+  for (const m of liveMatches) { codes.add(m.home); codes.add(m.away); }
+  for (const el of document.querySelectorAll('.pn-sticker[data-team]')) {
+    el.classList.toggle('live', codes.has(el.dataset.team));
+  }
+}
+
 function buildBand(match, state, nowIso) {
   const nowMs = Date.parse(nowIso);
   const home = teamByCode(state.teams, match.home);
@@ -88,6 +96,7 @@ export function mountLiveSection(container, state) {
     } else {
       renderStatus(slot, state, nowIso);
     }
+    syncStickerLiveClass(live);
   }
 
   tick();
