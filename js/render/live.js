@@ -31,12 +31,9 @@ export function pickLiveMatches(matches, nowIso) {
 
 function timeChip(match, nowMs) {
   const k = Date.parse(match.kickoff);
-  if (nowMs < k) {
-    const minsToKickoff = Math.max(0, Math.ceil((k - nowMs) / 60_000));
-    return `Kicks off in ${minsToKickoff} min`;
-  }
-  const minsElapsed = Math.max(0, Math.floor((nowMs - k) / 60_000));
-  return `${minsElapsed}'`;
+  if (nowMs >= k) return null;
+  const minsToKickoff = Math.max(0, Math.ceil((k - nowMs) / 60_000));
+  return `Kicks off in ${minsToKickoff} min`;
 }
 
 function stageChip(match) {
@@ -50,6 +47,7 @@ function buildBand(match, state, nowIso) {
   const away = teamByCode(state.teams, match.away);
   const homeOwner = ownerForTeam(state.owners, match.home);
   const awayOwner = ownerForTeam(state.owners, match.away);
+  const chip = timeChip(match, nowMs);
 
   const el = document.createElement('section');
   el.className = 'pn-live';
@@ -58,7 +56,7 @@ function buildBand(match, state, nowIso) {
       <span class="pn-live-dot"></span>
       <span class="pn-live-label">Live now</span>
       <span class="pn-live-stage">· ${escape(stageChip(match))}</span>
-      <span class="pn-live-when">${escape(timeChip(match, nowMs))}</span>
+      ${chip ? `<span class="pn-live-when">${escape(chip)}</span>` : ''}
     </div>
     <div class="pn-live-teams">
       <div class="pn-live-team home">
