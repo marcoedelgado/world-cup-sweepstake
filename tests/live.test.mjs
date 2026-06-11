@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { pickLiveMatches, endOffsetMinutes } from '../js/render/live.js';
+import { pickLiveMatches, pickPendingMatches, endOffsetMinutes } from '../js/render/live.js';
 
 const KICKOFF = '2026-06-11T19:00:00Z';
 const KICKOFF_MS = Date.parse(KICKOFF);
@@ -85,4 +85,54 @@ test('pickLiveMatches: two matches different kickoffs ordered by kickoff ascendi
 test('pickLiveMatches: match with null kickoff is excluded', () => {
   const m = groupMatch({ kickoff: null });
   assert.deepEqual(pickLiveMatches([m], isoOffset(30)), []);
+});
+
+test('pickPendingMatches: empty input returns empty array', () => {
+  assert.deepEqual(pickPendingMatches([], KICKOFF), []);
+});
+
+test('pickPendingMatches: excludes scheduled match', () => {
+  const m = groupMatch({ status: 'scheduled' });
+  assert.deepEqual(pickPendingMatches([m], isoOffset(120)), []);
+});
+
+test('pickPendingMatches: excludes live match', () => {
+  const m = groupMatch({ status: 'live' });
+  assert.deepEqual(pickPendingMatches([m], isoOffset(60)), []);
+});
+
+test('pickPendingMatches: includes finished match with null scores within window', () => {
+  const m = groupMatch({ status: 'finished' });
+  assert.deepEqual(pickPendingMatches([m], isoOffset(120)), [m]);
+});
+
+test('pickPendingMatches: excludes finished match once scores are populated', () => {
+  const m = groupMatch({ status: 'finished', homeScore: 2, awayScore: 0 });
+  assert.deepEqual(pickPendingMatches([m], isoOffset(120)), []);
+});
+
+test('pickPendingMatches: still pending when only one score is populated', () => {
+  const m = groupMatch({ status: 'finished', homeScore: null, awayScore: 0 });
+  assert.deepEqual(pickPendingMatches([m], isoOffset(120)), [m]);
+});
+
+test('pickPendingMatches: includes group pending at kickoff + 170 min (upper bound)', () => {
+  const m = groupMatch({ status: 'finished' });
+  assert.deepEqual(pickPendingMatches([m], isoOffset(170)), [m]);
+});
+
+test('pickPendingMatches: excludes group pending at kickoff + 171 min (just past bound)', () => {
+  const m = groupMatch({ status: 'finished' });
+  assert.deepEqual(pickPendingMatches([m], isoOffset(171)), []);
+});
+
+test('pickPendingMatches: knockout pending bound extends to kickoff + 210 min', () => {
+  const m = groupMatch({ stage: 'r16', status: 'finished' });
+  assert.deepEqual(pickPendingMatches([m], isoOffset(210)), [m]);
+  assert.deepEqual(pickPendingMatches([m], isoOffset(211)), []);
+});
+
+test('pickPendingMatches: match with null kickoff is excluded', () => {
+  const m = groupMatch({ status: 'finished', kickoff: null });
+  assert.deepEqual(pickPendingMatches([m], isoOffset(120)), []);
 });

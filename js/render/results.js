@@ -6,7 +6,7 @@ const MAX_LATEST = 6;
 
 export function renderLatestResults(container, { teams, owners, results }, nowIso = new Date().toISOString()) {
   const finished = (results.matches ?? [])
-    .filter((m) => m.status === 'finished')
+    .filter((m) => m.status === 'finished' && m.homeScore != null && m.awayScore != null)
     .sort((a, b) => b.kickoff.localeCompare(a.kickoff))
     .slice(0, MAX_LATEST);
 

@@ -147,6 +147,20 @@ body {
   box-shadow: var(--shadow);
 }
 .pn-live + .pn-live { margin-top: 8px; }
+.pn-live.pending { background: var(--paper-bright); }
+.pn-live-ft {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--maroon);
+  color: var(--paper);
+  font-family: 'Bevan', var(--font-serif);
+  font-size: 9px;
+  letter-spacing: 1px;
+  padding: 2px 6px;
+  border-radius: 3px;
+  min-width: 24px;
+}
 .pn-live-head {
   display: flex;
   align-items: center;

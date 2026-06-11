@@ -69,7 +69,7 @@ function thisWeekTile(matches, nowIso) {
     return k >= monday.getTime() && k < nextMonday;
   }).length;
 
-  return tile(String(count), 'this week');
+  return tile(String(count), count === 1 ? 'match this week' : 'matches this week');
 }
 
 function tile(big, lbl) {

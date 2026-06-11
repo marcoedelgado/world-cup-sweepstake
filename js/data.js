@@ -26,10 +26,11 @@ async function loadJson(url) {
   return res.json();
 }
 
+function resultsUrl() {
+  return fixtureMode ? `data/fixtures/${fixtureMode}.json` : SOURCES.results;
+}
+
 export async function loadAll() {
-  const resultsUrl = fixtureMode
-    ? `data/fixtures/${fixtureMode}.json`
-    : SOURCES.results;
   const ownersUrl = fixtureMode
     ? 'data/fixtures/owners.json'
     : SOURCES.owners;
@@ -37,9 +38,13 @@ export async function loadAll() {
   const [teams, owners, results] = await Promise.all([
     loadJson(SOURCES.teams),
     loadJson(ownersUrl).catch(() => ({ drawCompletedAt: null, owners: [] })),
-    loadJson(resultsUrl).catch(() => ({ lastUpdated: null, matches: [] })),
+    loadJson(resultsUrl()).catch(() => ({ lastUpdated: null, matches: [] })),
   ]);
   return { teams, owners, results };
+}
+
+export async function reloadResults() {
+  return loadJson(resultsUrl());
 }
 
 export function teamByCode(teams, code) {

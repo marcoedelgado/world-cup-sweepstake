@@ -37,9 +37,11 @@ async function main() {
     });
   }
   window.addEventListener('tz-change', () => paint(root, state));
+  window.addEventListener('results-change', () => paint(root, state));
 }
 
 function paint(root, state) {
+  const scrollY = window.scrollY;
   root.innerHTML = '';
   const now = new Date().toISOString();
   const phase = tournamentPhase(state.results?.matches ?? []);
@@ -65,6 +67,7 @@ function paint(root, state) {
     renderUpcoming(root, state, now);
   }
   renderFooter(root, state, now);
+  window.scrollTo(0, scrollY);
 }
 
 function renderPreDrawBanner(root) {
