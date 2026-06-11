@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-11T21:12:45.086Z",
+  "lastUpdated": "2026-06-11T21:25:24.319Z",
   "matches": [
     {
       "id": "537327",
@@ -9,8 +9,8 @@
       "home": "MEX",
       "away": "RSA",
       "status": "finished",
-      "homeScore": null,
-      "awayScore": null
+      "homeScore": 2,
+      "awayScore": 0
     },
     {
       "id": "537328",
