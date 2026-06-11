@@ -136,6 +136,95 @@ body {
 /* ---------- Status strip ---------- */
 .pn-status { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
 @media (max-width: 600px) { .pn-status { grid-template-columns: 1fr; } }
+
+/* ---------- Live match band ---------- */
+.pn-live {
+  margin: 0;
+  padding: 14px 16px 16px;
+  border: 2px solid var(--maroon);
+  border-radius: 6px;
+  background: linear-gradient(135deg, var(--paper-bright) 0%, var(--gold) 100%);
+  box-shadow: var(--shadow);
+}
+.pn-live + .pn-live { margin-top: 8px; }
+.pn-live-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Bevan', var(--font-serif);
+  letter-spacing: 1px;
+  color: var(--maroon);
+  font-size: 12px;
+  text-transform: uppercase;
+}
+.pn-live-dot {
+  width: 10px; height: 10px; border-radius: 50%;
+  background: var(--dead);
+  box-shadow: 0 0 0 0 var(--dead);
+  animation: pn-live-pulse 1.5s infinite;
+}
+@keyframes pn-live-pulse {
+  0%   { box-shadow: 0 0 0 0 rgba(170, 34, 34, 0.6); }
+  70%  { box-shadow: 0 0 0 8px rgba(170, 34, 34, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(170, 34, 34, 0); }
+}
+.pn-live-label { font-weight: 900; }
+.pn-live-stage {
+  font-family: var(--font-serif);
+  text-transform: none;
+  letter-spacing: 0;
+  opacity: 0.75;
+  font-style: italic;
+}
+.pn-live-when {
+  margin-left: auto;
+  font-family: var(--font-serif);
+  text-transform: none;
+  letter-spacing: 0;
+  font-style: italic;
+  opacity: 0.85;
+}
+.pn-live-teams {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 12px;
+  margin-top: 10px;
+}
+.pn-live-team {
+  display: flex; flex-direction: column; align-items: center; gap: 4px;
+  min-width: 0;
+}
+.pn-live-flag { font-size: 38px; line-height: 1; }
+.pn-live-name {
+  font-family: 'Cinzel', var(--font-serif);
+  font-weight: 700;
+  color: var(--ink);
+  font-size: 15px;
+  letter-spacing: 0.5px;
+  text-align: center;
+}
+.pn-live-owner {
+  font-family: 'Bevan', var(--font-serif);
+  background: var(--maroon);
+  color: var(--paper);
+  padding: 2px 8px;
+  border-radius: 3px;
+  font-size: 10px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.pn-live-vs {
+  font-family: 'Cinzel', var(--font-serif);
+  font-weight: 700;
+  color: var(--maroon);
+  font-size: 14px;
+  font-style: italic;
+}
+@media (max-width: 600px) {
+  .pn-live-name { font-size: 13px; }
+  .pn-live-flag { font-size: 32px; }
+}
 .pn-stat {
   background: var(--paper-bright);
   border: 1px solid var(--paper-edge);

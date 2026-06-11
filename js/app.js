@@ -1,7 +1,6 @@
 import { loadAll, fixtureMode, withFixture } from './data.js';
 import { renderHeader }         from './render/header.js';
 import { renderCover }          from './render/cover.js';
-import { renderStatus }         from './render/status.js';
 import { renderAlbumGroup, renderAlbumHeat } from './render/album.js';
 import { renderLatestResults }  from './render/results.js';
 import { renderUpcoming }       from './render/upcoming.js';
@@ -10,11 +9,13 @@ import { renderFooter }         from './render/footer.js';
 import { renderFixtureBanner }  from './render/fixture-banner.js';
 import { initTeamTooltips }     from './render/team-tooltip.js';
 import { fetchLiveMatches, mergeLive } from './live.js';
+import { mountLiveSection } from './render/live.js';
 import { escape } from './utils.js';
 import { FEATURES } from './config.js';
 import { tournamentPhase } from './phase.js';
 
 const FIRST_KICKOFF_ISO = '2026-06-11T20:00:00Z';
+let stopLive = null;
 
 async function main() {
   const root = document.getElementById('app');
@@ -50,7 +51,8 @@ function paint(root, state) {
   if (!state.owners?.drawCompletedAt) {
     renderPreDrawBanner(root);
   } else {
-    renderStatus(root, state, now);
+    if (stopLive) stopLive();
+    stopLive = mountLiveSection(root, state);
     if (FEATURES.transformAlbum && phase === 'knockout') {
       renderAlbumHeat(root, state);
     } else {

@@ -11,7 +11,7 @@ function currentMatchdayLabel(results, nowIso) {
   return `${stageLabel} · ${dateStr}`;
 }
 
-function labelForStage(stage) {
+export function labelForStage(stage) {
   switch (stage) {
     case 'group':  return 'Group Stage';
     case 'r32':    return 'Round of 32';
