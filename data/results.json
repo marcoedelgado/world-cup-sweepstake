@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-11T21:25:24.319Z",
+  "lastUpdated": "2026-06-12T06:17:36.561Z",
   "matches": [
     {
       "id": "537327",
@@ -19,9 +19,9 @@
       "group": "A",
       "home": "KOR",
       "away": "CZE",
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null
+      "status": "finished",
+      "homeScore": 2,
+      "awayScore": 1
     },
     {
       "id": "537333",
