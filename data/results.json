@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-14T02:05:22.935Z",
+  "lastUpdated": "2026-06-14T06:54:33.547Z",
   "matches": [
     {
       "id": "537327",
@@ -74,7 +74,7 @@
       "group": "C",
       "home": "HAI",
       "away": "SCO",
-      "status": "live",
+      "status": "finished",
       "homeScore": 0,
       "awayScore": 1
     },
@@ -85,9 +85,9 @@
       "group": "D",
       "home": "AUS",
       "away": "TUR",
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null
+      "status": "finished",
+      "homeScore": 2,
+      "awayScore": 0
     },
     {
       "id": "537351",
