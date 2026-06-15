@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-15T09:20:50.802Z",
+  "lastUpdated": "2026-06-15T19:11:20.931Z",
   "matches": [
     {
       "id": "537327",
@@ -140,9 +140,9 @@
       "group": "H",
       "home": "ESP",
       "away": "CPV",
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null
+      "status": "finished",
+      "homeScore": 0,
+      "awayScore": 0
     },
     {
       "id": "537363",
@@ -151,9 +151,9 @@
       "group": "G",
       "home": "BEL",
       "away": "EGY",
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null
+      "status": "live",
+      "homeScore": 0,
+      "awayScore": 0
     },
     {
       "id": "537370",
