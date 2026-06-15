@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-15T19:11:20.931Z",
+  "lastUpdated": "2026-06-15T21:49:08.856Z",
   "matches": [
     {
       "id": "537327",
@@ -151,9 +151,9 @@
       "group": "G",
       "home": "BEL",
       "away": "EGY",
-      "status": "live",
-      "homeScore": 0,
-      "awayScore": 0
+      "status": "finished",
+      "homeScore": 1,
+      "awayScore": 1
     },
     {
       "id": "537370",
