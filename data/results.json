@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-16T02:05:31.852Z",
+  "lastUpdated": "2026-06-16T07:37:47.585Z",
   "matches": [
     {
       "id": "537327",
@@ -173,9 +173,9 @@
       "group": "G",
       "home": "IRN",
       "away": "NZL",
-      "status": "live",
-      "homeScore": 1,
-      "awayScore": 1
+      "status": "finished",
+      "homeScore": 2,
+      "awayScore": 2
     },
     {
       "id": "537391",
