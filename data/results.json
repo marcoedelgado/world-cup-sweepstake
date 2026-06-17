@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-17T20:54:20.636Z",
+  "lastUpdated": "2026-06-17T22:28:27.870Z",
   "matches": [
     {
       "id": "537327",
@@ -239,9 +239,9 @@
       "group": "L",
       "home": "ENG",
       "away": "CRO",
-      "status": "live",
-      "homeScore": 2,
-      "awayScore": 1
+      "status": "finished",
+      "homeScore": 4,
+      "awayScore": 2
     },
     {
       "id": "537410",
