@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-18T18:17:58.432Z",
+  "lastUpdated": "2026-06-18T20:40:57.587Z",
   "matches": [
     {
       "id": "537327",
@@ -283,9 +283,9 @@
       "group": "B",
       "home": "SUI",
       "away": "BIH",
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null
+      "status": "live",
+      "homeScore": 1,
+      "awayScore": 0
     },
     {
       "id": "537336",
