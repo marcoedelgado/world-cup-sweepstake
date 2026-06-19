@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-19T20:02:23.846Z",
+  "lastUpdated": "2026-06-19T21:16:12.826Z",
   "matches": [
     {
       "id": "537327",
@@ -316,7 +316,7 @@
       "group": "D",
       "home": "USA",
       "away": "AUS",
-      "status": "live",
+      "status": "finished",
       "homeScore": 2,
       "awayScore": 0
     },
