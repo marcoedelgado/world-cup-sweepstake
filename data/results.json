@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-20T01:30:10.386Z",
+  "lastUpdated": "2026-06-20T05:55:30.535Z",
   "matches": [
     {
       "id": "537327",
@@ -338,7 +338,7 @@
       "group": "C",
       "home": "BRA",
       "away": "HAI",
-      "status": "live",
+      "status": "finished",
       "homeScore": 3,
       "awayScore": 0
     },
@@ -349,9 +349,9 @@
       "group": "D",
       "home": "TUR",
       "away": "PAR",
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null
+      "status": "finished",
+      "homeScore": 0,
+      "awayScore": 1
     },
     {
       "id": "537359",
