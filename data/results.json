@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-20T05:55:30.535Z",
+  "lastUpdated": "2026-06-20T17:51:28.966Z",
   "matches": [
     {
       "id": "537327",
@@ -360,9 +360,9 @@
       "group": "F",
       "home": "NED",
       "away": "SWE",
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null
+      "status": "live",
+      "homeScore": 2,
+      "awayScore": 0
     },
     {
       "id": "537353",
