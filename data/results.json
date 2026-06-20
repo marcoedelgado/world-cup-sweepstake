@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-19T22:14:33.438Z",
+  "lastUpdated": "2026-06-20T01:30:10.386Z",
   "matches": [
     {
       "id": "537327",
@@ -327,7 +327,7 @@
       "group": "C",
       "home": "SCO",
       "away": "MAR",
-      "status": "live",
+      "status": "finished",
       "homeScore": 0,
       "awayScore": 1
     },
@@ -338,9 +338,9 @@
       "group": "C",
       "home": "BRA",
       "away": "HAI",
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null
+      "status": "live",
+      "homeScore": 3,
+      "awayScore": 0
     },
     {
       "id": "537347",
