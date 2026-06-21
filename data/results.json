@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-21T19:56:59.850Z",
+  "lastUpdated": "2026-06-21T21:10:51.747Z",
   "matches": [
     {
       "id": "537327",
@@ -31,8 +31,8 @@
       "home": "CAN",
       "away": "BIH",
       "status": "finished",
-      "homeScore": 1,
-      "awayScore": 1
+      "homeScore": null,
+      "awayScore": null
     },
     {
       "id": "537345",
@@ -405,7 +405,7 @@
       "home": "ESP",
       "away": "KSA",
       "status": "finished",
-      "homeScore": 5,
+      "homeScore": 4,
       "awayScore": 0
     },
     {
@@ -415,9 +415,9 @@
       "group": "G",
       "home": "BEL",
       "away": "IRN",
-      "status": "live",
+      "status": "finished",
       "homeScore": 0,
-      "awayScore": 1
+      "awayScore": 0
     },
     {
       "id": "537372",
