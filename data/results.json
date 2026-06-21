@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-20T22:49:28.132Z",
+  "lastUpdated": "2026-06-21T02:14:57.233Z",
   "matches": [
     {
       "id": "537327",
@@ -382,9 +382,9 @@
       "group": "E",
       "home": "ECU",
       "away": "CUW",
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null
+      "status": "finished",
+      "homeScore": 0,
+      "awayScore": 0
     },
     {
       "id": "537360",
