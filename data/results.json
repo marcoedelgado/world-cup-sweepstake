@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-21T22:35:22.593Z",
+  "lastUpdated": "2026-06-21T23:53:19.180Z",
   "matches": [
     {
       "id": "537327",
@@ -427,8 +427,8 @@
       "home": "URU",
       "away": "CPV",
       "status": "live",
-      "homeScore": 0,
-      "awayScore": 1
+      "homeScore": 2,
+      "awayScore": 2
     },
     {
       "id": "537366",
