@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-21T21:10:51.747Z",
+  "lastUpdated": "2026-06-21T22:35:22.593Z",
   "matches": [
     {
       "id": "537327",
@@ -31,8 +31,8 @@
       "home": "CAN",
       "away": "BIH",
       "status": "finished",
-      "homeScore": null,
-      "awayScore": null
+      "homeScore": 1,
+      "awayScore": 1
     },
     {
       "id": "537345",
@@ -426,9 +426,9 @@
       "group": "H",
       "home": "URU",
       "away": "CPV",
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null
+      "status": "live",
+      "homeScore": 0,
+      "awayScore": 1
     },
     {
       "id": "537366",
