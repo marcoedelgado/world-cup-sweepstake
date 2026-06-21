@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-21T18:03:11.911Z",
+  "lastUpdated": "2026-06-21T19:56:59.850Z",
   "matches": [
     {
       "id": "537327",
@@ -404,7 +404,7 @@
       "group": "H",
       "home": "ESP",
       "away": "KSA",
-      "status": "live",
+      "status": "finished",
       "homeScore": 5,
       "awayScore": 0
     },
@@ -415,9 +415,9 @@
       "group": "G",
       "home": "BEL",
       "away": "IRN",
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null
+      "status": "live",
+      "homeScore": 0,
+      "awayScore": 1
     },
     {
       "id": "537372",
