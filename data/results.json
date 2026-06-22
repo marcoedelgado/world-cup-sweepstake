@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-22T07:40:38.779Z",
+  "lastUpdated": "2026-06-22T17:54:52.427Z",
   "matches": [
     {
       "id": "537327",
@@ -448,9 +448,9 @@
       "group": "J",
       "home": "ARG",
       "away": "AUT",
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null
+      "status": "live",
+      "homeScore": 1,
+      "awayScore": 0
     },
     {
       "id": "537393",
