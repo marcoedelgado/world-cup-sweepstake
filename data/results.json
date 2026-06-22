@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-21T23:53:19.180Z",
+  "lastUpdated": "2026-06-22T02:12:07.508Z",
   "matches": [
     {
       "id": "537327",
@@ -426,7 +426,7 @@
       "group": "H",
       "home": "URU",
       "away": "CPV",
-      "status": "live",
+      "status": "finished",
       "homeScore": 2,
       "awayScore": 2
     },
@@ -437,9 +437,9 @@
       "group": "G",
       "home": "NZL",
       "away": "EGY",
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null
+      "status": "live",
+      "homeScore": 1,
+      "awayScore": 0
     },
     {
       "id": "537399",
