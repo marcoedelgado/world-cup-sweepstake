@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-23T14:10:07.586Z",
+  "lastUpdated": "2026-06-23T16:39:35.843Z",
   "matches": [
     {
       "id": "537327",
@@ -31,8 +31,8 @@
       "home": "CAN",
       "away": "BIH",
       "status": "finished",
-      "homeScore": null,
-      "awayScore": null
+      "homeScore": 1,
+      "awayScore": 1
     },
     {
       "id": "537345",
