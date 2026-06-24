@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-24T04:33:10.559Z",
+  "lastUpdated": "2026-06-24T19:13:06.368Z",
   "matches": [
     {
       "id": "537327",
@@ -536,9 +536,9 @@
       "group": "B",
       "home": "SUI",
       "away": "CAN",
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null
+      "status": "live",
+      "homeScore": 0,
+      "awayScore": 0
     },
     {
       "id": "537338",
@@ -547,9 +547,9 @@
       "group": "B",
       "home": "BIH",
       "away": "QAT",
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null
+      "status": "live",
+      "homeScore": 0,
+      "awayScore": 0
     },
     {
       "id": "537344",
