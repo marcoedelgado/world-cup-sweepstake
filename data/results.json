@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-25T05:43:28.773Z",
+  "lastUpdated": "2026-06-25T20:25:41.220Z",
   "matches": [
     {
       "id": "537327",
@@ -602,9 +602,9 @@
       "group": "E",
       "home": "ECU",
       "away": "GER",
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null
+      "status": "live",
+      "homeScore": 1,
+      "awayScore": 1
     },
     {
       "id": "537356",
@@ -613,9 +613,9 @@
       "group": "E",
       "home": "CUW",
       "away": "CIV",
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null
+      "status": "live",
+      "homeScore": 0,
+      "awayScore": 1
     },
     {
       "id": "537361",
