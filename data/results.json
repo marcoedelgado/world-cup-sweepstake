@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-25T21:58:29.720Z",
+  "lastUpdated": "2026-06-25T23:17:51.207Z",
   "matches": [
     {
       "id": "537327",
@@ -602,7 +602,7 @@
       "group": "E",
       "home": "ECU",
       "away": "GER",
-      "status": "live",
+      "status": "finished",
       "homeScore": 2,
       "awayScore": 1
     },
@@ -613,7 +613,7 @@
       "group": "E",
       "home": "CUW",
       "away": "CIV",
-      "status": "live",
+      "status": "finished",
       "homeScore": 0,
       "awayScore": 2
     },
@@ -624,9 +624,9 @@
       "group": "F",
       "home": "TUN",
       "away": "NED",
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null
+      "status": "live",
+      "homeScore": 0,
+      "awayScore": 2
     },
     {
       "id": "537362",
@@ -635,9 +635,9 @@
       "group": "F",
       "home": "JPN",
       "away": "SWE",
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null
+      "status": "live",
+      "homeScore": 0,
+      "awayScore": 0
     },
     {
       "id": "537349",
