@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-24T23:20:56.615Z",
+  "lastUpdated": "2026-06-25T01:29:48.920Z",
   "matches": [
     {
       "id": "537327",
@@ -31,8 +31,8 @@
       "home": "CAN",
       "away": "BIH",
       "status": "finished",
-      "homeScore": 1,
-      "awayScore": 1
+      "homeScore": null,
+      "awayScore": null
     },
     {
       "id": "537345",
@@ -558,8 +558,8 @@
       "group": "C",
       "home": "MAR",
       "away": "HAI",
-      "status": "live",
-      "homeScore": 2,
+      "status": "finished",
+      "homeScore": 4,
       "awayScore": 2
     },
     {
@@ -569,9 +569,9 @@
       "group": "C",
       "home": "SCO",
       "away": "BRA",
-      "status": "live",
+      "status": "finished",
       "homeScore": 0,
-      "awayScore": 2
+      "awayScore": 3
     },
     {
       "id": "537331",
@@ -580,9 +580,9 @@
       "group": "A",
       "home": "CZE",
       "away": "MEX",
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null
+      "status": "live",
+      "homeScore": 0,
+      "awayScore": 0
     },
     {
       "id": "537332",
@@ -591,9 +591,9 @@
       "group": "A",
       "home": "RSA",
       "away": "KOR",
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null
+      "status": "live",
+      "homeScore": 0,
+      "awayScore": 0
     },
     {
       "id": "537355",
