@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-26T19:16:47.504Z",
+  "lastUpdated": "2026-06-26T20:57:05.231Z",
   "matches": [
     {
       "id": "537327",
@@ -669,8 +669,8 @@
       "home": "NOR",
       "away": "FRA",
       "status": "live",
-      "homeScore": 0,
-      "awayScore": 1
+      "homeScore": 1,
+      "awayScore": 3
     },
     {
       "id": "537396",
@@ -680,7 +680,7 @@
       "home": "SEN",
       "away": "IRQ",
       "status": "live",
-      "homeScore": 1,
+      "homeScore": 5,
       "awayScore": 0
     },
     {
