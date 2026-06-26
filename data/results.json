@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-25T23:17:51.207Z",
+  "lastUpdated": "2026-06-26T01:31:54.235Z",
   "matches": [
     {
       "id": "537327",
@@ -580,9 +580,9 @@
       "group": "A",
       "home": "CZE",
       "away": "MEX",
-      "status": "finished",
-      "homeScore": 0,
-      "awayScore": 3
+      "status": "scheduled",
+      "homeScore": null,
+      "awayScore": null
     },
     {
       "id": "537332",
@@ -591,9 +591,9 @@
       "group": "A",
       "home": "RSA",
       "away": "KOR",
-      "status": "finished",
-      "homeScore": 1,
-      "awayScore": 0
+      "status": "scheduled",
+      "homeScore": null,
+      "awayScore": null
     },
     {
       "id": "537355",
@@ -602,9 +602,9 @@
       "group": "E",
       "home": "ECU",
       "away": "GER",
-      "status": "finished",
-      "homeScore": 2,
-      "awayScore": 1
+      "status": "scheduled",
+      "homeScore": null,
+      "awayScore": null
     },
     {
       "id": "537356",
@@ -613,9 +613,9 @@
       "group": "E",
       "home": "CUW",
       "away": "CIV",
-      "status": "finished",
-      "homeScore": 0,
-      "awayScore": 2
+      "status": "scheduled",
+      "homeScore": null,
+      "awayScore": null
     },
     {
       "id": "537361",
@@ -624,9 +624,9 @@
       "group": "F",
       "home": "TUN",
       "away": "NED",
-      "status": "live",
-      "homeScore": 0,
-      "awayScore": 2
+      "status": "scheduled",
+      "homeScore": null,
+      "awayScore": null
     },
     {
       "id": "537362",
@@ -635,9 +635,9 @@
       "group": "F",
       "home": "JPN",
       "away": "SWE",
-      "status": "live",
-      "homeScore": 0,
-      "awayScore": 0
+      "status": "scheduled",
+      "homeScore": null,
+      "awayScore": null
     },
     {
       "id": "537349",
