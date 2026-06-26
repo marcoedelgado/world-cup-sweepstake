@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-26T17:26:44.094Z",
+  "lastUpdated": "2026-06-26T19:16:47.504Z",
   "matches": [
     {
       "id": "537327",
@@ -668,9 +668,9 @@
       "group": "I",
       "home": "NOR",
       "away": "FRA",
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null
+      "status": "live",
+      "homeScore": 0,
+      "awayScore": 1
     },
     {
       "id": "537396",
@@ -679,9 +679,9 @@
       "group": "I",
       "home": "SEN",
       "away": "IRQ",
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null
+      "status": "live",
+      "homeScore": 1,
+      "awayScore": 0
     },
     {
       "id": "537373",
@@ -789,6 +789,50 @@
       "group": "J",
       "home": "ALG",
       "away": "AUT",
+      "status": "scheduled",
+      "homeScore": null,
+      "awayScore": null
+    },
+    {
+      "id": "537417",
+      "kickoff": "2026-06-28T19:00:00Z",
+      "stage": "group",
+      "group": null,
+      "home": "RSA",
+      "away": "CAN",
+      "status": "scheduled",
+      "homeScore": null,
+      "awayScore": null
+    },
+    {
+      "id": "537423",
+      "kickoff": "2026-06-29T17:00:00Z",
+      "stage": "group",
+      "group": null,
+      "home": "BRA",
+      "away": "JPN",
+      "status": "scheduled",
+      "homeScore": null,
+      "awayScore": null
+    },
+    {
+      "id": "537418",
+      "kickoff": "2026-06-30T01:00:00Z",
+      "stage": "group",
+      "group": null,
+      "home": "NED",
+      "away": "MAR",
+      "status": "scheduled",
+      "homeScore": null,
+      "awayScore": null
+    },
+    {
+      "id": "537421",
+      "kickoff": "2026-07-02T00:00:00Z",
+      "stage": "group",
+      "group": null,
+      "home": "USA",
+      "away": "BIH",
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null
