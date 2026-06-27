@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-27T17:50:41.719Z",
+  "lastUpdated": "2026-06-27T21:16:31.233Z",
   "matches": [
     {
       "id": "537327",
@@ -734,9 +734,9 @@
       "group": "L",
       "home": "PAN",
       "away": "ENG",
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null
+      "status": "live",
+      "homeScore": 0,
+      "awayScore": 0
     },
     {
       "id": "537414",
@@ -745,9 +745,9 @@
       "group": "L",
       "home": "CRO",
       "away": "GHA",
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null
+      "status": "live",
+      "homeScore": 0,
+      "awayScore": 0
     },
     {
       "id": "537407",
