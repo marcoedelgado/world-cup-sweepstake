@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-27T01:25:30.828Z",
+  "lastUpdated": "2026-06-27T05:08:05.538Z",
   "matches": [
     {
       "id": "537327",
@@ -690,7 +690,7 @@
       "group": "H",
       "home": "URU",
       "away": "ESP",
-      "status": "live",
+      "status": "finished",
       "homeScore": 0,
       "awayScore": 1
     },
@@ -701,7 +701,7 @@
       "group": "H",
       "home": "CPV",
       "away": "KSA",
-      "status": "live",
+      "status": "finished",
       "homeScore": 0,
       "awayScore": 0
     },
@@ -712,9 +712,9 @@
       "group": "G",
       "home": "NZL",
       "away": "BEL",
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null
+      "status": "finished",
+      "homeScore": 1,
+      "awayScore": 5
     },
     {
       "id": "537368",
@@ -723,9 +723,9 @@
       "group": "G",
       "home": "EGY",
       "away": "IRN",
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null
+      "status": "live",
+      "homeScore": 1,
+      "awayScore": 2
     },
     {
       "id": "537413",
