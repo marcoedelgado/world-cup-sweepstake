@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-27T08:04:25.453Z",
+  "lastUpdated": "2026-06-27T12:58:36.550Z",
   "matches": [
     {
       "id": "537327",
@@ -789,50 +789,6 @@
       "group": "J",
       "home": "ALG",
       "away": "AUT",
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null
-    },
-    {
-      "id": "537417",
-      "kickoff": "2026-06-28T19:00:00Z",
-      "stage": "group",
-      "group": null,
-      "home": "RSA",
-      "away": "CAN",
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null
-    },
-    {
-      "id": "537423",
-      "kickoff": "2026-06-29T17:00:00Z",
-      "stage": "group",
-      "group": null,
-      "home": "BRA",
-      "away": "JPN",
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null
-    },
-    {
-      "id": "537418",
-      "kickoff": "2026-06-30T01:00:00Z",
-      "stage": "group",
-      "group": null,
-      "home": "NED",
-      "away": "MAR",
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null
-    },
-    {
-      "id": "537421",
-      "kickoff": "2026-07-02T00:00:00Z",
-      "stage": "group",
-      "group": null,
-      "home": "USA",
-      "away": "BIH",
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null
