@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-28T19:50:36.997Z",
+  "lastUpdated": "2026-06-28T21:16:51.164Z",
   "matches": [
     {
       "id": "537327",
@@ -800,9 +800,9 @@
       "group": null,
       "home": "RSA",
       "away": "CAN",
-      "status": "live",
+      "status": "finished",
       "homeScore": 0,
-      "awayScore": 0
+      "awayScore": 1
     },
     {
       "id": "537423",
