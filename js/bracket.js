@@ -1,11 +1,14 @@
-import { loadAll, fixtureMode, withFixture } from './data.js';
+import { loadAll, fixtureMode, withFixture, reloadResults } from './data.js';
 import { renderHeader } from './render/header.js';
 import { renderBracket } from './render/bracket-render.js';
 import { renderFixtureBanner } from './render/fixture-banner.js';
 import { initTeamTooltips } from './render/team-tooltip.js';
+import { pickLiveMatches, syncStickerLiveClass, syncCellLiveClass } from './render/live.js';
 import { tournamentPhase } from './phase.js';
 import { escape } from './utils.js';
 import { formatMatchDateTime } from './tz.js';
+
+const LIVE_SYNC_MS = 30_000;
 
 async function main() {
   const root = document.getElementById('bracket');
@@ -20,6 +23,24 @@ async function main() {
   paint(root, state);
   initTeamTooltips();
   window.addEventListener('tz-change', () => paint(root, state));
+
+  if (!fixtureMode) {
+    const applyLive = () => {
+      const live = pickLiveMatches(state.results?.matches ?? [], new Date().toISOString());
+      syncStickerLiveClass(live);
+      syncCellLiveClass(live);
+    };
+    const sync = async () => {
+      try {
+        const fresh = await reloadResults();
+        state.results = fresh;
+        paint(root, state);
+      } catch { /* keep stale */ }
+      applyLive();
+    };
+    applyLive();
+    setInterval(sync, LIVE_SYNC_MS);
+  }
 }
 
 function paint(root, state) {

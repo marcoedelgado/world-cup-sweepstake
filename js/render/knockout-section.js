@@ -1,4 +1,5 @@
 import { renderBracket } from './bracket-render.js';
+import { pickLiveMatches, syncStickerLiveClass, syncCellLiveClass } from './live.js';
 
 const STORAGE_KEY = 'sweep26.knockoutOpen';
 
@@ -25,8 +26,10 @@ export function renderKnockoutSection(container, state) {
     if (rendered) return;
     renderBracket(body, state);
     rendered = true;
+    const live = pickLiveMatches(state.results?.matches ?? [], new Date().toISOString());
+    syncStickerLiveClass(live);
+    syncCellLiveClass(live);
   };
-  if (isOpen) renderIfNeeded();
 
   const btn = section.querySelector('.pn-knockout-toggle');
   btn.addEventListener('click', () => {
@@ -38,6 +41,7 @@ export function renderKnockoutSection(container, state) {
   });
 
   container.appendChild(section);
+  if (isOpen) renderIfNeeded();
 }
 
 function toggleLabel(isOpen) {

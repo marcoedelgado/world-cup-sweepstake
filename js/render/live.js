@@ -65,11 +65,18 @@ function matchFingerprint(matches) {
   return (matches ?? []).map((m) => `${m.id}|${m.status}|${m.homeScore}|${m.awayScore}`).join(',');
 }
 
-function syncStickerLiveClass(liveMatches) {
+export function syncStickerLiveClass(liveMatches) {
   const codes = new Set();
   for (const m of liveMatches) { codes.add(m.home); codes.add(m.away); }
   for (const el of document.querySelectorAll('.pn-sticker[data-team]')) {
     el.classList.toggle('live', codes.has(el.dataset.team));
+  }
+}
+
+export function syncCellLiveClass(liveMatches) {
+  const ids = new Set(liveMatches.map((m) => String(m.id)));
+  for (const el of document.querySelectorAll('[data-match-id]')) {
+    el.classList.toggle('live', ids.has(el.dataset.matchId));
   }
 }
 
@@ -147,6 +154,7 @@ export function mountLiveSection(container, state) {
       renderStatus(slot, state, nowIso);
     }
     syncStickerLiveClass(live);
+    syncCellLiveClass(live);
   }
 
   tick();

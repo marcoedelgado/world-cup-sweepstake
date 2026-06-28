@@ -65,8 +65,10 @@ function paint(root, state) {
     if (FEATURES.groupStandings) {
       renderStandingsSection(root, state);
     }
-    renderLatestResults(root, state, now);
-    renderUpcoming(root, state, now);
+    if (phase !== 'knockout') {
+      renderLatestResults(root, state, now);
+      renderUpcoming(root, state, now);
+    }
   }
   renderFooter(root, state, now);
   window.scrollTo(0, scrollY);

@@ -77,7 +77,34 @@ function renderMobileBracket(matches, teams, owners) {
     renderMobileStage(stage, target, matches, teams, owners);
   });
 
+  attachSwipeNav(stage, tabs);
+
   return wrap;
+}
+
+function attachSwipeNav(stage, tabs) {
+  let startX = 0, startY = 0, tracking = false;
+  stage.addEventListener('touchstart', (e) => {
+    if (e.touches.length !== 1) { tracking = false; return; }
+    startX = e.touches[0].clientX;
+    startY = e.touches[0].clientY;
+    tracking = true;
+  }, { passive: true });
+  stage.addEventListener('touchend', (e) => {
+    if (!tracking) return;
+    tracking = false;
+    const t = e.changedTouches[0];
+    const dx = t.clientX - startX;
+    const dy = t.clientY - startY;
+    if (Math.abs(dx) < 50) return;
+    if (Math.abs(dy) > Math.abs(dx)) return;
+    const buttons = [...tabs.querySelectorAll('.br-mtab')];
+    const idx = buttons.findIndex((b) => b.classList.contains('active'));
+    if (idx < 0) return;
+    const newIdx = dx < 0 ? idx + 1 : idx - 1;
+    if (newIdx < 0 || newIdx >= buttons.length) return;
+    buttons[newIdx].click();
+  }, { passive: true });
 }
 
 function pickDefaultFocal(matches) {
@@ -145,19 +172,22 @@ function focalCellHtml(m, teams, owners) {
   const homeOwner = ownerForTeam(owners, m.home);
   const awayOwner = ownerForTeam(owners, m.away);
   const finished = m.status === 'finished';
+  const live = m.status === 'live';
   const homeLost = finished && m.homeScore < m.awayScore;
   const awayLost = finished && m.awayScore < m.homeScore;
+  const homeSc = live ? 'TBC' : (m.homeScore ?? '');
+  const awaySc = live ? 'TBC' : (m.awayScore ?? '');
   return `
-  <div class="br-fm">
+  <div class="br-fm" data-match-id="${escape(m.id ?? '')}">
     <div class="br-fm-row${homeLost ? ' lost' : ''}" data-full="${escape(home?.name ?? m.home ?? '')}" title="${escape(home?.name ?? m.home ?? '')}">
       <span class="pn-sticker"><span class="flag">${flag(home)}</span><span class="code">${escape(m.home ?? '?')}</span></span>
       ${ownerTag(homeOwner)}
-      <span class="br-fm-sc">${escape(String(m.homeScore ?? ''))}</span>
+      <span class="br-fm-sc">${escape(String(homeSc))}</span>
     </div>
     <div class="br-fm-row${awayLost ? ' lost' : ''}" data-full="${escape(away?.name ?? m.away ?? '')}" title="${escape(away?.name ?? m.away ?? '')}">
       <span class="pn-sticker"><span class="flag">${flag(away)}</span><span class="code">${escape(m.away ?? '?')}</span></span>
       ${ownerTag(awayOwner)}
-      <span class="br-fm-sc">${escape(String(m.awayScore ?? ''))}</span>
+      <span class="br-fm-sc">${escape(String(awaySc))}</span>
     </div>
     <div class="br-fm-when">${m.kickoff ? formatMatchDateTime(m.kickoff) : 'TBD'}</div>
   </div>
@@ -179,17 +209,20 @@ function nextPairHtml(m, teams, owners) {
   const homeOwner = ownerForTeam(owners, m.home);
   const awayOwner = ownerForTeam(owners, m.away);
   const finished = m.status === 'finished';
+  const live = m.status === 'live';
+  const homeSc = live ? 'TBC' : (m.homeScore ?? (finished ? '' : ''));
+  const awaySc = live ? 'TBC' : (m.awayScore ?? (finished ? '' : ''));
   return `
-    <div class="br-nc">
+    <div class="br-nc" data-match-id="${escape(m.id ?? '')}">
       <div class="br-nc-row" data-full="${escape(home?.name ?? m.home ?? '')}" title="${escape(home?.name ?? m.home ?? '')}">
         <span class="pn-sticker"><span class="flag">${flag(home)}</span><span class="code">${escape(m.home ?? '?')}</span></span>
         ${ownerTag(homeOwner)}
-        <span class="br-nc-sc">${escape(String(m.homeScore ?? (finished ? '' : '')))}</span>
+        <span class="br-nc-sc">${escape(String(homeSc))}</span>
       </div>
       <div class="br-nc-row" data-full="${escape(away?.name ?? m.away ?? '')}" title="${escape(away?.name ?? m.away ?? '')}">
         <span class="pn-sticker"><span class="flag">${flag(away)}</span><span class="code">${escape(m.away ?? '?')}</span></span>
         ${ownerTag(awayOwner)}
-        <span class="br-nc-sc">${escape(String(m.awayScore ?? (finished ? '' : '')))}</span>
+        <span class="br-nc-sc">${escape(String(awaySc))}</span>
       </div>
       ${m.kickoff ? `<div class="br-nc-when">${formatMatchDateTime(m.kickoff)}</div>` : ''}
     </div>
@@ -318,14 +351,15 @@ function cellHtml(m, teams, owners) {
   const homeLost = finished && m.homeScore < m.awayScore;
   const awayLost = finished && m.awayScore < m.homeScore;
 
-  const homeScore = m.homeScore ?? '';
-  const awayScore = m.awayScore ?? '';
+  const live = m.status === 'live';
+  const homeScore = live ? 'TBC' : (m.homeScore ?? '');
+  const awayScore = live ? 'TBC' : (m.awayScore ?? '');
   const when = finished
     ? `${formatMatchDateTime(m.kickoff)} · finished`
     : (m.kickoff ? formatMatchDateTime(m.kickoff) : 'TBD');
 
   return `
-  <div class="br-cell">
+  <div class="br-cell" data-match-id="${escape(m.id ?? '')}">
     <div class="br-team${homeLost ? ' lost' : ''}" data-full="${escape(home?.name ?? m.home ?? 'TBD')}" title="${escape(home?.name ?? m.home ?? 'TBD')}">
       <span class="pn-sticker"><span class="flag">${flag(home)}</span><span class="code">${escape(m.home ?? '?')}</span></span>
       ${ownerTag(homeOwner)}
