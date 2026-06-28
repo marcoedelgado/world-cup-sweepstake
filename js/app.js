@@ -5,6 +5,7 @@ import { renderAlbumGroup, renderAlbumHeat } from './render/album.js';
 import { renderLatestResults }  from './render/results.js';
 import { renderUpcoming }       from './render/upcoming.js';
 import { renderStandingsSection } from './render/standings-section.js';
+import { renderKnockoutSection } from './render/knockout-section.js';
 import { renderFooter }         from './render/footer.js';
 import { renderFixtureBanner }  from './render/fixture-banner.js';
 import { initTeamTooltips }     from './render/team-tooltip.js';
@@ -60,6 +61,7 @@ function paint(root, state) {
     } else {
       renderAlbumGroup(root, state);
     }
+    renderKnockoutSection(root, state);
     if (FEATURES.groupStandings) {
       renderStandingsSection(root, state);
     }
