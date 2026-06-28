@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-28T08:50:04.288Z",
+  "lastUpdated": "2026-06-28T19:50:36.997Z",
   "matches": [
     {
       "id": "537327",
@@ -796,18 +796,18 @@
     {
       "id": "537417",
       "kickoff": "2026-06-28T19:00:00Z",
-      "stage": "group",
+      "stage": "r32",
       "group": null,
       "home": "RSA",
       "away": "CAN",
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null
+      "status": "live",
+      "homeScore": 0,
+      "awayScore": 0
     },
     {
       "id": "537423",
       "kickoff": "2026-06-29T17:00:00Z",
-      "stage": "group",
+      "stage": "r32",
       "group": null,
       "home": "BRA",
       "away": "JPN",
@@ -818,7 +818,7 @@
     {
       "id": "537415",
       "kickoff": "2026-06-29T20:30:00Z",
-      "stage": "group",
+      "stage": "r32",
       "group": null,
       "home": "GER",
       "away": "PAR",
@@ -829,7 +829,7 @@
     {
       "id": "537418",
       "kickoff": "2026-06-30T01:00:00Z",
-      "stage": "group",
+      "stage": "r32",
       "group": null,
       "home": "NED",
       "away": "MAR",
@@ -840,7 +840,7 @@
     {
       "id": "537424",
       "kickoff": "2026-06-30T17:00:00Z",
-      "stage": "group",
+      "stage": "r32",
       "group": null,
       "home": "CIV",
       "away": "NOR",
@@ -851,7 +851,7 @@
     {
       "id": "537416",
       "kickoff": "2026-06-30T21:00:00Z",
-      "stage": "group",
+      "stage": "r32",
       "group": null,
       "home": "FRA",
       "away": "SWE",
@@ -862,7 +862,7 @@
     {
       "id": "537425",
       "kickoff": "2026-07-01T01:00:00Z",
-      "stage": "group",
+      "stage": "r32",
       "group": null,
       "home": "MEX",
       "away": "ECU",
@@ -873,7 +873,7 @@
     {
       "id": "537426",
       "kickoff": "2026-07-01T16:00:00Z",
-      "stage": "group",
+      "stage": "r32",
       "group": null,
       "home": "ENG",
       "away": "COD",
@@ -884,7 +884,7 @@
     {
       "id": "537422",
       "kickoff": "2026-07-01T20:00:00Z",
-      "stage": "group",
+      "stage": "r32",
       "group": null,
       "home": "BEL",
       "away": "SEN",
@@ -895,7 +895,7 @@
     {
       "id": "537421",
       "kickoff": "2026-07-02T00:00:00Z",
-      "stage": "group",
+      "stage": "r32",
       "group": null,
       "home": "USA",
       "away": "BIH",
@@ -906,7 +906,7 @@
     {
       "id": "537420",
       "kickoff": "2026-07-02T19:00:00Z",
-      "stage": "group",
+      "stage": "r32",
       "group": null,
       "home": "ESP",
       "away": "AUT",
@@ -917,7 +917,7 @@
     {
       "id": "537419",
       "kickoff": "2026-07-02T23:00:00Z",
-      "stage": "group",
+      "stage": "r32",
       "group": null,
       "home": "POR",
       "away": "CRO",
@@ -928,7 +928,7 @@
     {
       "id": "537429",
       "kickoff": "2026-07-03T03:00:00Z",
-      "stage": "group",
+      "stage": "r32",
       "group": null,
       "home": "SUI",
       "away": "ALG",
@@ -939,7 +939,7 @@
     {
       "id": "537428",
       "kickoff": "2026-07-03T18:00:00Z",
-      "stage": "group",
+      "stage": "r32",
       "group": null,
       "home": "AUS",
       "away": "EGY",
@@ -950,7 +950,7 @@
     {
       "id": "537427",
       "kickoff": "2026-07-03T22:00:00Z",
-      "stage": "group",
+      "stage": "r32",
       "group": null,
       "home": "ARG",
       "away": "CPV",
@@ -961,7 +961,7 @@
     {
       "id": "537430",
       "kickoff": "2026-07-04T01:30:00Z",
-      "stage": "group",
+      "stage": "r32",
       "group": null,
       "home": "COL",
       "away": "GHA",
