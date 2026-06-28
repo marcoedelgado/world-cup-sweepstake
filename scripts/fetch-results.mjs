@@ -13,6 +13,7 @@ const TEAMS_PATH = path.resolve('data/teams.json');
 
 const STAGE_MAP = {
   GROUP_STAGE: 'group',
+  LAST_32: 'r32',
   ROUND_OF_32: 'r32',
   LAST_16: 'r16',
   ROUND_OF_16: 'r16',
@@ -21,6 +22,8 @@ const STAGE_MAP = {
   THIRD_PLACE: 'third',
   FINAL: 'final',
 };
+
+const unknownStages = new Set();
 const STATUS_MAP = {
   SCHEDULED: 'scheduled',
   TIMED:     'scheduled',
@@ -52,6 +55,10 @@ async function main() {
   const json = await res.json();
   const matches = (json.matches ?? []).map(toMatch).filter(Boolean);
   matches.sort((a, b) => a.kickoff.localeCompare(b.kickoff));
+
+  if (unknownStages.size > 0) {
+    console.error(`::warning::Unrecognised API stage(s) fell back to 'group': ${[...unknownStages].join(', ')}. Add to STAGE_MAP in scripts/fetch-results.mjs.`);
+  }
 
   await warnIfOrphanCodes(matches);
 
@@ -93,10 +100,12 @@ function toMatch(m) {
   const home = remap(m.homeTeam?.tla);
   const away = remap(m.awayTeam?.tla);
   if (!home || !away) return null;
+  const mappedStage = STAGE_MAP[m.stage];
+  if (mappedStage === undefined && m.stage) unknownStages.add(m.stage);
   return {
     id: String(m.id),
     kickoff: m.utcDate,
-    stage: STAGE_MAP[m.stage] ?? 'group',
+    stage: mappedStage ?? 'group',
     group: m.group ? m.group.replace('GROUP_', '') : null,
     home,
     away,
