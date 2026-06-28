@@ -697,7 +697,7 @@ body {
 }
 .br-team {
   display: grid;
-  grid-template-columns: 26px 1fr auto auto;
+  grid-template-columns: 26px 1fr auto;
   gap: 6px;
   align-items: center;
   padding: 2px 0;
@@ -708,7 +708,7 @@ body {
 .br-team .pn-sticker { width: 22px; height: 28px; padding: 1px; }
 .br-team .pn-sticker .flag { font-size: 11px; }
 .br-team .pn-sticker .code { font-size: 6px; }
-.br-team .br-name { font-weight: 700; }
+.br-team .pn-owner-tag { justify-self: start; }
 .br-team .br-sc { font-weight: 900; color: var(--maroon); font-size: 14px; min-width: 14px; text-align: right; }
 .br-when { font-size: 9px; font-style: italic; opacity: 0.55; text-align: center; margin-top: 2px; text-transform: uppercase; letter-spacing: 0.5px; }
 
@@ -860,7 +860,7 @@ body {
 }
 .br-fm-row {
   display: grid;
-  grid-template-columns: 26px auto 1fr auto;
+  grid-template-columns: 26px 1fr auto;
   gap: 6px;
   align-items: center;
 }
@@ -868,8 +868,7 @@ body {
 .br-fm-row .pn-sticker { width: 22px; height: 28px; padding: 1px; }
 .br-fm-row .pn-sticker .flag { font-size: 11px; }
 .br-fm-row .pn-sticker .code { font-size: 6px; }
-.br-fm-code { font-weight: 700; font-size: 12px; }
-.br-fm-row .pn-owner-tag { justify-self: end; }
+.br-fm-row .pn-owner-tag { justify-self: start; }
 .br-fm-sc {
   font-weight: 900;
   color: var(--maroon);
@@ -916,7 +915,7 @@ body {
 .br-nc-row .pn-sticker { width: 20px; height: 26px; padding: 1px; }
 .br-nc-row .pn-sticker .flag { font-size: 10px; }
 .br-nc-row .pn-sticker .code { font-size: 5px; }
-.br-nc-code { font-weight: 700; font-size: 11px; }
+.br-nc-row .pn-owner-tag { justify-self: start; }
 .br-nc-sc { font-weight: 900; color: var(--maroon); font-size: 12px; min-width: 10px; text-align: right; }
 .br-nc-when {
   font-size: 8px;

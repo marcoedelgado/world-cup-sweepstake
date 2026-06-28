@@ -23,7 +23,6 @@ const MOBILE_ROUNDS = [
 
 export function renderBracket(container, { teams, owners, results }) {
   const matches = results?.matches ?? [];
-  const ownersList = owners?.owners ?? [];
 
   const r32 = matches.filter((m) => m.stage === 'r32');
   const r32Complete = r32.length === 16 && r32.every((m) => m.status === 'finished');
@@ -31,8 +30,8 @@ export function renderBracket(container, { teams, owners, results }) {
   // Desktop: existing mirror bracket + flat R32 section, ordered by phase.
   const desktopWrap = document.createElement('div');
   desktopWrap.className = 'br-desktop';
-  const r32Section = renderR32Section(matches, teams, ownersList);
-  const knockoutsSection = renderKnockoutsSection(matches, teams, ownersList);
+  const r32Section = renderR32Section(matches, teams, owners);
+  const knockoutsSection = renderKnockoutsSection(matches, teams, owners);
   if (r32Complete) {
     desktopWrap.appendChild(knockoutsSection);
     desktopWrap.appendChild(r32Section);
@@ -43,10 +42,10 @@ export function renderBracket(container, { teams, owners, results }) {
   container.appendChild(desktopWrap);
 
   // Mobile: focal-round detail + next-round pair cards (one column each).
-  container.appendChild(renderMobileBracket(matches, teams, ownersList));
+  container.appendChild(renderMobileBracket(matches, teams, owners));
 }
 
-function renderMobileBracket(matches, teams, ownersList) {
+function renderMobileBracket(matches, teams, owners) {
   const wrap = document.createElement('section');
   wrap.className = 'br-mobile pn-section';
 
@@ -67,7 +66,7 @@ function renderMobileBracket(matches, teams, ownersList) {
   stage.className = 'br-mstage';
   wrap.appendChild(stage);
 
-  renderMobileStage(stage, focalKey, matches, teams, ownersList);
+  renderMobileStage(stage, focalKey, matches, teams, owners);
 
   tabs.addEventListener('click', (e) => {
     const btn = e.target.closest('.br-mtab');
@@ -75,7 +74,7 @@ function renderMobileBracket(matches, teams, ownersList) {
     const target = btn.dataset.target;
     if (!target) return;
     tabs.querySelectorAll('.br-mtab').forEach((b) => b.classList.toggle('active', b === btn));
-    renderMobileStage(stage, target, matches, teams, ownersList);
+    renderMobileStage(stage, target, matches, teams, owners);
   });
 
   return wrap;
@@ -97,7 +96,7 @@ function roundIsDone(round, matches) {
   return list.every((m) => m.status === 'finished');
 }
 
-function renderMobileStage(stage, focalKey, matches, teams, ownersList) {
+function renderMobileStage(stage, focalKey, matches, teams, owners) {
   const focal = MOBILE_ROUNDS.find((r) => r.key === focalKey);
   const next = focal.next ? MOBILE_ROUNDS.find((r) => r.key === focal.next) : null;
 
@@ -108,7 +107,7 @@ function renderMobileStage(stage, focalKey, matches, teams, ownersList) {
   const focalCells = [];
   for (let i = 0; i < focal.expected; i++) {
     focalCells.push(i < focalMatches.length
-      ? focalCellHtml(focalMatches[i], teams, ownersList)
+      ? focalCellHtml(focalMatches[i], teams, owners)
       : focalPlaceholderHtml());
   }
 
@@ -120,7 +119,7 @@ function renderMobileStage(stage, focalKey, matches, teams, ownersList) {
     const nextCells = [];
     for (let i = 0; i < next.expected; i++) {
       nextCells.push(i < nextMatches.length
-        ? nextPairHtml(nextMatches[i], teams)
+        ? nextPairHtml(nextMatches[i], teams, owners)
         : nextPlaceholderHtml());
     }
     nextHtml = `
@@ -140,31 +139,29 @@ function renderMobileStage(stage, focalKey, matches, teams, ownersList) {
   `;
 }
 
-function focalCellHtml(m, teams, ownersList) {
+function focalCellHtml(m, teams, owners) {
   const home = teamByCode(teams, m.home);
   const away = teamByCode(teams, m.away);
-  const homeOwner = ownerForTeam(ownersList, m.home);
-  const awayOwner = ownerForTeam(ownersList, m.away);
+  const homeOwner = ownerForTeam(owners, m.home);
+  const awayOwner = ownerForTeam(owners, m.away);
   const finished = m.status === 'finished';
   const homeLost = finished && m.homeScore < m.awayScore;
   const awayLost = finished && m.awayScore < m.homeScore;
   return `
-    <div class="br-fm">
-      <div class="br-fm-row${homeLost ? ' lost' : ''}" data-full="${escape(home?.name ?? m.home ?? '')}">
-        <span class="pn-sticker"><span class="flag">${flag(home)}</span><span class="code">${escape(m.home ?? '?')}</span></span>
-        <span class="br-fm-code">${escape(m.home ?? '?')}</span>
-        ${ownerTag(homeOwner)}
-        <span class="br-fm-sc">${escape(String(m.homeScore ?? ''))}</span>
-      </div>
-      <div class="br-fm-row${awayLost ? ' lost' : ''}" data-full="${escape(away?.name ?? m.away ?? '')}">
-        <span class="pn-sticker"><span class="flag">${flag(away)}</span><span class="code">${escape(m.away ?? '?')}</span></span>
-        <span class="br-fm-code">${escape(m.away ?? '?')}</span>
-        ${ownerTag(awayOwner)}
-        <span class="br-fm-sc">${escape(String(m.awayScore ?? ''))}</span>
-      </div>
-      <div class="br-fm-when">${m.kickoff ? formatMatchDateTime(m.kickoff) : 'TBD'}</div>
+  <div class="br-fm">
+    <div class="br-fm-row${homeLost ? ' lost' : ''}" data-full="${escape(home?.name ?? m.home ?? '')}" title="${escape(home?.name ?? m.home ?? '')}">
+      <span class="pn-sticker"><span class="flag">${flag(home)}</span><span class="code">${escape(m.home ?? '?')}</span></span>
+      ${ownerTag(homeOwner)}
+      <span class="br-fm-sc">${escape(String(m.homeScore ?? ''))}</span>
     </div>
-  `;
+    <div class="br-fm-row${awayLost ? ' lost' : ''}" data-full="${escape(away?.name ?? m.away ?? '')}" title="${escape(away?.name ?? m.away ?? '')}">
+      <span class="pn-sticker"><span class="flag">${flag(away)}</span><span class="code">${escape(m.away ?? '?')}</span></span>
+      ${ownerTag(awayOwner)}
+      <span class="br-fm-sc">${escape(String(m.awayScore ?? ''))}</span>
+    </div>
+    <div class="br-fm-when">${m.kickoff ? formatMatchDateTime(m.kickoff) : 'TBD'}</div>
+  </div>
+`;
 }
 
 function focalPlaceholderHtml() {
@@ -176,20 +173,22 @@ function focalPlaceholderHtml() {
   `;
 }
 
-function nextPairHtml(m, teams) {
+function nextPairHtml(m, teams, owners) {
   const home = teamByCode(teams, m.home);
   const away = teamByCode(teams, m.away);
+  const homeOwner = ownerForTeam(owners, m.home);
+  const awayOwner = ownerForTeam(owners, m.away);
   const finished = m.status === 'finished';
   return `
     <div class="br-nc">
-      <div class="br-nc-row" data-full="${escape(home?.name ?? m.home ?? '')}">
+      <div class="br-nc-row" data-full="${escape(home?.name ?? m.home ?? '')}" title="${escape(home?.name ?? m.home ?? '')}">
         <span class="pn-sticker"><span class="flag">${flag(home)}</span><span class="code">${escape(m.home ?? '?')}</span></span>
-        <span class="br-nc-code">${escape(m.home ?? '?')}</span>
+        ${ownerTag(homeOwner)}
         <span class="br-nc-sc">${escape(String(m.homeScore ?? (finished ? '' : '')))}</span>
       </div>
-      <div class="br-nc-row" data-full="${escape(away?.name ?? m.away ?? '')}">
+      <div class="br-nc-row" data-full="${escape(away?.name ?? m.away ?? '')}" title="${escape(away?.name ?? m.away ?? '')}">
         <span class="pn-sticker"><span class="flag">${flag(away)}</span><span class="code">${escape(m.away ?? '?')}</span></span>
-        <span class="br-nc-code">${escape(m.away ?? '?')}</span>
+        ${ownerTag(awayOwner)}
         <span class="br-nc-sc">${escape(String(m.awayScore ?? (finished ? '' : '')))}</span>
       </div>
       ${m.kickoff ? `<div class="br-nc-when">${formatMatchDateTime(m.kickoff)}</div>` : ''}
@@ -206,7 +205,7 @@ function nextPlaceholderHtml() {
   `;
 }
 
-function renderR32Section(matches, teams, ownersList) {
+function renderR32Section(matches, teams, owners) {
   const section = document.createElement('section');
   section.className = 'pn-section br-r32-section';
 
@@ -216,7 +215,7 @@ function renderR32Section(matches, teams, ownersList) {
   const cells = [];
   for (let i = 0; i < 16; i++) {
     cells.push(i < real.length
-      ? cellHtml(real[i], teams, ownersList)
+      ? cellHtml(real[i], teams, owners)
       : placeholderCellHtml());
   }
   section.innerHTML = `
@@ -226,7 +225,7 @@ function renderR32Section(matches, teams, ownersList) {
   return section;
 }
 
-function renderKnockoutsSection(matches, teams, ownersList) {
+function renderKnockoutsSection(matches, teams, owners) {
   const section = document.createElement('section');
   section.className = 'pn-section br-knockouts-section';
   section.innerHTML = `<h3>Knockouts</h3>`;
@@ -242,16 +241,16 @@ function renderKnockoutsSection(matches, teams, ownersList) {
   const scroller = document.createElement('div');
   scroller.className = 'br-scroll';
   for (const r of MIRROR_ROUNDS) {
-    scroller.appendChild(renderMirrorRound(r, matches, teams, ownersList));
+    scroller.appendChild(renderMirrorRound(r, matches, teams, owners));
   }
-  scroller.appendChild(renderThirdPlace(matches, teams, ownersList));
+  scroller.appendChild(renderThirdPlace(matches, teams, owners));
   section.appendChild(scroller);
 
   wireTabs(tabs, scroller);
   return section;
 }
 
-function renderMirrorRound({ key, label, expected }, allMatches, teams, ownersList) {
+function renderMirrorRound({ key, label, expected }, allMatches, teams, owners) {
   const section = document.createElement('section');
   section.className = 'br-round';
   section.dataset.round = key;
@@ -262,7 +261,7 @@ function renderMirrorRound({ key, label, expected }, allMatches, teams, ownersLi
   const cellHtmls = [];
   for (let i = 0; i < expected; i++) {
     cellHtmls.push(i < real.length
-      ? cellHtml(real[i], teams, ownersList)
+      ? cellHtml(real[i], teams, owners)
       : placeholderCellHtml());
   }
 
@@ -293,13 +292,13 @@ function renderMirrorRound({ key, label, expected }, allMatches, teams, ownersLi
   return section;
 }
 
-function renderThirdPlace(allMatches, teams, ownersList) {
+function renderThirdPlace(allMatches, teams, owners) {
   const section = document.createElement('section');
   section.className = 'br-round br-third';
   section.dataset.round = 'third';
 
   const m = allMatches.find((x) => x.stage === 'third');
-  const inner = m ? cellHtml(m, teams, ownersList) : placeholderCellHtml();
+  const inner = m ? cellHtml(m, teams, owners) : placeholderCellHtml();
   section.innerHTML = `
     <div class="br-side br-side-mid">
       <div class="br-round-label">3rd Place</div>
@@ -309,11 +308,11 @@ function renderThirdPlace(allMatches, teams, ownersList) {
   return section;
 }
 
-function cellHtml(m, teams, ownersList) {
+function cellHtml(m, teams, owners) {
   const home = teamByCode(teams, m.home);
   const away = teamByCode(teams, m.away);
-  const homeOwner = ownerForTeam(ownersList, m.home);
-  const awayOwner = ownerForTeam(ownersList, m.away);
+  const homeOwner = ownerForTeam(owners, m.home);
+  const awayOwner = ownerForTeam(owners, m.away);
 
   const finished = m.status === 'finished';
   const homeLost = finished && m.homeScore < m.awayScore;
@@ -326,22 +325,20 @@ function cellHtml(m, teams, ownersList) {
     : (m.kickoff ? formatMatchDateTime(m.kickoff) : 'TBD');
 
   return `
-    <div class="br-cell">
-      <div class="br-team${homeLost ? ' lost' : ''}">
-        <span class="pn-sticker"><span class="flag">${flag(home)}</span><span class="code">${escape(m.home ?? '?')}</span></span>
-        <span class="br-name">${escape(home?.name ?? m.home ?? 'TBD')}</span>
-        ${ownerTag(homeOwner)}
-        <span class="br-sc">${escape(String(homeScore))}</span>
-      </div>
-      <div class="br-team${awayLost ? ' lost' : ''}">
-        <span class="pn-sticker"><span class="flag">${flag(away)}</span><span class="code">${escape(m.away ?? '?')}</span></span>
-        <span class="br-name">${escape(away?.name ?? m.away ?? 'TBD')}</span>
-        ${ownerTag(awayOwner)}
-        <span class="br-sc">${escape(String(awayScore))}</span>
-      </div>
-      <div class="br-when">${when}</div>
+  <div class="br-cell">
+    <div class="br-team${homeLost ? ' lost' : ''}" data-full="${escape(home?.name ?? m.home ?? 'TBD')}" title="${escape(home?.name ?? m.home ?? 'TBD')}">
+      <span class="pn-sticker"><span class="flag">${flag(home)}</span><span class="code">${escape(m.home ?? '?')}</span></span>
+      ${ownerTag(homeOwner)}
+      <span class="br-sc">${escape(String(homeScore))}</span>
     </div>
-  `;
+    <div class="br-team${awayLost ? ' lost' : ''}" data-full="${escape(away?.name ?? m.away ?? 'TBD')}" title="${escape(away?.name ?? m.away ?? 'TBD')}">
+      <span class="pn-sticker"><span class="flag">${flag(away)}</span><span class="code">${escape(m.away ?? '?')}</span></span>
+      ${ownerTag(awayOwner)}
+      <span class="br-sc">${escape(String(awayScore))}</span>
+    </div>
+    <div class="br-when">${when}</div>
+  </div>
+`;
 }
 
 function placeholderCellHtml() {
