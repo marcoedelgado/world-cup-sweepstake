@@ -2,6 +2,7 @@ import { renderStatus } from './status.js';
 import { teamByCode, ownerForTeam, reloadResults } from '../data.js';
 import { escape, flag } from '../utils.js';
 import { labelForStage } from './cover.js';
+import { formatTime } from '../tz.js';
 
 const PRE_ROLL_MIN = 10;
 const GROUP_END_MIN = 110;
@@ -82,10 +83,12 @@ function headHtml(match, nowMs, phase) {
     `;
   }
   const chip = timeChip(match, nowMs);
+  const ko = `KO ${formatTime(match.kickoff)}`;
   return `
     <span class="pn-live-dot"></span>
     <span class="pn-live-label">Live now</span>
     <span class="pn-live-stage">· ${escape(stageChip(match))}</span>
+    <span class="pn-live-stage">· ${escape(ko)}</span>
     ${chip ? `<span class="pn-live-when">${escape(chip)}</span>` : ''}
   `;
 }

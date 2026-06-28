@@ -598,9 +598,8 @@ body {
 .pn-group-tbl .qmk { color: var(--alive); font-weight: 800; }
 .pn-group-tbl .xmk { color: var(--dead); }
 .pn-group-tbl tr.elim-row td { opacity: 0.55; }
-.pn-sticker.mini { width: 22px; height: 28px; vertical-align: middle; padding: 1px; margin-right: 2px; }
-.pn-sticker.mini .flag { font-size: 11px; }
-.pn-sticker.mini .code { font-size: 6px; }
+.pn-group-tbl .t-name { display: none; }
+.pn-group-tbl .t-code { display: inline; }
 
 /* ---------- Owner card clickable ---------- */
 .pn-owner.clickable {
