@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-28T21:16:51.164Z",
+  "lastUpdated": "2026-06-29T17:35:41.186Z",
   "matches": [
     {
       "id": "537327",
@@ -811,9 +811,9 @@
       "group": null,
       "home": "BRA",
       "away": "JPN",
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null
+      "status": "live",
+      "homeScore": 0,
+      "awayScore": 1
     },
     {
       "id": "537415",
