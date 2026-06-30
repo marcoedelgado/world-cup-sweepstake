@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-30T05:39:59.467Z",
+  "lastUpdated": "2026-06-30T08:45:00.778Z",
   "matches": [
     {
       "id": "537327",
@@ -834,7 +834,7 @@
       "home": "NED",
       "away": "MAR",
       "status": "finished",
-      "homeScore": 4,
+      "homeScore": 3,
       "awayScore": 4
     },
     {
@@ -965,6 +965,17 @@
       "group": null,
       "home": "COL",
       "away": "GHA",
+      "status": "scheduled",
+      "homeScore": null,
+      "awayScore": null
+    },
+    {
+      "id": "537376",
+      "kickoff": "2026-07-04T17:00:00Z",
+      "stage": "r16",
+      "group": null,
+      "home": "CAN",
+      "away": "MAR",
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null
