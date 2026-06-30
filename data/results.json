@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-30T22:55:25.666Z",
+  "lastUpdated": "2026-06-30T23:59:48.874Z",
   "matches": [
     {
       "id": "537327",
@@ -844,9 +844,9 @@
       "group": null,
       "home": "CIV",
       "away": "NOR",
-      "status": "finished",
-      "homeScore": 1,
-      "awayScore": 2
+      "status": "scheduled",
+      "homeScore": null,
+      "awayScore": null
     },
     {
       "id": "537416",
@@ -855,7 +855,7 @@
       "group": null,
       "home": "FRA",
       "away": "SWE",
-      "status": "live",
+      "status": "finished",
       "homeScore": 3,
       "awayScore": 0
     },
