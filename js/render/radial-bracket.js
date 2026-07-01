@@ -52,7 +52,8 @@ export function renderRadial(container, state) {
   ownerList.forEach((o, i) => {
     const chip = document.createElement('span');
     chip.dataset.owner = o.name;
-    chip.innerHTML = `<i style="background:${OWNER_PALETTE[i % OWNER_PALETTE.length]}"></i>${o.name}`;
+    chip.textContent = o.name;
+    chip.style.background = OWNER_PALETTE[i % OWNER_PALETTE.length];
     legend.appendChild(chip);
   });
   const resetChip = document.createElement('span');
@@ -69,9 +70,10 @@ export function renderRadial(container, state) {
   const defs = el('defs');
   svg.appendChild(defs);
   const glow = el('radialGradient', { id: 'pn-goldGlow' });
-  glow.appendChild(el('stop', { offset: '0%', 'stop-color': '#fff3c4', 'stop-opacity': '.9' }));
-  glow.appendChild(el('stop', { offset: '40%', 'stop-color': '#f2b705', 'stop-opacity': '.35' }));
-  glow.appendChild(el('stop', { offset: '100%', 'stop-color': '#f2b705', 'stop-opacity': '0' }));
+  // amber halo that reads on the cream page (a pale-gold glow would vanish)
+  glow.appendChild(el('stop', { offset: '0%', 'stop-color': '#f6c04a', 'stop-opacity': '.7' }));
+  glow.appendChild(el('stop', { offset: '45%', 'stop-color': '#ee964b', 'stop-opacity': '.32' }));
+  glow.appendChild(el('stop', { offset: '100%', 'stop-color': '#ee964b', 'stop-opacity': '0' }));
   defs.appendChild(glow);
 
   // ---- edges ----
@@ -199,9 +201,8 @@ export function renderRadial(container, state) {
     teamEls.push({ g, edges: leafEdges[i], lit, owner: owner?.name ?? null, name: teamByCode[leaf.code]?.name ?? leaf.code });
   });
 
-  // ---- interactions: owner filter (persistent) + hover/tap trace ----
-  const selected = new Set();
-  let pinned = null;
+  // ---- interactions: single-select owner filter + hover trace + name-on-click ----
+  let selectedOwner = null;
 
   const clearFx = () => {
     teamEls.forEach((t) => t.g.classList.remove('dim'));
@@ -212,26 +213,24 @@ export function renderRadial(container, state) {
     rec.g.classList.remove('dim');
     rec.lit.forEach((id) => edgeById[id]?.classList.add('hot'));
   };
-  const focusOwners = () => teamEls.forEach((t) => {
-    if (t.owner && selected.has(t.owner)) t.lit.forEach((id) => edgeById[id]?.classList.add('hot'));
+  const focusOwner = () => teamEls.forEach((t) => {
+    if (t.owner === selectedOwner) t.lit.forEach((id) => edgeById[id]?.classList.add('hot'));
     else t.g.classList.add('dim');
   });
   const paint = () => {
     clearFx();
-    resetChip.hidden = selected.size === 0 && pinned === null;
-    legend.querySelectorAll('[data-owner]').forEach((c) => c.classList.toggle('active', selected.has(c.dataset.owner)));
-    if (pinned != null && teamEls[pinned]?.edges.length) focusTeam(teamEls[pinned]);
-    else if (selected.size) focusOwners();
+    resetChip.hidden = selectedOwner === null;
+    legend.classList.toggle('has-sel', selectedOwner !== null);
+    legend.querySelectorAll('[data-owner]').forEach((c) => c.classList.toggle('active', c.dataset.owner === selectedOwner));
+    if (selectedOwner) focusOwner();
   };
 
   legend.addEventListener('click', (e) => {
     const chip = e.target.closest('span');
     if (!chip) return;
-    if (chip.classList.contains('reset')) { selected.clear(); pinned = null; }
-    else if (chip.dataset.owner) {
-      if (selected.has(chip.dataset.owner)) selected.delete(chip.dataset.owner);
-      else selected.add(chip.dataset.owner);
-    } else return;
+    if (chip.classList.contains('reset')) selectedOwner = null;
+    else if (chip.dataset.owner) selectedOwner = selectedOwner === chip.dataset.owner ? null : chip.dataset.owner;
+    else return;
     paint();
   });
   gTeams.addEventListener('mouseover', (e) => {
@@ -243,16 +242,12 @@ export function renderRadial(container, state) {
     focusTeam(rec);
   });
   gTeams.addEventListener('mouseout', paint);
+  // Clicking a team just reveals its country name — no path pinning.
   gTeams.addEventListener('click', (e) => {
     const g = e.target.closest('.pn-team');
     if (!g) return;
-    const idx = [...gTeams.children].indexOf(g);
-    const rec = teamEls[idx];
-    if (!rec?.edges.length) return;
-    // Show the country name on press; stop the document handler from hiding it.
-    if (rec.name) { showTeamTooltip(e.clientX, e.clientY, rec.name); e.stopPropagation(); }
-    pinned = pinned === idx ? null : idx;
-    paint();
+    const rec = teamEls[[...gTeams.children].indexOf(g)];
+    if (rec?.name) { showTeamTooltip(e.clientX, e.clientY, rec.name); e.stopPropagation(); }
   });
 
   container.appendChild(wrap);

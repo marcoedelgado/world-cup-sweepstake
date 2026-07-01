@@ -1139,48 +1139,61 @@ body {
 }
 
 /* ---------- Radial knockout bracket ---------- */
-.pn-koview { display: flex; gap: 6px; margin: 0 0 12px; }
+/* Radial|Classic toggle — matches the Panini card-button language (paper card,
+   ink border, offset shadow; active flips to gold and presses in). Sits a touch
+   lower under the gold "Hide knockout bracket" button. */
+.pn-koview { display: flex; gap: 8px; margin: 12px 0 14px; }
 .pn-koview button {
-  font: inherit; font-size: 13px; padding: 5px 12px; cursor: pointer;
-  border: 1px solid var(--paper-edge); background: var(--paper-bright);
-  color: var(--ink); border-radius: 20px;
+  font: inherit; font-weight: 700; font-size: 12px; padding: 6px 14px; cursor: pointer;
+  background: var(--paper-bright); border: 1.5px solid var(--ink);
+  border-radius: var(--radius); box-shadow: var(--shadow); color: var(--ink);
+  transition: transform .1s ease, box-shadow .1s ease, background .1s ease;
 }
-.pn-koview button.active { background: var(--ink); color: var(--paper-bright); }
+.pn-koview button:hover:not(.active) { transform: translate(-0.5px, -0.5px); box-shadow: 2px 2px 0 var(--ink); }
+.pn-koview button.active { background: var(--gold); box-shadow: 0.5px 0.5px 0 var(--ink); transform: translate(1px, 1px); }
 
 .pn-radial {
-  /* warm espresso "night sky" tuned to the Panini brown, framed so it doesn't
-     slam a cold black rectangle into the cream page */
-  background: radial-gradient(circle at 50% 44%, #34281a 0%, #221910 45%, #16100a 100%);
-  border: 1px solid var(--paper-edge);
+  /* Light theme: radial sits directly on the Panini paper, no dark panel. */
+  background: transparent;
   border-radius: 14px;
   padding: 12px 6px 20px;
-  box-shadow: inset 0 0 70px rgba(0, 0, 0, .38), 0 2px 12px rgba(43, 29, 14, .22);
 }
+/* Owner filter — filled owner-colour pills (colour is the background, no dot).
+   Wraps naturally on desktop; a tidy 3-per-row grid on mobile. */
 .pn-radial-legend {
-  display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; padding: 6px 10px 12px;
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: center;
+  gap: 6px 8px; padding: 6px 10px 12px;
 }
 .pn-radial-legend span {
-  display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: #ccc;
-  cursor: pointer; padding: 4px 10px; border-radius: 20px; border: 1px solid transparent;
-  user-select: none; transition: background .15s, color .15s;
+  display: inline-flex; align-items: center; justify-content: center; font-size: 12px;
+  font-weight: 600; color: var(--ink); cursor: pointer; padding: 4px 12px; border-radius: 20px;
+  border: 2px solid transparent; box-shadow: var(--shadow); user-select: none;
+  transition: transform .1s ease, opacity .15s ease, border-color .15s ease;
 }
-.pn-radial-legend span:hover { background: rgba(255, 255, 255, .06); }
-.pn-radial-legend span.active { background: rgba(255, 255, 255, .1); color: #fff; }
-.pn-radial-legend i { width: 11px; height: 11px; border-radius: 50%; display: inline-block; }
-.pn-radial-legend .reset { color: #888; border: 1px dashed #444; }
+.pn-radial-legend span:hover { transform: translate(-0.5px, -0.5px); }
+.pn-radial-legend span.active { border-color: var(--ink); }
+.pn-radial-legend.has-sel span:not(.active):not(.reset) { opacity: .45; }
+.pn-radial-legend .reset {
+  color: #8a7a55; background: var(--paper-bright); border: 1px dashed var(--paper-edge); box-shadow: none;
+}
 .pn-radial-legend .reset[hidden] { display: none; }
+
+@media (max-width: 600px) {
+  .pn-radial-legend { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+  .pn-radial-legend .reset { grid-column: 1 / -1; justify-self: center; }
+}
 
 .pn-radial svg { display: block; width: 100%; height: auto; max-width: 600px; margin: 0 auto; }
 
-.pn-edge { fill: none; stroke: #4a4638; stroke-width: 1.4; transition: stroke .15s, stroke-width .15s; }
-.pn-edge.hot { stroke: #fff; stroke-width: 2.6; }
-.pn-node { fill: #2a2822; stroke: #4a4638; stroke-width: 1; }
+.pn-edge { fill: none; stroke: #b6a377; stroke-width: 1.4; transition: stroke .15s, stroke-width .15s; }
+.pn-edge.hot { stroke: var(--maroon); stroke-width: 2.8; }
+.pn-node { fill: #a08c5c; stroke: none; }
 .pn-trophy { font-size: 52px; text-anchor: middle; dominant-baseline: central; }
 .pn-flag { font-size: 27px; text-anchor: middle; dominant-baseline: central; }
 .pn-inner-flag { text-anchor: middle; dominant-baseline: central; }
-.pn-inner-ring { fill: #0b0b0e; stroke-width: 2; }
-.pn-code { font-size: 8px; text-anchor: middle; dominant-baseline: central; fill: #9a9; letter-spacing: .03em; }
-.pn-flag-tbd { fill: #111; stroke: #333; stroke-width: 1; }
+.pn-inner-ring { fill: var(--paper-bright); stroke-width: 2; }
+.pn-code { font-size: 8px; text-anchor: middle; dominant-baseline: central; fill: #8a7a55; letter-spacing: .03em; }
+.pn-flag-tbd { fill: var(--out); stroke: var(--paper-edge); stroke-width: 1; }
 .pn-face-ring { fill: none; stroke-width: 2.5; transition: stroke-width .15s; }
 .pn-team { cursor: pointer; }
 .pn-team.dim { opacity: .3; }
