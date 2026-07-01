@@ -167,7 +167,7 @@ export function renderRadial(container, state) {
     if (owner?.photo) {
       const S = FACE_R * 2 * FACE_ZOOM;
       g.appendChild(el('image', {
-        class: 'pn-face', href: owner.photo,
+        href: owner.photo,
         x: px - FOCUS_X * S, y: py - FOCUS_Y * S, width: S, height: S,
         'clip-path': `url(#${clipId})`, preserveAspectRatio: 'xMidYMid slice',
       }));
