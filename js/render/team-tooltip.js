@@ -31,6 +31,12 @@ function ensure() {
   return tooltipEl;
 }
 
+// Explicitly show the tooltip at a point (used by the radial bracket, which
+// wants the country name on press regardless of viewport).
+export function showTeamTooltip(clientX, clientY, text) {
+  if (text) show(clientX, clientY, text);
+}
+
 function show(clientX, clientY, text) {
   const t = ensure();
   t.textContent = text;

@@ -1,4 +1,5 @@
 import { buildBracketTree, computeEliminated, winnersByNode } from './radial-model.js';
+import { showTeamTooltip } from './team-tooltip.js';
 import { OWNER_PALETTE } from '../config.js';
 
 const CX = 500, CY = 500, STEP = 360 / 32;
@@ -147,7 +148,7 @@ export function renderRadial(container, state) {
       t.textContent = 'TBD';
       g.appendChild(t);
       gTeams.appendChild(g);
-      teamEls.push({ g, edges: [], owner: null });
+      teamEls.push({ g, edges: [], lit: [], owner: null, name: null });
       return;
     }
 
@@ -184,7 +185,18 @@ export function renderRadial(container, state) {
     g.appendChild(ct);
 
     gTeams.appendChild(g);
-    teamEls.push({ g, edges: leafEdges[i], owner: owner?.name ?? null });
+
+    // Highlight path = full run to the trophy for teams still alive; for
+    // eliminated teams, only as far as the round they went out (rounds won
+    // + the stub into the match they lost).
+    let wins = 0;
+    for (let k = 0; k < 5; k++) {
+      if (winners.get(`${k}-${Math.floor(i / 2 ** (k + 1))}`) === leaf.code) wins++;
+      else break;
+    }
+    const lit = eliminated.has(leaf.code) ? leafEdges[i].slice(0, wins + 1) : leafEdges[i];
+
+    teamEls.push({ g, edges: leafEdges[i], lit, owner: owner?.name ?? null, name: teamByCode[leaf.code]?.name ?? leaf.code });
   });
 
   // ---- interactions: owner filter (persistent) + hover/tap trace ----
@@ -198,10 +210,10 @@ export function renderRadial(container, state) {
   const focusTeam = (rec) => {
     teamEls.forEach((t) => t.g.classList.add('dim'));
     rec.g.classList.remove('dim');
-    rec.edges.forEach((id) => edgeById[id]?.classList.add('hot'));
+    rec.lit.forEach((id) => edgeById[id]?.classList.add('hot'));
   };
   const focusOwners = () => teamEls.forEach((t) => {
-    if (t.owner && selected.has(t.owner)) t.edges.forEach((id) => edgeById[id]?.classList.add('hot'));
+    if (t.owner && selected.has(t.owner)) t.lit.forEach((id) => edgeById[id]?.classList.add('hot'));
     else t.g.classList.add('dim');
   });
   const paint = () => {
@@ -235,7 +247,10 @@ export function renderRadial(container, state) {
     const g = e.target.closest('.pn-team');
     if (!g) return;
     const idx = [...gTeams.children].indexOf(g);
-    if (!teamEls[idx]?.edges.length) return;
+    const rec = teamEls[idx];
+    if (!rec?.edges.length) return;
+    // Show the country name on press; stop the document handler from hiding it.
+    if (rec.name) { showTeamTooltip(e.clientX, e.clientY, rec.name); e.stopPropagation(); }
     pinned = pinned === idx ? null : idx;
     paint();
   });
