@@ -7,6 +7,18 @@ export function sortByKickoff(list) {
   return [...list].sort((a, b) => (a.kickoff ?? '').localeCompare(b.kickoff ?? ''));
 }
 
+// Bracket order is defined by match id, not kickoff: consecutive ids feed the
+// next round (id 415 & 416 meet in the R16, etc). Kickoff order scrambles this
+// on real fixtures, so we key the tree off the trailing integer of the id.
+function bracketKey(id) {
+  const m = String(id ?? '').match(/(\d+)(?!.*\d)/);
+  return m ? Number(m[1]) : 0;
+}
+
+export function sortByBracket(list) {
+  return [...list].sort((a, b) => bracketKey(a?.id) - bracketKey(b?.id));
+}
+
 export function matchWinner(m) {
   if (!m || m.status !== 'finished') return null;
   if (m.homeScore == null || m.awayScore == null) return null;
@@ -17,7 +29,7 @@ export function matchWinner(m) {
 
 // 16 R32 matches (kickoff order) -> 32 leaves + node levels [16,8,4,2,1].
 export function buildBracketTree(r32Matches) {
-  const r32 = sortByKickoff(r32Matches).slice(0, 16);
+  const r32 = sortByBracket(r32Matches).slice(0, 16);
   const leaves = [];
   for (let m = 0; m < 16; m++) {
     const mm = r32[m];
@@ -55,19 +67,56 @@ export function computeEliminated(matches) {
   return out;
 }
 
-// Map "level-index" -> advancing team code, indexed by per-stage kickoff order.
+// Map "level-index" -> advancing team code.
+//
+// The bracket topology (which R32 matches meet in the R16, which R16 winners
+// meet in the QF, ...) is fixed by match-id adjacency at the R32 leaves. Later
+// rounds are then placed by *team code*: an R16/QF/... match belongs to the
+// node whose two children already produced exactly its two competitors. This
+// is result-driven and never relies on per-stage kickoff order (which does not
+// line up with the tree on real fixtures).
 export function winnersByNode(matches) {
+  const stageByLevel = ['r32', 'r16', 'qf', 'sf', 'final'];
   const byStage = {};
   for (const m of matches) {
     if (!(m.stage in KO_LEVEL)) continue;
     (byStage[m.stage] ??= []).push(m);
   }
+
   const map = new Map();
-  for (const [stage, lv] of Object.entries(KO_LEVEL)) {
-    sortByKickoff(byStage[stage] ?? []).forEach((m, i) => {
-      const w = matchWinner(m);
-      if (w) map.set(`${lv}-${i}`, w);
-    });
+  // winnerAt[level][index] = code that won that node's match (else null).
+  const winnerAt = [];
+
+  // Level 0 (R32): node index follows the same bracket ordering as the tree.
+  const r32 = sortByBracket(byStage.r32 ?? []).slice(0, 16);
+  winnerAt[0] = r32.map((m, i) => {
+    const w = matchWinner(m);
+    if (w) map.set(`0-${i}`, w);
+    return w ?? null;
+  });
+
+  // Levels 1..4: match each stage's fixtures to the node whose two children
+  // produced its competitors.
+  for (let lv = 1; lv < 5; lv++) {
+    const nodes = winnerAt[lv - 1].length >> 1;
+    const stageMatches = byStage[stageByLevel[lv]] ?? [];
+    const used = new Set();
+    winnerAt[lv] = [];
+    for (let j = 0; j < nodes; j++) {
+      const a = winnerAt[lv - 1][j * 2];
+      const b = winnerAt[lv - 1][j * 2 + 1];
+      let w = null;
+      if (a && b) {
+        const idx = stageMatches.findIndex((m, i) => !used.has(i)
+          && ((m.home === a && m.away === b) || (m.home === b && m.away === a)));
+        if (idx !== -1) {
+          used.add(idx);
+          w = matchWinner(stageMatches[idx]);
+          if (w) map.set(`${lv}-${j}`, w);
+        }
+      }
+      winnerAt[lv].push(w);
+    }
   }
   return map;
 }

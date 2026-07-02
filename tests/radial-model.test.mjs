@@ -87,6 +87,43 @@ test('winnersByNode maps finished matches to level-index', () => {
   assert.equal(w.get('0-2'), undefined);
 });
 
+test('buildBracketTree orders leaves by match id, not kickoff', () => {
+  // Real KO data: kickoff order does NOT match bracket order. The bracket is
+  // defined by match-id adjacency (consecutive ids meet in the next round).
+  const late = {
+    id: 'm100', stage: 'r32', kickoff: '2026-06-28T20:00:00Z',
+    home: 'CCC', away: 'DDD', status: 'scheduled', homeScore: null, awayScore: null,
+  };
+  const early = {
+    id: 'm101', stage: 'r32', kickoff: '2026-06-28T10:00:00Z',
+    home: 'AAA', away: 'BBB', status: 'scheduled', homeScore: null, awayScore: null,
+  };
+  const { leaves } = buildBracketTree([late, early]);
+  // id order m100 < m101 -> CCC/DDD occupy the first match slot regardless of
+  // the earlier kickoff of m101.
+  assert.equal(leaves[0].code, 'CCC');
+  assert.equal(leaves[1].code, 'DDD');
+  assert.equal(leaves[2].code, 'AAA');
+  assert.equal(leaves[3].code, 'BBB');
+});
+
+test('winnersByNode places later-round winners by team codes, not kickoff index', () => {
+  // 8 R32 matches -> level-1 nodes 0..3. A single finished R16 tie between the
+  // winners of R32 nodes 2 & 3 must land on node 1-1, even though it is the
+  // only (kickoff-first) R16 match.
+  const r32 = [];
+  for (let i = 0; i < 8; i++) {
+    r32.push(r32Match(i, `W${i}`, `L${i}`, 'finished', 2, 0)); // W{i} wins each
+  }
+  const r16 = {
+    id: 'r16x', stage: 'r16', kickoff: '2026-07-05T00:00:00Z',
+    home: 'W2', away: 'W3', status: 'finished', homeScore: 1, awayScore: 0,
+  };
+  const w = winnersByNode([...r32, r16]);
+  assert.equal(w.get('1-1'), 'W2'); // node whose children (0-2, 0-3) fed it
+  assert.equal(w.get('1-0'), undefined); // NOT placed on the first node by kickoff
+});
+
 test('sortByKickoff does not mutate and sorts ascending', () => {
   const input = [r32Match(2, 'A', 'B'), r32Match(0, 'C', 'D')];
   const out = sortByKickoff(input);
