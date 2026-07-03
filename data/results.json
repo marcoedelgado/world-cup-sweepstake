@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-03T01:20:13.419Z",
+  "lastUpdated": "2026-07-03T05:01:31.149Z",
   "matches": [
     {
       "id": "537327",
@@ -923,7 +923,7 @@
       "away": "CRO",
       "status": "finished",
       "homeScore": 2,
-      "awayScore": 2
+      "awayScore": 1
     },
     {
       "id": "537429",
@@ -932,9 +932,9 @@
       "group": null,
       "home": "SUI",
       "away": "ALG",
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null
+      "status": "finished",
+      "homeScore": 2,
+      "awayScore": 0
     },
     {
       "id": "537428",
