@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-04T06:30:43.164Z",
+  "lastUpdated": "2026-07-04T17:20:14.103Z",
   "matches": [
     {
       "id": "537327",
@@ -976,9 +976,9 @@
       "group": null,
       "home": "CAN",
       "away": "MAR",
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null
+      "status": "live",
+      "homeScore": 0,
+      "awayScore": 0
     },
     {
       "id": "537375",
