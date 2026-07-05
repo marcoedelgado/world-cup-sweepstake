@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-05T21:13:58.923Z",
+  "lastUpdated": "2026-07-05T22:13:32.719Z",
   "matches": [
     {
       "id": "537327",
@@ -998,9 +998,9 @@
       "group": null,
       "home": "BRA",
       "away": "NOR",
-      "status": "live",
-      "homeScore": 0,
-      "awayScore": 0
+      "status": "finished",
+      "homeScore": 1,
+      "awayScore": 2
     },
     {
       "id": "537378",
