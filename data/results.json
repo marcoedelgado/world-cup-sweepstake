@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-04T23:34:10.414Z",
+  "lastUpdated": "2026-07-05T08:14:58.728Z",
   "matches": [
     {
       "id": "537327",
@@ -1053,6 +1053,17 @@
       "group": null,
       "home": "SUI",
       "away": "COL",
+      "status": "scheduled",
+      "homeScore": null,
+      "awayScore": null
+    },
+    {
+      "id": "537383",
+      "kickoff": "2026-07-09T20:00:00Z",
+      "stage": "qf",
+      "group": null,
+      "home": "FRA",
+      "away": "MAR",
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null
