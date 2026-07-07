@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-07T01:29:02.426Z",
+  "lastUpdated": "2026-07-07T05:00:24.146Z",
   "matches": [
     {
       "id": "537327",
@@ -1031,9 +1031,9 @@
       "group": null,
       "home": "USA",
       "away": "BEL",
-      "status": "live",
+      "status": "finished",
       "homeScore": 1,
-      "awayScore": 3
+      "awayScore": 4
     },
     {
       "id": "537381",
