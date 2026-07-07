@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-07T08:53:03.330Z",
+  "lastUpdated": "2026-07-07T16:09:36.784Z",
   "matches": [
     {
       "id": "537327",
@@ -1042,9 +1042,9 @@
       "group": null,
       "home": "ARG",
       "away": "EGY",
-      "status": "scheduled",
-      "homeScore": null,
-      "awayScore": null
+      "status": "live",
+      "homeScore": 0,
+      "awayScore": 0
     },
     {
       "id": "537382",
