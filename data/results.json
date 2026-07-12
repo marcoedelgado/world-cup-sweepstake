@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-12T04:37:26.287Z",
+  "lastUpdated": "2026-07-12T07:12:30.496Z",
   "matches": [
     {
       "id": "537327",
@@ -1009,7 +1009,7 @@
       "group": null,
       "home": "MEX",
       "away": "ENG",
-      "status": "scheduled",
+      "status": "finished",
       "homeScore": 2,
       "awayScore": 3
     },
@@ -1108,6 +1108,17 @@
       "group": null,
       "home": "FRA",
       "away": "ESP",
+      "status": "scheduled",
+      "homeScore": null,
+      "awayScore": null
+    },
+    {
+      "id": "537388",
+      "kickoff": "2026-07-15T19:00:00Z",
+      "stage": "sf",
+      "group": null,
+      "home": "ENG",
+      "away": "ARG",
       "status": "scheduled",
       "homeScore": null,
       "awayScore": null
