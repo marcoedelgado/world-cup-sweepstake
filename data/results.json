@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-18T22:10:37.972Z",
+  "lastUpdated": "2026-07-18T23:07:39.818Z",
   "matches": [
     {
       "id": "537327",
@@ -1131,8 +1131,8 @@
       "home": "FRA",
       "away": "ENG",
       "status": "live",
-      "homeScore": 0,
-      "awayScore": 4
+      "homeScore": 4,
+      "awayScore": 6
     },
     {
       "id": "537390",
