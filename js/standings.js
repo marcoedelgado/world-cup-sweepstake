@@ -68,3 +68,10 @@ export function isAlive(teamCode, teams, matches) {
   const rank = table.findIndex((r) => r.code === teamCode);
   return rank < 2; // top 2 approximation — only used in the brief window before R32 fixtures land
 }
+
+export function getWinner(matches) {
+  const final = matches.find((m) => m.stage === 'final' && m.status === 'finished');
+  if (!final) return null;
+  const teamCode = final.homeScore >= final.awayScore ? final.home : final.away;
+  return { teamCode };
+}
