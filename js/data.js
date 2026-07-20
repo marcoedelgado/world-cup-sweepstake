@@ -4,7 +4,7 @@ const SOURCES = {
   results: 'data/results.json',
 };
 
-const FIXTURE_NAMES = new Set(['group-mid', 'group-full', 'knockouts-r32', 'knockouts-r16']);
+const FIXTURE_NAMES = new Set(['group-mid', 'group-full', 'knockouts-r32', 'knockouts-r16', 'knockouts-final']);
 
 export const fixtureMode = detectFixtureMode();
 

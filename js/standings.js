@@ -72,6 +72,7 @@ export function isAlive(teamCode, teams, matches) {
 export function getWinner(matches) {
   const final = matches.find((m) => m.stage === 'final' && m.status === 'finished');
   if (!final) return null;
-  const teamCode = final.homeScore >= final.awayScore ? final.home : final.away;
+  if (final.homeScore === final.awayScore) return null;
+  const teamCode = final.homeScore > final.awayScore ? final.home : final.away;
   return { teamCode };
 }

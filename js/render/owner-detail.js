@@ -1,4 +1,4 @@
-import { isAlive } from '../standings.js';
+import { isAlive, getWinner } from '../standings.js';
 import { teamByCode, withFixture } from '../data.js';
 import { formatMatchDateTime } from '../tz.js';
 import { escape, flag, formatGd } from '../utils.js';
@@ -7,6 +7,8 @@ const KNOCKOUT_LABEL = { r32: 'R32', r16: 'R16', qf: 'QF', sf: 'SF', third: '3rd
 
 export function renderOwnerDetail(container, { teams, results }, owner) {
   const matches = results?.matches ?? [];
+  const winnerResult = getWinner(matches);
+  const isWinner = winnerResult !== null && (owner.teams ?? []).includes(winnerResult.teamCode);
 
   const teamRows = (owner.teams ?? []).map((code) => {
     const [next, nextShort] = nextFixture(code, matches, teams);
@@ -32,21 +34,25 @@ export function renderOwnerDetail(container, { teams, results }, owner) {
   layout.className = 'owner-layout';
   layout.innerHTML = `
     <div class="owner-list owner-team-list">${teamRows.map(rowHtml).join('')}</div>
-    <aside class="owner-sticker">${renderPanini(owner, aliveCount, teamRows.length)}</aside>
+    <aside class="owner-sticker">${renderPanini(owner, aliveCount, teamRows.length, isWinner)}</aside>
   `;
   container.appendChild(layout);
 }
 
-function renderPanini(owner, aliveCount, total) {
+function renderPanini(owner, aliveCount, total, isWinner = false) {
   const photoBlock = owner.photo
     ? `<img src="${escape(owner.photo)}" alt="${escape(owner.name)}">`
     : `<div class="silhouette"></div><div class="stamp">Your<br>Photo<br>Here</div>`;
   const descBlock = owner.description
     ? `<div class="panini-desc"><p>"${escape(owner.description)}"</p></div>`
     : '';
+  const aliveLabel = isWinner
+    ? '🏆 WORLD CHAMPION'
+    : `${aliveCount} / ${total} ALIVE`;
+  const winnerClass = isWinner ? ' winner' : '';
   return `
-    <div class="panini">
-      <div class="panini-alive">${aliveCount} / ${total} ALIVE</div>
+    <div class="panini${winnerClass}">
+      <div class="panini-alive">${aliveLabel}</div>
       <div class="panini-photo">${photoBlock}</div>
       <div class="panini-name">${escape(owner.name.toUpperCase())}</div>
       ${descBlock}

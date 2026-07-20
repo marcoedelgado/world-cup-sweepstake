@@ -29,3 +29,8 @@ test('getWinner ignores non-final finished matches', () => {
   const sf = { id: 'sf1', stage: 'sf', home: 'FRA', away: 'ARG', homeScore: 2, awayScore: 0, status: 'finished' };
   assert.equal(getWinner([sf]), null);
 });
+
+test('getWinner returns null on equal scores (no winner declared)', () => {
+  const m = finalMatch('FRA', 1, 1, 'ARG');
+  assert.equal(getWinner([m]), null);
+});

@@ -11,6 +11,7 @@ import { renderFixtureBanner }  from './render/fixture-banner.js';
 import { initTeamTooltips }     from './render/team-tooltip.js';
 import { fetchLiveMatches, mergeLive } from './live.js';
 import { mountLiveSection } from './render/live.js';
+import { renderWinnerHero } from './render/winner-hero.js';
 import { escape } from './utils.js';
 import { FEATURES } from './config.js';
 import { tournamentPhase } from './phase.js';
@@ -54,6 +55,7 @@ function paint(root, state) {
   if (!state.owners?.drawCompletedAt) {
     renderPreDrawBanner(root);
   } else {
+    renderWinnerHero(root, state);
     if (stopLive) stopLive();
     stopLive = mountLiveSection(root, state);
     if (FEATURES.transformAlbum && phase === 'knockout') {
